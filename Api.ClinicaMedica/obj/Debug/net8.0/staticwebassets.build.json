@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "VrTNzYl0sfThuhQ9r0Ec8qJtY1ka44q+U8PM/oCvJmU=",
+  "Source": "Api.ClinicaMedica",
+  "BasePath": "_content/Api.ClinicaMedica",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
