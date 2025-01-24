@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\LECCESE\\source\\repos\\Api.ClinicaMedica\\Api.ClinicaMedica\\Api.ClinicaMedica.csproj": {}
+    "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Api.ClinicaMedica.csproj": {}
   },
   "projects": {
-    "C:\\Users\\LECCESE\\source\\repos\\Api.ClinicaMedica\\Api.ClinicaMedica\\Api.ClinicaMedica.csproj": {
+    "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Api.ClinicaMedica.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\LECCESE\\source\\repos\\Api.ClinicaMedica\\Api.ClinicaMedica\\Api.ClinicaMedica.csproj",
+        "projectUniqueName": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Api.ClinicaMedica.csproj",
         "projectName": "Api.ClinicaMedica",
-        "projectPath": "C:\\Users\\LECCESE\\source\\repos\\Api.ClinicaMedica\\Api.ClinicaMedica\\Api.ClinicaMedica.csproj",
-        "packagesPath": "C:\\Users\\LECCESE\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\LECCESE\\source\\repos\\Api.ClinicaMedica\\Api.ClinicaMedica\\obj\\",
+        "projectPath": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Api.ClinicaMedica.csproj",
+        "packagesPath": "C:\\Users\\autor\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\LECCESE\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\autor\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],

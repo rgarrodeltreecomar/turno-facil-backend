@@ -218,6 +218,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "Api.ClinicaMedica.Controllers.LoginController",
+    "Method": "Login",
+    "RelativePath": "api/Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDtos",
+        "Type": "Api.ClinicaMedica.DTOs.DtoLogin.LoginDTOs",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Api.ClinicaMedica.Controllers.MedicosController",
     "Method": "GetMedicos",
     "RelativePath": "api/Medicos",
