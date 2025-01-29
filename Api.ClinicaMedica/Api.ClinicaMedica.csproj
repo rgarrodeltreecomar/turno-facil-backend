@@ -22,7 +22,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="DTOs\DTO%27sAdvanced\" />
     <Folder Include="Migrations\" />
   </ItemGroup>
 

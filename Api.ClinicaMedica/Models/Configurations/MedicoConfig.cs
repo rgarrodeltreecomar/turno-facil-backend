@@ -1,7 +1,5 @@
-﻿using Api.ClinicaMedica.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.ComponentModel.DataAnnotations;
 
 namespace Api.ClinicaMedica.Models.Configurations
 {

@@ -27,7 +27,7 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/Medicos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Medico>>> GetMedicos(MedicBasicDTO medicBasic)
+        public async Task<ActionResult<IEnumerable<Medico>>> GetMedicos()
         {
             return await _context.Medicos.ToListAsync();
         }
@@ -78,13 +78,24 @@ namespace Api.ClinicaMedica.Controllers
         }
 
         // POST: api/Medicos
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Medico>> PostMedico(MedicBasicDTO medicoCreation)
+        public async Task<ActionResult<Medico>> PostMedico(MedicoCreationDTO medicoDTO)
         {
+            //Mapeo medicoDto a Medico
+            var medico = _mapper.Map<Medico>(medicoDTO);
 
-            var medico = _mapper.Map<Medico>(medicoCreation);
-       
+            //Guardo la especialidad que se quiere insertar
+            var especialidad = await _context.Especialidades.FindAsync(medico.EspecialidadId);
+
+            //Valido si existe
+            if(especialidad == null)
+            {
+                return NotFound(new { mensaje = "La especialidad no existe." });
+            }
+            //Le asigno la especialidad
+            medico.Especialidad = especialidad;
+
+            //Lo guardo en la BD
             _context.Medicos.Add(medico);
             await _context.SaveChangesAsync();
 

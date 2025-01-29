@@ -1,17 +1,19 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace Api.ClinicaMedica.Models
 {
-    public class Medico
+    public class Medico : Usuario
     {
-        [Key]
-        public int Id { get; set; }
-        public Usuario medico { get; set; } = null!;
-        public int especialidadId { get; set; }
-        public Especialidad especialidad { get; set; } = null!;
-        public List<Turno> turnos { get; set; } = new List<Turno>();
-        public List<Horario> horarios { get; set; } = new List<Horario>();
-        public decimal Sueldo { get; set; }
+        public int EspecialidadId { get; set; }
+        public Especialidad Especialidad { get; set; } = null!;
+        public decimal? Sueldo { get; set; }
         public bool Activo { get; set; }
+        [JsonIgnore]
+        public ICollection<CitaMedica> CitaMedica { get; set; } = new List<CitaMedica>();
+        [JsonIgnore]
+        public ICollection<Horario> Turnos { get; set; } = new List<Horario>();
     }
 }

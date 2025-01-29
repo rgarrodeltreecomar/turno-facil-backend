@@ -8,15 +8,15 @@ namespace Api.ClinicaMedica.Utilities
     {
         public AutomapperProfile()
         {
-            CreateMap<EspecialidadCreationDTO, Especialidad>();
-            CreateMap<HorarioCreationDTO, Horario>();
-            CreateMap<MedicBasicDTO, Medico>();
+            CreateMap<EspecialidadGetDTO, Especialidad>();
+            CreateMap<Especialidad, EspecialidadGetDTO>();
 
-            CreateMap<PacienteCreationDTO, Paciente>();
-            CreateMap<PaqueteCreationDTO, Paquete>();
-            CreateMap<ServicioCreationDTO, Servicio>();
-            CreateMap<TurnoCreationDTO, Turno>();
-            CreateMap<UsuarioBasicDTO, Usuario>();
+            CreateMap<MedicoEspecialidadGetDTO, Medico>();
+            CreateMap<Medico, MedicoEspecialidadGetDTO>();
+
+            CreateMap<MedicoCreationDTO, Medico>();
+            //CreateMap<Medico, MedicoCreationDTO();
+            //CreateMap<MedicoGetDTO, Medico>();
 
         }
     }

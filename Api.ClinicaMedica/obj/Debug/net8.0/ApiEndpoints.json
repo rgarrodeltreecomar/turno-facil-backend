@@ -1,7 +1,116 @@
 [
   {
+    "ContainingType": "Api.ClinicaMedica.Controllers.CitaMedicasController",
+    "Method": "GetCitasMedicas",
+    "RelativePath": "api/CitaMedicas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.Models.CitaMedica, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api.ClinicaMedica.Controllers.CitaMedicasController",
+    "Method": "PostCitaMedica",
+    "RelativePath": "api/CitaMedicas",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "citaMedica",
+        "Type": "Api.ClinicaMedica.Models.CitaMedica",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Api.ClinicaMedica.Models.CitaMedica",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api.ClinicaMedica.Controllers.CitaMedicasController",
+    "Method": "GetCitaMedica",
+    "RelativePath": "api/CitaMedicas/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Api.ClinicaMedica.Models.CitaMedica",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api.ClinicaMedica.Controllers.CitaMedicasController",
+    "Method": "PutCitaMedica",
+    "RelativePath": "api/CitaMedicas/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "citaMedica",
+        "Type": "Api.ClinicaMedica.Models.CitaMedica",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.ClinicaMedica.Controllers.CitaMedicasController",
+    "Method": "DeleteCitaMedica",
+    "RelativePath": "api/CitaMedicas/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "Api.ClinicaMedica.Controllers.EspecialidadesController",
-    "Method": "GetEspecialidad",
+    "Method": "GetEspecialidades",
     "RelativePath": "api/Especialidades",
     "HttpMethod": "GET",
     "IsController": true,
@@ -9,7 +118,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.Models.Especialidad, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.DTOs.EspecialidadGetDTO, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -28,8 +137,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "especialidad",
-        "Type": "Api.ClinicaMedica.Models.Especialidad",
+        "Name": "especialidadDTO",
+        "Type": "Api.ClinicaMedica.DTOs.EspecialidadCreationDTO",
         "IsRequired": true
       }
     ],
@@ -85,8 +194,8 @@
         "IsRequired": true
       },
       {
-        "Name": "especialidad",
-        "Type": "Api.ClinicaMedica.Models.Especialidad",
+        "Name": "especialidadDTO",
+        "Type": "Api.ClinicaMedica.DTOs.EspecialidadCreationDTO",
         "IsRequired": true
       }
     ],
@@ -224,13 +333,7 @@
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
-    "Parameters": [
-      {
-        "Name": "medicBasic",
-        "Type": "Api.ClinicaMedica.DTOs.MedicBasicDTO",
-        "IsRequired": true
-      }
-    ],
+    "Parameters": [],
     "ReturnTypes": [
       {
         "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.Models.Medico, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
@@ -252,8 +355,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "medicoCreation",
-        "Type": "Api.ClinicaMedica.DTOs.MedicBasicDTO",
+        "Name": "medicoDTO",
+        "Type": "Api.ClinicaMedica.DTOs.MedicoCreationDTO",
         "IsRequired": true
       }
     ],
@@ -442,16 +545,16 @@
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.ClinicaMedica.Controllers.TurnosController",
-    "Method": "GetTurnos",
-    "RelativePath": "api/Turnos",
+    "ContainingType": "Api.ClinicaMedica.Controllers.PaquetesController",
+    "Method": "GetPaquetes",
+    "RelativePath": "api/Paquetes",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.Models.Turno, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.Models.Paquete, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -462,22 +565,22 @@
     ]
   },
   {
-    "ContainingType": "Api.ClinicaMedica.Controllers.TurnosController",
-    "Method": "PostTurno",
-    "RelativePath": "api/Turnos",
+    "ContainingType": "Api.ClinicaMedica.Controllers.PaquetesController",
+    "Method": "PostPaquete",
+    "RelativePath": "api/Paquetes",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "turnoCreation",
-        "Type": "Api.ClinicaMedica.DTOs.TurnoCreationDTO",
+        "Name": "paquete",
+        "Type": "Api.ClinicaMedica.Models.Paquete",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "Api.ClinicaMedica.Models.Turno",
+        "Type": "Api.ClinicaMedica.Models.Paquete",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -488,9 +591,9 @@
     ]
   },
   {
-    "ContainingType": "Api.ClinicaMedica.Controllers.TurnosController",
-    "Method": "GetTurno",
-    "RelativePath": "api/Turnos/{id}",
+    "ContainingType": "Api.ClinicaMedica.Controllers.PaquetesController",
+    "Method": "GetPaquete",
+    "RelativePath": "api/Paquetes/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -503,7 +606,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "Api.ClinicaMedica.Models.Turno",
+        "Type": "Api.ClinicaMedica.Models.Paquete",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -514,9 +617,9 @@
     ]
   },
   {
-    "ContainingType": "Api.ClinicaMedica.Controllers.TurnosController",
-    "Method": "PutTurno",
-    "RelativePath": "api/Turnos/{id}",
+    "ContainingType": "Api.ClinicaMedica.Controllers.PaquetesController",
+    "Method": "PutPaquete",
+    "RelativePath": "api/Paquetes/{id}",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,
@@ -527,17 +630,126 @@
         "IsRequired": true
       },
       {
-        "Name": "turno",
-        "Type": "Api.ClinicaMedica.Models.Turno",
+        "Name": "paquete",
+        "Type": "Api.ClinicaMedica.Models.Paquete",
         "IsRequired": true
       }
     ],
     "ReturnTypes": []
   },
   {
-    "ContainingType": "Api.ClinicaMedica.Controllers.TurnosController",
-    "Method": "DeleteTurno",
-    "RelativePath": "api/Turnos/{id}",
+    "ContainingType": "Api.ClinicaMedica.Controllers.PaquetesController",
+    "Method": "DeletePaquete",
+    "RelativePath": "api/Paquetes/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.ClinicaMedica.Controllers.ServiciosController",
+    "Method": "GetServicios",
+    "RelativePath": "api/Servicios",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.Models.Servicio, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api.ClinicaMedica.Controllers.ServiciosController",
+    "Method": "PostServicio",
+    "RelativePath": "api/Servicios",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "servicio",
+        "Type": "Api.ClinicaMedica.Models.Servicio",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Api.ClinicaMedica.Models.Servicio",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api.ClinicaMedica.Controllers.ServiciosController",
+    "Method": "GetServicio",
+    "RelativePath": "api/Servicios/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "Api.ClinicaMedica.Models.Servicio",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "Api.ClinicaMedica.Controllers.ServiciosController",
+    "Method": "PutServicio",
+    "RelativePath": "api/Servicios/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "servicio",
+        "Type": "Api.ClinicaMedica.Models.Servicio",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "Api.ClinicaMedica.Controllers.ServiciosController",
+    "Method": "DeleteServicio",
+    "RelativePath": "api/Servicios/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,

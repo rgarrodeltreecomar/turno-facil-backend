@@ -1,11 +1,19 @@
 using Api.ClinicaMedica.AccesoDatos;
 using Microsoft.EntityFrameworkCore;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 
-builder.Services.AddControllers();
+//Evitar referencias ciclicas y serializaciones innecesarias
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
+        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+    });
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -16,11 +24,19 @@ builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlSer
 //Config de Automapper
 builder.Services.AddAutoMapper(typeof(Program));
 
-
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowVercel", builder =>
+    {
+        builder.WithOrigins("http://clinicamedica.vercel.app").
+        AllowAnyHeader().
+        AllowAnyMethod();
+    });
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+//Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();

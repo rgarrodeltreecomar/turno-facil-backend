@@ -5,6 +5,191 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/CitaMedicas": {
+      "get": {
+        "tags": [
+          "CitaMedicas"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CitaMedica"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CitaMedica"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CitaMedica"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "CitaMedicas"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CitaMedica"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CitaMedica"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CitaMedica"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitaMedica"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitaMedica"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitaMedica"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/CitaMedicas/{id}": {
+      "get": {
+        "tags": [
+          "CitaMedicas"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitaMedica"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitaMedica"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CitaMedica"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CitaMedicas"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CitaMedica"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CitaMedica"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CitaMedica"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "CitaMedicas"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/Especialidades": {
       "get": {
         "tags": [
@@ -18,7 +203,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Especialidad"
+                    "$ref": "#/components/schemas/EspecialidadGetDTO"
                   }
                 }
               },
@@ -26,7 +211,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Especialidad"
+                    "$ref": "#/components/schemas/EspecialidadGetDTO"
                   }
                 }
               },
@@ -34,7 +219,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Especialidad"
+                    "$ref": "#/components/schemas/EspecialidadGetDTO"
                   }
                 }
               }
@@ -50,17 +235,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Especialidad"
+                "$ref": "#/components/schemas/EspecialidadCreationDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Especialidad"
+                "$ref": "#/components/schemas/EspecialidadCreationDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Especialidad"
+                "$ref": "#/components/schemas/EspecialidadCreationDTO"
               }
             }
           }
@@ -147,17 +332,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Especialidad"
+                "$ref": "#/components/schemas/EspecialidadCreationDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Especialidad"
+                "$ref": "#/components/schemas/EspecialidadCreationDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Especialidad"
+                "$ref": "#/components/schemas/EspecialidadCreationDTO"
               }
             }
           }
@@ -380,25 +565,6 @@
         "tags": [
           "Medicos"
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MedicBasicDTO"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/MedicBasicDTO"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/MedicBasicDTO"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
             "description": "OK",
@@ -439,17 +605,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MedicBasicDTO"
+                "$ref": "#/components/schemas/MedicoCreationDTO"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/MedicBasicDTO"
+                "$ref": "#/components/schemas/MedicoCreationDTO"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/MedicBasicDTO"
+                "$ref": "#/components/schemas/MedicoCreationDTO"
               }
             }
           }
@@ -764,10 +930,10 @@
         }
       }
     },
-    "/api/Turnos": {
+    "/api/Paquetes": {
       "get": {
         "tags": [
-          "Turnos"
+          "Paquetes"
         ],
         "responses": {
           "200": {
@@ -777,7 +943,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Turno"
+                    "$ref": "#/components/schemas/Paquete"
                   }
                 }
               },
@@ -785,7 +951,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Turno"
+                    "$ref": "#/components/schemas/Paquete"
                   }
                 }
               },
@@ -793,7 +959,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Turno"
+                    "$ref": "#/components/schemas/Paquete"
                   }
                 }
               }
@@ -803,23 +969,23 @@
       },
       "post": {
         "tags": [
-          "Turnos"
+          "Paquetes"
         ],
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/TurnoCreationDTO"
+                "$ref": "#/components/schemas/Paquete"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/TurnoCreationDTO"
+                "$ref": "#/components/schemas/Paquete"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/TurnoCreationDTO"
+                "$ref": "#/components/schemas/Paquete"
               }
             }
           }
@@ -830,17 +996,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Turno"
+                  "$ref": "#/components/schemas/Paquete"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Turno"
+                  "$ref": "#/components/schemas/Paquete"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Turno"
+                  "$ref": "#/components/schemas/Paquete"
                 }
               }
             }
@@ -848,10 +1014,10 @@
         }
       }
     },
-    "/api/Turnos/{id}": {
+    "/api/Paquetes/{id}": {
       "get": {
         "tags": [
-          "Turnos"
+          "Paquetes"
         ],
         "parameters": [
           {
@@ -870,17 +1036,17 @@
             "content": {
               "text/plain": {
                 "schema": {
-                  "$ref": "#/components/schemas/Turno"
+                  "$ref": "#/components/schemas/Paquete"
                 }
               },
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Turno"
+                  "$ref": "#/components/schemas/Paquete"
                 }
               },
               "text/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Turno"
+                  "$ref": "#/components/schemas/Paquete"
                 }
               }
             }
@@ -889,7 +1055,7 @@
       },
       "put": {
         "tags": [
-          "Turnos"
+          "Paquetes"
         ],
         "parameters": [
           {
@@ -906,17 +1072,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Turno"
+                "$ref": "#/components/schemas/Paquete"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Turno"
+                "$ref": "#/components/schemas/Paquete"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Turno"
+                "$ref": "#/components/schemas/Paquete"
               }
             }
           }
@@ -929,7 +1095,192 @@
       },
       "delete": {
         "tags": [
-          "Turnos"
+          "Paquetes"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Servicios": {
+      "get": {
+        "tags": [
+          "Servicios"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Servicio"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Servicio"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Servicio"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Servicios"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Servicio"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Servicio"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Servicio"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Servicio"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Servicio"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Servicio"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/Servicios/{id}": {
+      "get": {
+        "tags": [
+          "Servicios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Servicio"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Servicio"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Servicio"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Servicios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Servicio"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Servicio"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/Servicio"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Servicios"
         ],
         "parameters": [
           {
@@ -952,6 +1303,53 @@
   },
   "components": {
     "schemas": {
+      "CitaMedica": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "fechaConsulta": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "horaConsulta": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double"
+          },
+          "abonado": {
+            "type": "boolean"
+          },
+          "pacienteId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "paciente": {
+            "$ref": "#/components/schemas/Paciente"
+          },
+          "medicoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "medico": {
+            "$ref": "#/components/schemas/Medico"
+          },
+          "paqueteId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "paquete": {
+            "$ref": "#/components/schemas/Paquete"
+          }
+        },
+        "additionalProperties": false
+      },
       "Especialidad": {
         "type": "object",
         "properties": {
@@ -959,7 +1357,7 @@
             "type": "integer",
             "format": "int32"
           },
-          "detalle": {
+          "descripcion": {
             "type": "string",
             "nullable": true
           },
@@ -976,8 +1374,33 @@
       "EspecialidadCreationDTO": {
         "type": "object",
         "properties": {
-          "detalle": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
             "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "EspecialidadGetDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "descripcion": {
+            "type": "string",
+            "nullable": true
+          },
+          "medicos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MedicoEspecialidadGetDTO"
+            },
             "nullable": true
           }
         },
@@ -990,33 +1413,15 @@
             "type": "integer",
             "format": "int32"
           },
-          "medicos": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Medico"
-            },
-            "nullable": true
-          },
-          "dia": {
+          "fechaHoraInicio": {
             "type": "string",
             "format": "date-time"
           },
-          "activo": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "MedicBasicDTO": {
-        "type": "object",
-        "properties": {
-          "medico": {
-            "$ref": "#/components/schemas/UsuarioBasicDTO"
+          "fechaHoraFin": {
+            "type": "string",
+            "format": "date-time"
           },
-          "especialidad": {
-            "$ref": "#/components/schemas/EspecialidadCreationDTO"
-          },
-          "activo": {
+          "disponible": {
             "type": "boolean"
           }
         },
@@ -1029,8 +1434,34 @@
             "type": "integer",
             "format": "int32"
           },
-          "medico": {
-            "$ref": "#/components/schemas/Usuario"
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "type": "string",
+            "nullable": true
+          },
+          "dni": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaNac": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
           },
           "especialidadId": {
             "type": "integer",
@@ -1039,26 +1470,78 @@
           "especialidad": {
             "$ref": "#/components/schemas/Especialidad"
           },
-          "turnos": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Turno"
-            },
-            "nullable": true
-          },
-          "horarios": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Horario"
-            },
-            "nullable": true
-          },
           "sueldo": {
             "type": "number",
-            "format": "double"
+            "format": "double",
+            "nullable": true
           },
           "activo": {
             "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MedicoCreationDTO": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "type": "string",
+            "nullable": true
+          },
+          "dni": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaNac": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "especialidadId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sueldo": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "activo": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "MedicoEspecialidadGetDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1070,23 +1553,34 @@
             "type": "integer",
             "format": "int32"
           },
-          "paciente": {
-            "$ref": "#/components/schemas/Usuario"
+          "nombre": {
+            "type": "string",
+            "nullable": true
           },
-          "obraSocial": {
-            "type": "boolean"
+          "apellido": {
+            "type": "string",
+            "nullable": true
           },
-          "activo": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "PacienteCreationDTO": {
-        "type": "object",
-        "properties": {
-          "paciente": {
-            "$ref": "#/components/schemas/UsuarioBasicDTO"
+          "dni": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "fechaNac": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
           },
           "obraSocial": {
             "type": "boolean"
@@ -1104,33 +1598,43 @@
             "type": "integer",
             "format": "int32"
           },
-          "servicios": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Servicio"
-            },
-            "nullable": true
-          },
           "precio": {
             "type": "number",
             "format": "double"
+          },
+          "servicios": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PaqueteServicio"
+            },
+            "nullable": true
+          },
+          "citaMedica": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CitaMedica"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "PaqueteCreationDTO": {
+      "PaqueteServicio": {
         "type": "object",
         "properties": {
-          "servicios": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ServicioCreationDTO"
-            },
-            "nullable": true
+          "paqueteId": {
+            "type": "integer",
+            "format": "int32"
           },
-          "precio": {
-            "type": "number",
-            "format": "double"
+          "paquete": {
+            "$ref": "#/components/schemas/Paquete"
+          },
+          "servicioId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "servicio": {
+            "$ref": "#/components/schemas/Servicio"
           }
         },
         "additionalProperties": false
@@ -1142,22 +1646,8 @@
             "type": "integer",
             "format": "int32"
           },
-          "codigoServicio": {
+          "codigo": {
             "type": "string",
-            "nullable": true
-          },
-          "servicios": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Turno"
-            },
-            "nullable": true
-          },
-          "paquetes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Paquete"
-            },
             "nullable": true
           },
           "nombre": {
@@ -1167,186 +1657,6 @@
           "precio": {
             "type": "number",
             "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "ServicioCreationDTO": {
-        "type": "object",
-        "properties": {
-          "codigoServicio": {
-            "type": "string",
-            "nullable": true
-          },
-          "servicios": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/TurnoCreationDTO"
-            },
-            "nullable": true
-          },
-          "paquetes": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/PaqueteCreationDTO"
-            },
-            "nullable": true
-          },
-          "nombre": {
-            "type": "string",
-            "nullable": true
-          },
-          "precio": {
-            "type": "number",
-            "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "Turno": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "fechaConsulta": {
-            "type": "string",
-            "format": "date"
-          },
-          "horaConsulta": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "medicoId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "medico": {
-            "$ref": "#/components/schemas/Medico"
-          },
-          "pacienteId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "paciente": {
-            "$ref": "#/components/schemas/Paciente"
-          },
-          "servicios": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Servicio"
-            },
-            "nullable": true
-          },
-          "precio": {
-            "type": "number",
-            "format": "double"
-          },
-          "abonado": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "TurnoCreationDTO": {
-        "type": "object",
-        "properties": {
-          "fechaConsulta": {
-            "type": "string",
-            "format": "date"
-          },
-          "horaConsulta": {
-            "type": "string",
-            "format": "date-time"
-          },
-          "medicoId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "medico": {
-            "$ref": "#/components/schemas/MedicBasicDTO"
-          },
-          "pacienteId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "paciente": {
-            "$ref": "#/components/schemas/PacienteCreationDTO"
-          },
-          "servicios": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ServicioCreationDTO"
-            },
-            "nullable": true
-          },
-          "precio": {
-            "type": "number",
-            "format": "double"
-          },
-          "abonado": {
-            "type": "boolean"
-          }
-        },
-        "additionalProperties": false
-      },
-      "Usuario": {
-        "required": [
-          "apellido",
-          "direccion",
-          "dni",
-          "email",
-          "nombre",
-          "telefono"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "nombre": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "apellido": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "dni": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "email": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "fechaNac": {
-            "type": "string",
-            "format": "date"
-          },
-          "telefono": {
-            "minLength": 1,
-            "type": "string"
-          },
-          "direccion": {
-            "minLength": 1,
-            "type": "string"
-          }
-        },
-        "additionalProperties": false
-      },
-      "UsuarioBasicDTO": {
-        "type": "object",
-        "properties": {
-          "nombre": {
-            "type": "string",
-            "nullable": true
-          },
-          "apellido": {
-            "type": "string",
-            "nullable": true
           }
         },
         "additionalProperties": false

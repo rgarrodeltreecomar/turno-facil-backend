@@ -1,10 +1,3 @@
-C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.csproj.AssemblyReference.cache
-C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.AssemblyInfoInputs.cache
-C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.AssemblyInfo.cs
-C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.csproj.CoreCompileInputs.cache
-C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\bin\Debug\net8.0\appsettings.json
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\bin\Debug\net8.0\Api.ClinicaMedica.staticwebassets.endpoints.json
@@ -270,6 +263,14 @@ C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\bin\Debug\net8
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\bin\Debug\net8.0\runtimes\browser\lib\net8.0\System.Text.Encodings.Web.dll
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\bin\Debug\net8.0\runtimes\win\lib\net7.0\System.Windows.Extensions.dll
+C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.csproj.AssemblyReference.cache
+C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.AssemblyInfoInputs.cache
+C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.AssemblyInfo.cs
+C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.csproj.CoreCompileInputs.cache
+C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.sourcelink.json
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\scopedcss\bundle\Api.ClinicaMedica.styles.css
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\staticwebassets.development.json
@@ -280,10 +281,10 @@ C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.Api.ClinicaMedica.props
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.Api.ClinicaMedica.props
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\staticwebassets.pack.json
-C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.Clin.8E9CAEC7.Up2Date
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.dll
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\refint\Api.ClinicaMedica.dll
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.pdb
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.genruntimeconfig.cache
 C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\ref\Api.ClinicaMedica.dll
+C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
