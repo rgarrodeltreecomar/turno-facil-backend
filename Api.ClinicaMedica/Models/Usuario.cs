@@ -19,5 +19,8 @@ namespace Api.ClinicaMedica.Models
         public string Telefono { get; set; } = null!;
         [Required]
         public string Direccion { get; set; } = null!;
+
+        [Required]
+        public string Password { get; set; } = null!;
     }
 }

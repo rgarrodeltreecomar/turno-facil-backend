@@ -3,16 +3,52 @@
   "WorkspaceRootPath": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\dtos\\dtologin\\logindtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\dtos\\dtologin\\logindtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\migrations\\applicationdbcontextmodelsnapshot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\models\\paquete.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\models\\paquete.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\dtos\\dtologinandregister\\logindtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\dtos\\dtologinandregister\\logindtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\dtos\\dtologinandregister\\registerdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\dtos\\dtologinandregister\\registerdtos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\models\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\models\\paciente.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\models\\configurations\\usuarioconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\models\\configurations\\usuarioconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\models\\configurations\\paqueteconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\models\\configurations\\paqueteconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\accesodatos\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\accesodatos\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\controllers\\registercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\controllers\\registercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\controllers\\medicoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\controllers\\medicoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|solutionrelative:api.clinicamedica\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4E37C2E7-788A-4CA0-A3B5-3F619D3E0940}|Api.ClinicaMedica\\Api.ClinicaMedica.csproj|c:\\users\\autor\\desktop\\hackacode\\api_clinicamedica\\api.clinicamedica\\dtos\\dto\u0027sbasic\\medicbasicdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -26,7 +62,7 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -39,53 +75,161 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "LoginController.cs",
-              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Controllers\\LoginController.cs",
-              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Controllers\\LoginController.cs",
-              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Controllers\\LoginController.cs",
-              "RelativeToolTip": "Api.ClinicaMedica\\Controllers\\LoginController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAMAAAAAAAAAA==",
+              "Title": "Paquete.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Models\\Paquete.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Models\\Paquete.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Models\\Paquete.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\Models\\Paquete.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-24T19:08:20.763Z",
+              "WhenOpened": "2025-01-28T20:02:14.773Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "Paciente.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Models\\Paciente.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Models\\Paciente.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Models\\Paciente.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\Models\\Paciente.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T20:09:06.971Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "RegisterDTOs.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\DTOs\\DtoLoginAndRegister\\RegisterDTOs.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\DTOs\\DtoLoginAndRegister\\RegisterDTOs.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\DTOs\\DtoLoginAndRegister\\RegisterDTOs.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\DTOs\\DtoLoginAndRegister\\RegisterDTOs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T16:53:48.697Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "LoginDTOs.cs",
-              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\DTOs\\DtoLogin\\LoginDTOs.cs",
-              "RelativeDocumentMoniker": "Api.ClinicaMedica\\DTOs\\DtoLogin\\LoginDTOs.cs",
-              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\DTOs\\DtoLogin\\LoginDTOs.cs",
-              "RelativeToolTip": "Api.ClinicaMedica\\DTOs\\DtoLogin\\LoginDTOs.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAtAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\DTOs\\DtoLoginAndRegister\\LoginDTOs.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\DTOs\\DtoLoginAndRegister\\LoginDTOs.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\DTOs\\DtoLoginAndRegister\\LoginDTOs.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\DTOs\\DtoLoginAndRegister\\LoginDTOs.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-24T19:05:28.448Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MedicBasicDTO.cs",
-              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\DTOs\\DTO\u0027sBasic\\MedicBasicDTO.cs",
-              "RelativeDocumentMoniker": "Api.ClinicaMedica\\DTOs\\DTO\u0027sBasic\\MedicBasicDTO.cs",
-              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\DTOs\\DTO\u0027sBasic\\MedicBasicDTO.cs",
-              "RelativeToolTip": "Api.ClinicaMedica\\DTOs\\DTO\u0027sBasic\\MedicBasicDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAUAAAARAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "ApplicationDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ViewState": "AgIAAEQAAAAAAAAAAAAswIcBAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-22T18:46:11.193Z"
+              "WhenOpened": "2025-01-28T19:51:27.556Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
+              "Title": "UsuarioConfig.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Models\\Configurations\\UsuarioConfig.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Models\\Configurations\\UsuarioConfig.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Models\\Configurations\\UsuarioConfig.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\Models\\Configurations\\UsuarioConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAJAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T19:21:49.823Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "PaqueteConfig.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Models\\Configurations\\PaqueteConfig.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Models\\Configurations\\PaqueteConfig.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Models\\Configurations\\PaqueteConfig.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\Models\\Configurations\\PaqueteConfig.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T20:11:03.943Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\AccesoDatos\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\AccesoDatos\\ApplicationDbContext.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\AccesoDatos\\ApplicationDbContext.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\AccesoDatos\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA9wBIAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-26T22:51:24.49Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "RegisterController.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Controllers\\RegisterController.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Controllers\\RegisterController.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Controllers\\RegisterController.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\Controllers\\RegisterController.cs",
+              "ViewState": "AgIAAGgAAAAAAAAAAAAswGcAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T17:53:25.538Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Usuario.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Models\\Usuario.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Models\\Usuario.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Models\\Usuario.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\Models\\Usuario.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAQwBcAAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T17:50:15.872Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "MedicosController.cs",
               "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Controllers\\MedicosController.cs",
               "RelativeDocumentMoniker": "Api.ClinicaMedica\\Controllers\\MedicosController.cs",
               "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Controllers\\MedicosController.cs",
               "RelativeToolTip": "Api.ClinicaMedica\\Controllers\\MedicosController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAQwCAAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAFIAAAAAAAAAAAA8wHMAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-22T18:35:32.249Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-22T18:35:32.249Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\Controllers\\LoginController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-24T19:08:20.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "MedicBasicDTO.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\DTOs\\DTO\u0027sBasic\\MedicBasicDTO.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\DTOs\\DTO\u0027sBasic\\MedicBasicDTO.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\DTOs\\DTO\u0027sBasic\\MedicBasicDTO.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\DTOs\\DTO\u0027sBasic\\MedicBasicDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-22T18:46:11.193Z"
             }
           ]
         }

@@ -16,6 +16,8 @@ namespace Api.ClinicaMedica.Models.Configurations
             builder.Property(u => u.Telefono).HasMaxLength(50);
             builder.Property(u => u.Direccion).HasMaxLength(50);
 
+            builder.Property(u => u.Password).IsRequired().HasMaxLength(100);
+
         }
     }
 }

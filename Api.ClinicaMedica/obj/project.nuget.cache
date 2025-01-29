@@ -1,12 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "bYO0t+muPkc=",
+  "dgSpecHash": "LC15l7LAytg=",
   "success": true,
   "projectFilePath": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Api.ClinicaMedica.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\autor\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\autor\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\autor\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",
+    "C:\\Users\\autor\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\autor\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\autor\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
     "C:\\Users\\autor\\.nuget\\packages\\humanizer.core.af\\2.14.1\\humanizer.core.af.2.14.1.nupkg.sha512",

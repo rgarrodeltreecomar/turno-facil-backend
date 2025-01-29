@@ -577,3 +577,4 @@ C:\Users\autor\Desktop\HackaCode\API_ClinicaMedica\Api.ClinicaMedica\obj\Debug\n
 C:\Users\autor\Desktop\HackaCode\API_ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.Clin.8E9CAEC7.Up2Date
 C:\Users\autor\Desktop\HackaCode\API_ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\Api.ClinicaMedica.genruntimeconfig.cache
 C:\Users\autor\Desktop\HackaCode\API_ClinicaMedica\Api.ClinicaMedica\obj\Debug\net8.0\ref\Api.ClinicaMedica.dll
+C:\Users\autor\Desktop\HackaCode\API_ClinicaMedica\Api.ClinicaMedica\bin\Debug\net8.0\BCrypt.Net-Next.dll
