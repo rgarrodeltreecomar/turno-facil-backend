@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace Api.ClinicaMedica.Models
 {
@@ -6,10 +7,10 @@ namespace Api.ClinicaMedica.Models
     {
         [Key]
         public int Id { get; set; }
-        public string CodigoServicio { get; set; } = null!;
-        public List<Turno> servicios { get; set; } = new List<Turno>();
-        public List<Paquete> paquetes { get; set; } = new List<Paquete>();
+        public string Codigo { get; set; } = null!;
         public string Nombre { get; set; } = null!;
         public decimal Precio { get; set; }
+        [JsonIgnore]
+        public ICollection<PaqueteServicio> Paquetes { get; set; } = new List<PaqueteServicio>();
     }
 }

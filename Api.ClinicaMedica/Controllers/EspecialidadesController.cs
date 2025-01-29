@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Models;
+using AutoMapper;
+using Api.ClinicaMedica.DTOs;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -15,24 +17,30 @@ namespace Api.ClinicaMedica.Controllers
     public class EspecialidadesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public EspecialidadesController(ApplicationDbContext context)
+        public EspecialidadesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Especialidads
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Especialidad>>> GetEspecialidad()
+        public async Task<ActionResult<IEnumerable<EspecialidadGetDTO>>> GetEspecialidades()
         {
-            return await _context.Especialidad.ToListAsync();
+            var especialidades = await _context.Especialidades.Include(e => e.Medicos).ToListAsync();
+
+            var especialidadesDto = _mapper.Map<List<EspecialidadGetDTO>>(especialidades);
+
+            return Ok(especialidadesDto);
         }
 
         // GET: api/Especialidads/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Especialidad>> GetEspecialidad(int id)
         {
-            var especialidad = await _context.Especialidad.FindAsync(id);
+            var especialidad = await _context.Especialidades.FindAsync(id);
 
             if (especialidad == null)
             {
@@ -43,13 +51,14 @@ namespace Api.ClinicaMedica.Controllers
         }
 
         // PUT: api/Especialidads/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEspecialidad(int id, Especialidad especialidad)
+        public async Task<IActionResult> PutEspecialidad(int id, EspecialidadCreationDTO especialidadDTO)
         {
+            var especialidad = _mapper.Map<Especialidad>(especialidadDTO);
+
             if (id != especialidad.Id)
             {
-                return BadRequest();
+                return NotFound(new { mensaje = "La especialidad no existe" });
             }
 
             _context.Entry(especialidad).State = EntityState.Modified;
@@ -73,12 +82,15 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/Especialidads
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        // POST: api/Especialidades
         [HttpPost]
-        public async Task<ActionResult<Especialidad>> PostEspecialidad(Especialidad especialidad)
+        public async Task<ActionResult<Especialidad>> PostEspecialidad(EspecialidadCreationDTO especialidadDTO)
         {
-            _context.Especialidad.Add(especialidad);
+            //Mapear DTO a Especialidad
+            var especialidad = _mapper.Map<Especialidad>(especialidadDTO);
+            
+            //Guardar en BD
+            _context.Especialidades.Add(especialidad);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetEspecialidad", new { id = especialidad.Id }, especialidad);
@@ -88,13 +100,13 @@ namespace Api.ClinicaMedica.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEspecialidad(int id)
         {
-            var especialidad = await _context.Especialidad.FindAsync(id);
+            var especialidad = await _context.Especialidades.FindAsync(id);
             if (especialidad == null)
             {
                 return NotFound();
             }
 
-            _context.Especialidad.Remove(especialidad);
+            _context.Especialidades.Remove(especialidad);
             await _context.SaveChangesAsync();
 
             return NoContent();
@@ -102,7 +114,7 @@ namespace Api.ClinicaMedica.Controllers
 
         private bool EspecialidadExists(int id)
         {
-            return _context.Especialidad.Any(e => e.Id == id);
+            return _context.Especialidades.Any(e => e.Id == id);
         }
     }
 }

@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Models;
-using AutoMapper;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -16,12 +15,10 @@ namespace Api.ClinicaMedica.Controllers
     public class PacientesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
-        private readonly IMapper _mapper;
 
-        public PacientesController(ApplicationDbContext context, IMapper mapper)
+        public PacientesController(ApplicationDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         // GET: api/Pacientes
@@ -42,7 +39,7 @@ namespace Api.ClinicaMedica.Controllers
                 return NotFound();
             }
 
-            return Ok(paciente);
+            return paciente;
         }
 
         // PUT: api/Pacientes/5

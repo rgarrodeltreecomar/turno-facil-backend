@@ -22,383 +22,336 @@ namespace Api.ClinicaMedica.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("Api.ClinicaMedica.Models.CitaMedica", b =>
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                b.Property<bool>("Abonado")
+                    .HasColumnType("bit");
+
+                b.Property<DateTime>("FechaConsulta")
+                    .HasColumnType("datetime2");
+
+                b.Property<DateTime>("HoraConsulta")
+                    .HasColumnType("datetime2");
+
+                b.Property<int>("MedicoId")
+                    .HasColumnType("int");
+
+                b.Property<int>("PacienteId")
+                    .HasColumnType("int");
+
+                b.Property<int?>("PaqueteId")
+                    .HasColumnType("int");
+
+                b.Property<decimal>("Precio")
+                    .HasColumnType("decimal(18,2)");
+
+                b.HasKey("Id");
+
+                b.HasIndex("MedicoId");
+
+                b.HasIndex("PacienteId");
+
+                b.HasIndex("PaqueteId");
+
+                b.ToTable("CitasMedicas");
+            });
+
             modelBuilder.Entity("Api.ClinicaMedica.Models.Especialidad", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Detalle")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("nvarchar(300)");
+                b.Property<string>("Descripcion")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Especialidad");
-                });
+                b.ToTable("Especialidades");
+            });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Horario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Activo")
-                        .HasColumnType("bit");
+                b.Property<bool>("Disponible")
+                    .HasColumnType("bit");
 
-                    b.Property<DateTime>("Dia")
-                        .HasColumnType("datetime2");
+                b.Property<DateTime>("FechaHoraFin")
+                    .HasColumnType("datetime2");
 
-                    b.HasKey("Id");
+                b.Property<DateTime>("FechaHoraInicio")
+                    .HasColumnType("datetime2");
 
-                    b.ToTable("Horarios");
-                });
+                b.Property<int>("MedicoId")
+                    .HasColumnType("int");
+
+                b.HasKey("Id");
+
+                b.HasIndex("MedicoId");
+
+                b.ToTable("Horarios");
+            });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Medico", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Activo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                b.Property<bool>("Activo")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("bit")
+                    .HasDefaultValue(true);
 
-                    b.Property<decimal>("Sueldo")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                b.Property<string>("Apellido")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("especialidadId")
-                        .HasColumnType("int");
+                b.Property<string>("Direccion")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("medicoId")
-                        .HasColumnType("int");
+                b.Property<string>("Dni")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.Property<string>("Email")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("especialidadId");
+                b.Property<int>("EspecialidadId")
+                    .HasColumnType("int");
 
-                    b.HasIndex("medicoId");
+                b.Property<DateOnly?>("FechaNac")
+                    .HasColumnType("date");
 
-                    b.ToTable("Medicos");
-                });
+                b.Property<string>("Nombre")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<decimal?>("Sueldo")
+                    .HasPrecision(18, 2)
+                    .HasColumnType("decimal(18,2)");
+
+                b.Property<string>("Telefono")
+                    .HasColumnType("nvarchar(max)");
+
+                b.HasKey("Id");
+
+                b.HasIndex("EspecialidadId");
+
+                b.ToTable("Medicos");
+            });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Paciente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Activo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
+                b.Property<bool>("Activo")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("bit")
+                    .HasDefaultValue(true);
 
-                    b.Property<bool>("ObraSocial")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                b.Property<string>("Apellido")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("pacienteId")
-                        .HasColumnType("int");
+                b.Property<string>("Direccion")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                b.Property<string>("Dni")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("pacienteId");
+                b.Property<string>("Email")
+                    .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("Pacientes");
-                });
+                b.Property<DateOnly?>("FechaNac")
+                    .HasColumnType("date");
+
+                b.Property<string>("Nombre")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
+
+                b.Property<bool>("ObraSocial")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("bit")
+                    .HasDefaultValue(false);
+
+                b.Property<string>("Telefono")
+                    .HasColumnType("nvarchar(max)");
+
+                b.HasKey("Id");
+
+                b.ToTable("Pacientes");
+            });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Paquete", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Precio")
-                        .HasColumnType("decimal(18,2)");
+                b.Property<decimal>("Precio")
+                    .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Paquetes");
-                });
+                b.ToTable("Paquetes");
+            });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Models.PaqueteServicio", b =>
+            {
+                b.Property<int>("PaqueteId")
+                    .HasColumnType("int");
+
+                b.Property<int>("ServicioId")
+                    .HasColumnType("int");
+
+                b.HasKey("PaqueteId", "ServicioId");
+
+                b.HasIndex("ServicioId");
+
+                b.ToTable("PaquetesServicios");
+            });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Servicio", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("Id")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("CodigoServicio")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
+                b.Property<string>("Codigo")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
+                b.Property<string>("Nombre")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(max)");
 
-                    b.Property<decimal>("Precio")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                b.Property<decimal>("Precio")
+                    .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("Id");
+                b.HasKey("Id");
 
-                    b.ToTable("Servicios");
-                });
+                b.ToTable("Servicios");
+            });
 
-            modelBuilder.Entity("Api.ClinicaMedica.Models.Turno", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            modelBuilder.Entity("Api.ClinicaMedica.Models.CitaMedica", b =>
+            {
+                b.HasOne("Api.ClinicaMedica.Models.Medico", "Medico")
+                    .WithMany("CitaMedica")
+                    .HasForeignKey("MedicoId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                b.HasOne("Api.ClinicaMedica.Models.Paciente", "Paciente")
+                    .WithMany("CitaMedica")
+                    .HasForeignKey("PacienteId")
+                    .OnDelete(DeleteBehavior.NoAction)
+                    .IsRequired();
 
-                    b.Property<bool>("Abonado")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                b.HasOne("Api.ClinicaMedica.Models.Paquete", "Paquete")
+                    .WithMany("CitaMedica")
+                    .HasForeignKey("PaqueteId")
+                    .OnDelete(DeleteBehavior.Restrict);
 
-                    b.Property<DateOnly>("FechaConsulta")
-                        .HasColumnType("date");
+                b.Navigation("Medico");
 
-                    b.Property<DateTime>("HoraConsulta")
-                        .HasColumnType("datetime2");
+                b.Navigation("Paciente");
 
-                    b.Property<decimal>("Precio")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                b.Navigation("Paquete");
+            });
 
-                    b.Property<int>("medicoId")
-                        .HasColumnType("int");
+            modelBuilder.Entity("Api.ClinicaMedica.Models.Horario", b =>
+            {
+                b.HasOne("Api.ClinicaMedica.Models.Medico", "Medico")
+                    .WithMany("Turnos")
+                    .HasForeignKey("MedicoId")
+                    .OnDelete(DeleteBehavior.NoAction)
+                    .IsRequired();
 
-                    b.Property<int>("pacienteId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("medicoId");
-
-                    b.HasIndex("pacienteId");
-
-                    b.ToTable("Turnos");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Models.Usuario", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Dni")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<DateOnly>("FechaNac")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Telefono")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Usuarios");
-                });
-
-            modelBuilder.Entity("HorarioMedico", b =>
-                {
-                    b.Property<int>("horariosId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("medicosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("horariosId", "medicosId");
-
-                    b.HasIndex("medicosId");
-
-                    b.ToTable("HorarioMedico");
-                });
-
-            modelBuilder.Entity("PaqueteServicio", b =>
-                {
-                    b.Property<int>("paquetesId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("serviciosId")
-                        .HasColumnType("int");
-
-                    b.HasKey("paquetesId", "serviciosId");
-
-                    b.HasIndex("serviciosId");
-
-                    b.ToTable("PaqueteServicio");
-                });
-
-            modelBuilder.Entity("ServicioTurno", b =>
-                {
-                    b.Property<int>("serviciosId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("serviciosId1")
-                        .HasColumnType("int");
-
-                    b.HasKey("serviciosId", "serviciosId1");
-
-                    b.HasIndex("serviciosId1");
-
-                    b.ToTable("ServicioTurno");
-                });
+                b.Navigation("Medico");
+            });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Medico", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Models.Especialidad", "especialidad")
-                        .WithMany("medicos")
-                        .HasForeignKey("especialidadId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            {
+                b.HasOne("Api.ClinicaMedica.Models.Especialidad", "Especialidad")
+                    .WithMany("Medicos")
+                    .HasForeignKey("EspecialidadId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.HasOne("Api.ClinicaMedica.Models.Usuario", "medico")
-                        .WithMany()
-                        .HasForeignKey("medicoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.Navigation("Especialidad");
+            });
 
-                    b.Navigation("especialidad");
+            modelBuilder.Entity("Api.ClinicaMedica.Models.PaqueteServicio", b =>
+            {
+                b.HasOne("Api.ClinicaMedica.Models.Paquete", "Paquete")
+                    .WithMany("Servicios")
+                    .HasForeignKey("PaqueteId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-                    b.Navigation("medico");
-                });
+                b.HasOne("Api.ClinicaMedica.Models.Servicio", "Servicio")
+                    .WithMany("Paquetes")
+                    .HasForeignKey("ServicioId")
+                    .OnDelete(DeleteBehavior.Cascade)
+                    .IsRequired();
 
-            modelBuilder.Entity("Api.ClinicaMedica.Models.Paciente", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Models.Usuario", "paciente")
-                        .WithMany()
-                        .HasForeignKey("pacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                b.Navigation("Paquete");
 
-                    b.Navigation("paciente");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Models.Turno", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Models.Medico", "medico")
-                        .WithMany("turnos")
-                        .HasForeignKey("medicoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.ClinicaMedica.Models.Paciente", "paciente")
-                        .WithMany()
-                        .HasForeignKey("pacienteId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("medico");
-
-                    b.Navigation("paciente");
-                });
-
-            modelBuilder.Entity("HorarioMedico", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Models.Horario", null)
-                        .WithMany()
-                        .HasForeignKey("horariosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.ClinicaMedica.Models.Medico", null)
-                        .WithMany()
-                        .HasForeignKey("medicosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("PaqueteServicio", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Models.Paquete", null)
-                        .WithMany()
-                        .HasForeignKey("paquetesId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.ClinicaMedica.Models.Servicio", null)
-                        .WithMany()
-                        .HasForeignKey("serviciosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("ServicioTurno", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Models.Turno", null)
-                        .WithMany()
-                        .HasForeignKey("serviciosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.ClinicaMedica.Models.Servicio", null)
-                        .WithMany()
-                        .HasForeignKey("serviciosId1")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
+                b.Navigation("Servicio");
+            });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Especialidad", b =>
-                {
-                    b.Navigation("medicos");
-                });
+            {
+                b.Navigation("Medicos");
+            });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Medico", b =>
-                {
-                    b.Navigation("turnos");
-                });
+            {
+                b.Navigation("CitaMedica");
+
+                b.Navigation("Turnos");
+            });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Models.Paciente", b =>
+            {
+                b.Navigation("CitaMedica");
+            });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Models.Paquete", b =>
+            {
+                b.Navigation("CitaMedica");
+
+                b.Navigation("Servicios");
+            });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Models.Servicio", b =>
+            {
+                b.Navigation("Paquetes");
+            });
 #pragma warning restore 612, 618
         }
     }
