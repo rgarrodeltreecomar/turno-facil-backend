@@ -14,21 +14,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ApplicationDbContextModelSnapshot.cs",
-              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
-              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
-              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
-              "RelativeToolTip": "Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
-              "ViewState": "AgIAABkAAAAAAAAAAAAgwGUBAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-29T21:12:48.426Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
@@ -38,8 +25,17 @@
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ApplicationDbContextModelSnapshot.cs",
+              "DocumentMoniker": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeDocumentMoniker": "Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ToolTip": "C:\\Users\\autor\\Desktop\\HackaCode\\API_ClinicaMedica\\Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "RelativeToolTip": "Api.ClinicaMedica\\Migrations\\ApplicationDbContextModelSnapshot.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAGUBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-29T21:12:48.426Z",
+              "EditorCaption": ""
             }
           ]
         }
