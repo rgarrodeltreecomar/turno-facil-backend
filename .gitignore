@@ -1,6 +1,8 @@
 ﻿# Ignorar archivos de compilación y dependencias
 bin/
 obj/
+Api.ClinicaMedica/bin/
+Api.ClinicaMedica/obj/
 
 # Ignorar configuraciones de usuario y archivos temporales
 .vs/
@@ -33,3 +35,4 @@ project.nuget.cache
 
 # Ignorar configuraciones de Docker (si aplica)
 .dockerignore
+
