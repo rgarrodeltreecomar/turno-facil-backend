@@ -4,6 +4,13 @@ obj/
 Api.ClinicaMedica/bin/
 Api.ClinicaMedica/obj/
 
+# Ignorar archivos específicos dentro de Api.ClinicaMedica/obj/Debug/net8.0/
+Api.ClinicaMedica/obj/Debug/net8.0/Api.ClinicaMedica.AssemblyInfo.cs
+Api.ClinicaMedica/obj/Debug/net8.0/Api.ClinicaMedica.AssemblyInfoInputs.cache
+Api.ClinicaMedica/obj/Debug/net8.0/Api.ClinicaMedica.GeneratedMSBuildEditorConfig.editorconfig
+Api.ClinicaMedica/obj/Debug/net8.0/Api.ClinicaMedica.assets.cache
+Api.ClinicaMedica/obj/Debug/net8.0/Api.ClinicaMedica.csproj.AssemblyReference.cache
+
 # Ignorar configuraciones de usuario y archivos temporales
 .vs/
 *.suo
@@ -35,4 +42,3 @@ project.nuget.cache
 
 # Ignorar configuraciones de Docker (si aplica)
 .dockerignore
-
