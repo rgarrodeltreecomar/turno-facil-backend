@@ -4,4 +4,11 @@
 
 /Api.ClinicaMedica/Api.ClinicaMedica.csproj
 
+# Carpetas de compilación
+bin/
+obj/
+
+# Configuración de usuario de Visual Studio
 .vs/
+*.user
+*.suo
