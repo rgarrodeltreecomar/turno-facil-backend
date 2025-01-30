@@ -1,6 +1,9 @@
 ﻿# Ignorar archivos de compilación y dependencias
-bin/
-obj/
+# Carpetas de compilación
+**/[Bb]in/
+**/[Oo]bj/
+**/.vs/
+**/.vscode/
 Api.ClinicaMedica/bin/
 Api.ClinicaMedica/obj/
 
