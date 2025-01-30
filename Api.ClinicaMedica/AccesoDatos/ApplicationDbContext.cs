@@ -11,6 +11,7 @@ namespace Api.ClinicaMedica.AccesoDatos
         }
 
         //DbSet
+       
         public DbSet<Paciente> Pacientes => Set<Paciente>();
         public DbSet<Medico> Medicos => Set<Medico>();
         public DbSet<Especialidad> Especialidades => Set<Especialidad>();
@@ -19,6 +20,8 @@ namespace Api.ClinicaMedica.AccesoDatos
         public DbSet<CitaMedica> CitasMedicas => Set<CitaMedica>();
         public DbSet<PaqueteServicio> PaquetesServicios => Set<PaqueteServicio>();
         public DbSet<Horario> Horarios => Set<Horario>();
+        public DbSet<Usuario> Usuarios => Set<Usuario>();
+
 
 
 
