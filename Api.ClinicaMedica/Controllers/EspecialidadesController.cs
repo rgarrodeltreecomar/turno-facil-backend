@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Models;
 using AutoMapper;
-using Api.ClinicaMedica.DTOs;
+using Api.ClinicaMedica.DTOs.Especialidad;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -25,7 +25,7 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Especialidads
+        // GET: api/Especialidades
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EspecialidadGetDTO>>> GetEspecialidades()
         {
@@ -36,7 +36,7 @@ namespace Api.ClinicaMedica.Controllers
             return Ok(especialidadesDto);
         }
 
-        // GET: api/Especialidads/5
+        // GET: api/Especialidades/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Especialidad>> GetEspecialidad(int id)
         {
@@ -50,7 +50,7 @@ namespace Api.ClinicaMedica.Controllers
             return especialidad;
         }
 
-        // PUT: api/Especialidads/5
+        // PUT: api/Especialidades/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEspecialidad(int id, EspecialidadCreationDTO especialidadDTO)
         {

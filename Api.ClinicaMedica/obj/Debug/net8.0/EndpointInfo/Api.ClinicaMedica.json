@@ -18,7 +18,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CitaMedica"
+                    "$ref": "#/components/schemas/CitaMedicaGetDTO"
                   }
                 }
               },
@@ -26,7 +26,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CitaMedica"
+                    "$ref": "#/components/schemas/CitaMedicaGetDTO"
                   }
                 }
               },
@@ -34,7 +34,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/CitaMedica"
+                    "$ref": "#/components/schemas/CitaMedicaGetDTO"
                   }
                 }
               }
@@ -388,7 +388,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Horario"
+                    "$ref": "#/components/schemas/HorarioGetDTO"
                   }
                 }
               },
@@ -396,7 +396,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Horario"
+                    "$ref": "#/components/schemas/HorarioGetDTO"
                   }
                 }
               },
@@ -404,7 +404,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Horario"
+                    "$ref": "#/components/schemas/HorarioGetDTO"
                   }
                 }
               }
@@ -1350,6 +1350,41 @@
         },
         "additionalProperties": false
       },
+      "CitaMedicaGetDTO": {
+        "type": "object",
+        "properties": {
+          "fechaConsulta": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "horaConsulta": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "precio": {
+            "type": "number",
+            "format": "double"
+          },
+          "abonado": {
+            "type": "boolean"
+          },
+          "paciente": {
+            "$ref": "#/components/schemas/PacienteDTO"
+          },
+          "medico": {
+            "$ref": "#/components/schemas/MedicoCitaMedicaDTO"
+          },
+          "paqueteId": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "paquete": {
+            "$ref": "#/components/schemas/Paquete"
+          }
+        },
+        "additionalProperties": false
+      },
       "Especialidad": {
         "type": "object",
         "properties": {
@@ -1399,7 +1434,7 @@
           "medicos": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MedicoEspecialidadGetDTO"
+              "$ref": "#/components/schemas/MedicoGetDTO"
             },
             "nullable": true
           }
@@ -1423,6 +1458,33 @@
           },
           "disponible": {
             "type": "boolean"
+          },
+          "medicoId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "medico": {
+            "$ref": "#/components/schemas/Medico"
+          }
+        },
+        "additionalProperties": false
+      },
+      "HorarioGetDTO": {
+        "type": "object",
+        "properties": {
+          "fechaHoraInicio": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "fechaHoraFin": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "disponible": {
+            "type": "boolean"
+          },
+          "medico": {
+            "$ref": "#/components/schemas/MedicoGetDTO"
           }
         },
         "additionalProperties": false
@@ -1448,6 +1510,7 @@
           },
           "email": {
             "type": "string",
+            "format": "email",
             "nullable": true
           },
           "fechaNac": {
@@ -1477,6 +1540,38 @@
           },
           "activo": {
             "type": "boolean"
+          },
+          "citaMedica": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CitaMedica"
+            },
+            "nullable": true
+          },
+          "turnos": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Horario"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MedicoCitaMedicaDTO": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1528,7 +1623,7 @@
         },
         "additionalProperties": false
       },
-      "MedicoEspecialidadGetDTO": {
+      "MedicoGetDTO": {
         "type": "object",
         "properties": {
           "id": {
@@ -1567,6 +1662,49 @@
           },
           "email": {
             "type": "string",
+            "format": "email",
+            "nullable": true
+          },
+          "fechaNac": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "telefono": {
+            "type": "string",
+            "nullable": true
+          },
+          "direccion": {
+            "type": "string",
+            "nullable": true
+          },
+          "obraSocial": {
+            "type": "boolean"
+          },
+          "activo": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
+      "PacienteDTO": {
+        "type": "object",
+        "properties": {
+          "nombre": {
+            "type": "string",
+            "nullable": true
+          },
+          "apellido": {
+            "type": "string",
+            "nullable": true
+          },
+          "dni": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
             "nullable": true
           },
           "fechaNac": {

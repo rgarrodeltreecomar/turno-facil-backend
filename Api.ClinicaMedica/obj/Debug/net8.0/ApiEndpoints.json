@@ -9,7 +9,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.Models.CitaMedica, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.DTOs.CitasMedicas.CitaMedicaGetDTO, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -118,7 +118,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.DTOs.EspecialidadGetDTO, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.DTOs.Especialidad.EspecialidadGetDTO, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -138,7 +138,7 @@
     "Parameters": [
       {
         "Name": "especialidadDTO",
-        "Type": "Api.ClinicaMedica.DTOs.EspecialidadCreationDTO",
+        "Type": "Api.ClinicaMedica.DTOs.Especialidad.EspecialidadCreationDTO",
         "IsRequired": true
       }
     ],
@@ -195,7 +195,7 @@
       },
       {
         "Name": "especialidadDTO",
-        "Type": "Api.ClinicaMedica.DTOs.EspecialidadCreationDTO",
+        "Type": "Api.ClinicaMedica.DTOs.Especialidad.EspecialidadCreationDTO",
         "IsRequired": true
       }
     ],
@@ -227,7 +227,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.Models.Horario, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[Api.ClinicaMedica.DTOs.Horario.HorarioGetDTO, Api.ClinicaMedica, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -356,7 +356,7 @@
     "Parameters": [
       {
         "Name": "medicoDTO",
-        "Type": "Api.ClinicaMedica.DTOs.MedicoCreationDTO",
+        "Type": "Api.ClinicaMedica.DTOs.Medico.MedicoCreationDTO",
         "IsRequired": true
       }
     ],
