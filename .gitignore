@@ -1,14 +1,37 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/Api.ClinicaMedica/Api.ClinicaMedica.csproj
-
-# Carpetas de compilación
+﻿# Ignorar archivos de compilación y dependencias
 bin/
 obj/
+Api.ClinicaMedica/bin/
+Api.ClinicaMedica/obj/
 
-# Configuración de usuario de Visual Studio
+# Ignorar configuraciones de usuario y archivos temporales
 .vs/
-*.user
 *.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignorar archivos de depuración y paquetes
+Debug/
+Release/
+*.pdb
+*.log
+*.cache
+*.csproj.nuget.dgspec.json
+*.csproj.nuget.g.props
+
+# Ignorar paquetes de NuGet y configuraciones de build
+packages/
+project.lock.json
+project.assets.json
+project.nuget.cache
+
+# Ignorar archivos generados por Rider/JetBrains
+.idea/
+*.iml
+
+# Ignorar archivos de configuración local de Visual Studio Code
+.vscode/
+
+# Ignorar configuraciones de Docker (si aplica)
+.dockerignore
