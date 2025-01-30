@@ -1,5 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<sitemanifest>
-  <IisApp path="C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Release\net8.0\PubTmp\Out\" />
-  <dbfullsql path="C:\Users\LECCESE\source\repos\Api.ClinicaMedica\Api.ClinicaMedica\obj\Release\net8.0\PubTmp\EFSQLScripts\Api.ClinicaMedica.AccesoDatos.ApplicationDbContext.sql" />
-</sitemanifest>
