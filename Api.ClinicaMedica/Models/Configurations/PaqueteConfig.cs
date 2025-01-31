@@ -7,7 +7,7 @@ namespace Api.ClinicaMedica.Models.Configurations
     {
         public void Configure(EntityTypeBuilder<Paquete> builder)
         {
-            builder.Property(p => p.Precio).HasColumnType("decimal(18,2)");
+            builder.Property(p => p.Precio).HasPrecision(18, 2);
 
         }
     }
