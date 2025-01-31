@@ -11,9 +11,7 @@ namespace Api.ClinicaMedica.Models
         public Especialidad Especialidad { get; set; } = null!;
         public decimal? Sueldo { get; set; }
         public bool Activo { get; set; }
-        [JsonIgnore]
         public ICollection<CitaMedica> CitaMedica { get; set; } = new List<CitaMedica>();
-        [JsonIgnore]
         public ICollection<Horario> Turnos { get; set; } = new List<Horario>();
     }
 }

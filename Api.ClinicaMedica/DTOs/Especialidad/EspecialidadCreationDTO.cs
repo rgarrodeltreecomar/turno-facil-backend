@@ -1,4 +1,4 @@
-﻿namespace Api.ClinicaMedica.DTOs
+﻿namespace Api.ClinicaMedica.DTOs.Especialidad
 {
     public class EspecialidadCreationDTO
     {
