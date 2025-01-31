@@ -1,6 +1,6 @@
 ﻿using Api.ClinicaMedica.Models;
 
-namespace Api.ClinicaMedica.DTOs
+namespace Api.ClinicaMedica.DTOs.Medico
 {
     public class MedicoCreationDTO
     {

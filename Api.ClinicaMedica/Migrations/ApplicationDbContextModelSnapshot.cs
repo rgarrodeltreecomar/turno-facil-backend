@@ -59,7 +59,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasIndex("PaqueteId");
 
-                    b.ToTable("CitasMedicas");
+                    b.ToTable("CitasMedicas", (string)null);
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Especialidad", b =>
@@ -76,7 +76,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Especialidades");
+                    b.ToTable("Especialidades", (string)null);
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Horario", b =>
@@ -103,7 +103,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasIndex("MedicoId");
 
-                    b.ToTable("Horarios");
+                    b.ToTable("Horarios", (string)null);
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Medico", b =>
@@ -153,7 +153,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasIndex("EspecialidadId");
 
-                    b.ToTable("Medicos");
+                    b.ToTable("Medicos", (string)null);
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Paciente", b =>
@@ -199,7 +199,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Pacientes");
+                    b.ToTable("Pacientes", (string)null);
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Paquete", b =>
@@ -215,7 +215,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Paquetes");
+                    b.ToTable("Paquetes", (string)null);
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.PaqueteServicio", b =>
@@ -230,7 +230,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasIndex("ServicioId");
 
-                    b.ToTable("PaquetesServicios");
+                    b.ToTable("PaquetesServicios", (string)null);
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Servicio", b =>
@@ -254,7 +254,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Servicios");
+                    b.ToTable("Servicios", (string)null);
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.CitaMedica", b =>

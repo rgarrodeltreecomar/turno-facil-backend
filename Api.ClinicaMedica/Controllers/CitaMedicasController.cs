@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Api.ClinicaMedica.AccesoDatos;
+using Api.ClinicaMedica.DTOs.CitasMedicas;
+using Api.ClinicaMedica.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Api.ClinicaMedica.AccesoDatos;
-using Api.ClinicaMedica.Models;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -15,17 +12,23 @@ namespace Api.ClinicaMedica.Controllers
     public class CitaMedicasController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public CitaMedicasController(ApplicationDbContext context)
+        public CitaMedicasController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/CitaMedicas
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CitaMedica>>> GetCitasMedicas()
+        public async Task<ActionResult<IEnumerable<CitaMedicaGetDTO>>> GetCitasMedicas()
         {
-            return await _context.CitasMedicas.ToListAsync();
+            var citaMedica = await _context.CitasMedicas.Include(p => p.Paciente.Nombre).ToListAsync();
+            var citaMedicaDTO = _mapper.Map<List<CitaMedicaGetDTO>>(citaMedica);
+
+            return Ok(citaMedicaDTO);
+            
         }
 
         // GET: api/CitaMedicas/5

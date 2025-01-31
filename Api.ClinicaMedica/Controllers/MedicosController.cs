@@ -7,8 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Models;
-using Api.ClinicaMedica.DTOs;
 using AutoMapper;
+using Api.ClinicaMedica.DTOs.Medico;
 
 namespace Api.ClinicaMedica.Controllers
 {

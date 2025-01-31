@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Models;
+using AutoMapper;
+using Api.ClinicaMedica.DTOs.Horario;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -15,17 +17,23 @@ namespace Api.ClinicaMedica.Controllers
     public class HorariosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public HorariosController(ApplicationDbContext context)
+        public HorariosController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Horarios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Horario>>> GetHorarios()
+        public async Task<ActionResult<IEnumerable<HorarioGetDTO>>> GetHorarios()
         {
-            return await _context.Horarios.ToListAsync();
+            var horario = await _context.Horarios.ToListAsync();
+
+            var horarioDTO = _mapper.Map<Horario>(horario);
+
+            return Ok(horarioDTO);
         }
 
         // GET: api/Horarios/5
@@ -74,7 +82,6 @@ namespace Api.ClinicaMedica.Controllers
         }
 
         // POST: api/Horarios
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Horario>> PostHorario(Horario horario)
         {
