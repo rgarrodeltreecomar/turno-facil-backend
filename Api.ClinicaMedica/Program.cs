@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//SERVICES: 
 
 //Evitar referencias ciclicas y serializaciones innecesarias
 builder.Services.AddControllers()
@@ -35,6 +36,8 @@ builder.Services.AddCors(options =>
 });
 
 var app = builder.Build();
+
+//MIDDLEWARES:
 
 //Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
