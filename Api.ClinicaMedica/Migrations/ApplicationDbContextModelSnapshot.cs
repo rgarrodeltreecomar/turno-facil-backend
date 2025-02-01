@@ -107,105 +107,6 @@ namespace Api.ClinicaMedica.Migrations
                     b.ToTable("Horarios", (string)null);
                 });
 
-<<<<<<< HEAD
-=======
-            modelBuilder.Entity("Api.ClinicaMedica.Models.Medico", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Activo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Direccion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Dni")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("EspecialidadId")
-                        .HasColumnType("int");
-
-                    b.Property<DateOnly?>("FechaNac")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<decimal?>("Sueldo")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("EspecialidadId");
-
-                    b.ToTable("Medicos", (string)null);
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Models.Paciente", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<bool>("Activo")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(true);
-
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Direccion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Dni")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateOnly?>("FechaNac")
-                        .HasColumnType("date");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("ObraSocial")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Pacientes", (string)null);
-                });
-
->>>>>>> 65412482f8d15fcac7d0c8f98ad1e041bb7521ad
             modelBuilder.Entity("Api.ClinicaMedica.Models.Paquete", b =>
                 {
                     b.Property<int>("Id")
@@ -220,7 +121,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Paquetes", (string)null);
+                    b.ToTable("Paquetes");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.PaqueteServicio", b =>
@@ -235,7 +136,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasIndex("ServicioId");
 
-                    b.ToTable("PaquetesServicios", (string)null);
+                    b.ToTable("PaquetesServicios");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Servicio", b =>
@@ -260,7 +161,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Servicios", (string)null);
+                    b.ToTable("Servicios");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Usuario", b =>
