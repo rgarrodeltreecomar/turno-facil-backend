@@ -7,7 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Models;
-using System.Data.Entity;
+//using System.Data.Entity;
+
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -53,7 +54,8 @@ namespace Api.ClinicaMedica.Controllers
                 return BadRequest();
             }
 
-            _context.Entry(paquete).State = EntityState.Modified;
+           // _context.Entry(paquete).State = EntityState.Modified;
+            _context.Entry(paquete).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
 
             try
             {
