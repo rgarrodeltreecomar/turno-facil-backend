@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Api.ClinicaMedica.Models
 {
@@ -19,5 +20,8 @@ namespace Api.ClinicaMedica.Models
         [Required]
         public string Password { get; set; } = null!;
 
+        public int RolId { get; set; }
+
+        public Rol Rol { get; set; } = null!; 
     }
 }

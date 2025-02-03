@@ -7,8 +7,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Models;
-using Api.ClinicaMedica.DTOs.DtoLogin;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using Microsoft.CodeAnalysis.Scripting;
+using Api.ClinicaMedica.DTOs.DtoRegister;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -23,112 +24,146 @@ namespace Api.ClinicaMedica.Controllers
             _context = context;
         }
 
-        //// GET: api/Register
-        //[HttpGet]
-        //public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuarios()
-        //{
-        //    return await _context.Usuarios.ToListAsync();
-        //}
+        // GET: api/Register
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<UsuarioDTO>>> GetUsuarios()
+        {
+            var usuarios = await _context.Usuarios
+          .Select(u => new UsuarioDTO
+          {
+              Id = u.Id,
+              Nombre = u.Nombre,
+              Apellido = u.Apellido,
+              Email = u.Email,
+              RolId = u.RolId
+          })
+          .ToListAsync();
 
-        //// GET: api/Register/5
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<Usuario>> GetUsuario(int id)
-        //{
-        //    var usuario = await _context.Usuarios.FindAsync(id);
+            return Ok(usuarios);
 
-        //    if (usuario == null)
-        //    {
-        //        return NotFound();
-        //    }
+        }
 
-        //    return usuario;
-        //}
+        // GET: api/Register/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<UsuarioDTO>> GetUsuario(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
 
-        //// PUT: api/Register/5
-        //// To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
-        //{
-        //    if (id != usuario.Id)
-        //    {
-        //        return BadRequest();
-        //    }
+            if (usuario == null)
+            {
+                return NotFound();
+            }
 
-        //    _context.Entry(usuario).State = EntityState.Modified;
+            var usuarioDTO = new UsuarioDTO
+            {
+                Id = usuario.Id,
+                Nombre = usuario.Nombre,
+                Apellido = usuario.Apellido,
+                Email = usuario.Email,
+                RolId = usuario.RolId
+            };
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!UsuarioExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            return Ok(usuarioDTO);
+        }
 
-        //    return NoContent();
-        //}
 
-        // POST: api/Register
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-       
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UserUpdate(int id, [FromBody] UsuarioUpdateDTO usuarioUpdateDTO)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            usuario.Nombre = usuarioUpdateDTO.Nombre;
+            usuario.Apellido = usuarioUpdateDTO.Apellido;
+            usuario.Email = usuarioUpdateDTO.Email;
+            usuario.RolId = usuarioUpdateDTO.RolId;
+
+            _context.Entry(usuario).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+
+            return Ok("Usuario actualizado correctamente.");
+        }
+
+
+
         [HttpPost]
         public async Task<ActionResult> RegisterUser([FromBody] RegisterDTOs registerDTOs)
         {
-            if (!ModelState.IsValid) 
+            if (!ModelState.IsValid)
             {
-             return BadRequest(ModelState);
-            
+                return BadRequest(ModelState);
+
+            }
+            try
+            {
+                //Validar si el correo ya esta registrado
+                bool emailExists = await _context.Usuarios.AnyAsync(u => u.Email == registerDTOs.Email);
+                if (emailExists)
+                {
+                    return BadRequest("El correo ya está registrado.");
+                }
+
+                //validar si el rol existe en la DB
+                var rol = await _context.Roles.FindAsync(registerDTOs.RolId);
+                if (rol == null)
+                {
+                    return BadRequest("El rol especificado no existe.");
+                }
+
+                //Encriptacion de la contraseña
+
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerDTOs.Password);
+
+                // Crear un nuevo usuario
+                var usuario = new Usuario
+                {
+                    Nombre = registerDTOs.Nombre,
+                    Apellido = registerDTOs.Apellido,
+                    Email = registerDTOs.Email,
+                    Password = hashedPassword,
+                    RolId = rol.Id
+                };
+
+                _context.Usuarios.Add(usuario);
+                await _context.SaveChangesAsync();
+
+                return Ok("Usuario registrado con éxito.");
+
+            }
+            catch (DbUpdateException ex)
+            {
+                var innerException = ex.InnerException?.Message;
+                return StatusCode(500, $"Error al guardar en la base de datos: {innerException}");
             }
 
-            //Validar si el correo ya esta registrado
-            if (_context.Usuarios.Any(u => u.Email == registerDTOs.Email)) 
+            catch (Exception ex)
             {
-                return BadRequest("El correo ya esta registrado");            
-            
+                return StatusCode(500, "Ocurrió un error inesperado. " + ex.Message);
             }
-            //Encriptacion de la contraseña
-
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerDTOs.Password);
-
-            // Crear un nuevo usuario
-            var usuario = new Usuario
-            {
-                Email = registerDTOs.Email,
-                Password = hashedPassword
-            };
-
-            _context.Usuarios.Add(usuario);
-            await _context.SaveChangesAsync();
-
-            return Ok("Usuario registrado con éxito.");
         }
 
-        //    // DELETE: api/Register/5
-        //    [HttpDelete("{id}")]
-        //    public async Task<IActionResult> DeleteUsuario(int id)
-        //    {
-        //        var usuario = await _context.Usuarios.FindAsync(id);
-        //        if (usuario == null)
-        //        {
-        //            return NotFound();
-        //        }
 
-        //        _context.Usuarios.Remove(usuario);
-        //        await _context.SaveChangesAsync();
+        // DELETE: api/Register/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteUsuario(int id)
+        {
+            var usuario = await _context.Usuarios.FindAsync(id);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
 
-        //        return NoContent();
-        //    }
+            _context.Usuarios.Remove(usuario);
+            await _context.SaveChangesAsync();
 
-        //    private bool UsuarioExists(int id)
-        //    {
-        //        return _context.Usuarios.Any(e => e.Id == id);
-        //    }
+            return NoContent();
+        }
+
+
     }
 }
+
+

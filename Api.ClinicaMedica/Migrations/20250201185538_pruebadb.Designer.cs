@@ -4,6 +4,7 @@ using Api.ClinicaMedica.AccesoDatos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.ClinicaMedica.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250201185538_pruebadb")]
+    partial class pruebadb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -139,24 +142,6 @@ namespace Api.ClinicaMedica.Migrations
                     b.ToTable("PaquetesServicios");
                 });
 
-            modelBuilder.Entity("Api.ClinicaMedica.Models.Rol", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Roles");
-                });
-
             modelBuilder.Entity("Api.ClinicaMedica.Models.Servicio", b =>
                 {
                     b.Property<int>("Id")
@@ -225,16 +210,15 @@ namespace Api.ClinicaMedica.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("RolId")
-                        .HasColumnType("int");
+                    b.Property<string>("Rol")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Telefono")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RolId");
 
                     b.ToTable("Usuarios");
 
@@ -343,17 +327,6 @@ namespace Api.ClinicaMedica.Migrations
                     b.Navigation("Servicio");
                 });
 
-            modelBuilder.Entity("Api.ClinicaMedica.Models.Usuario", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Models.Rol", "Rol")
-                        .WithMany("Usuarios")
-                        .HasForeignKey("RolId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Rol");
-                });
-
             modelBuilder.Entity("Api.ClinicaMedica.Models.Medico", b =>
                 {
                     b.HasOne("Api.ClinicaMedica.Models.Especialidad", "Especialidad")
@@ -375,11 +348,6 @@ namespace Api.ClinicaMedica.Migrations
                     b.Navigation("CitaMedica");
 
                     b.Navigation("Servicios");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Models.Rol", b =>
-                {
-                    b.Navigation("Usuarios");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Servicio", b =>

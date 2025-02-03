@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Api.ClinicaMedica.DTOs.DtoLogin
+namespace Api.ClinicaMedica.DTOs.DtoRegister
 {
     public class RegisterDTOs
     {
@@ -12,8 +12,12 @@ namespace Api.ClinicaMedica.DTOs.DtoLogin
 
         [Required(ErrorMessage = "El email es obligatorio.")]
         public string Email { get; set; } = null!;
-        [Required(ErrorMessage = "El la contraseña es obligatoria.")]
+
+        [Required(ErrorMessage = "La contraseña es obligatoria.")]
         public string Password { get; set; } = null!;
+
+        [Required(ErrorMessage = "El RolId es obligatorio.")]
+        public int RolId { get; set; }
 
     }
 }

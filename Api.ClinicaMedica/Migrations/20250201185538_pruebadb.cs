@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Api.ClinicaMedica.Migrations
 {
     /// <inheritdoc />
-    public partial class ParametrosHasPresicionCitaMedica_Servicio_Usuarios : Migration
+    public partial class pruebadb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -141,6 +141,13 @@ namespace Api.ClinicaMedica.Migrations
                 nullable: false,
                 defaultValue: "");
 
+            migrationBuilder.AddColumn<string>(
+                name: "Rol",
+                table: "Usuarios",
+                type: "nvarchar(max)",
+                nullable: false,
+                defaultValue: "");
+
             migrationBuilder.AddColumn<decimal>(
                 name: "Sueldo",
                 table: "Usuarios",
@@ -231,6 +238,10 @@ namespace Api.ClinicaMedica.Migrations
 
             migrationBuilder.DropColumn(
                 name: "Password",
+                table: "Usuarios");
+
+            migrationBuilder.DropColumn(
+                name: "Rol",
                 table: "Usuarios");
 
             migrationBuilder.DropColumn(
