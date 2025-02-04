@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Models;
-//using System.Data.Entity;
-
 
 namespace Api.ClinicaMedica.Controllers
 {

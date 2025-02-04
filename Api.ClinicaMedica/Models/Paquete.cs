@@ -6,6 +6,7 @@ namespace Api.ClinicaMedica.Models
 {
     public class Paquete
     {
+      
         [Key]
         public int Id { get; set; }
         public decimal Precio { get; set; }
