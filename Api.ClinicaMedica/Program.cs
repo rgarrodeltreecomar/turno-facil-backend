@@ -24,6 +24,11 @@ builder.Services.AddSwaggerGen();
 var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
                       ?? builder.Configuration.GetConnectionString("HackacodeConnection");
 
+
+//Registrar ApplicationDbContext en el contenedor de servicios
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
 //Config de Automapper
 builder.Services.AddAutoMapper(typeof(Program));
 
