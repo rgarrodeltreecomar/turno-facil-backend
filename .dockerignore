@@ -1,0 +1,26 @@
+# Ignorar archivos de configuración del entorno
+.env
+appsettings*.json
+
+# Ignorar binarios y archivos compilados
+bin/
+obj/
+
+# Ignorar dependencias locales
+node_modules/
+packages/
+
+# Ignorar archivos del sistema y del editor
+.vscode/
+.idea/
+*.suo
+*.user
+*.db
+
+# Ignorar archivos de control de versiones
+.git/
+.gitignore
+
+# Ignorar archivos temporales y de caché
+*.log
+*.tmp
