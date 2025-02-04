@@ -19,8 +19,10 @@ builder.Services.AddControllers()
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-//Config del DbContext
-builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer("name=DefaultConnection"));
+
+//cambio
+var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
+                      ?? builder.Configuration.GetConnectionString("HackacodeConnection");
 
 //Config de Automapper
 builder.Services.AddAutoMapper(typeof(Program));
