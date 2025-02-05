@@ -6,7 +6,7 @@ namespace Api.ClinicaMedica.Models
     public class Usuario
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public string Nombre { get; set; } = null!;
         public string Apellido { get; set; } = null!;
 

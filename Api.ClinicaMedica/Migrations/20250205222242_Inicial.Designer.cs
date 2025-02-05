@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.ClinicaMedica.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250202000102_AgregarTablaRolesClassRolModifyUser")]
-    partial class AgregarTablaRolesClassRolModifyUser
+    [Migration("20250205222242_Inicial")]
+    partial class Inicial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -42,11 +42,11 @@ namespace Api.ClinicaMedica.Migrations
                     b.Property<DateTime>("HoraConsulta")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MedicoId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("MedicoId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("PacienteId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PacienteId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int?>("PaqueteId")
                         .HasColumnType("int");
@@ -100,8 +100,8 @@ namespace Api.ClinicaMedica.Migrations
                     b.Property<DateTime>("FechaHoraInicio")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MedicoId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("MedicoId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
 
@@ -187,11 +187,9 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Usuario", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Apellido")
                         .IsRequired()

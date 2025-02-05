@@ -12,10 +12,10 @@ namespace Api.ClinicaMedica.Models
         public decimal Precio { get; set; }
         public bool Abonado { get; set; }
         //Paciente
-        public int PacienteId { get; set; }
+        public Guid PacienteId { get; set; }
         public Paciente Paciente { get; set; } = null!;
         //Medico
-        public int MedicoId { get; set; }
+        public Guid MedicoId { get; set; }
         public Medico Medico { get; set; } = null!;
         //Paquete
         public int? PaqueteId { get; set; }

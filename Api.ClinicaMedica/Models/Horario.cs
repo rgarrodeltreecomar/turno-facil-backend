@@ -10,7 +10,7 @@ namespace Api.ClinicaMedica.Models
         public bool Disponible { get; set; } 
 
         // Relación con Médico
-        public int MedicoId { get; set; }
+        public Guid MedicoId { get; set; }
         public Medico Medico { get; set; } = null!;
     }
 }

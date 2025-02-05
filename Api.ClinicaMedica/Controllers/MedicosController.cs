@@ -34,7 +34,7 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/Medicos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Medico>> GetMedico(int id)
+        public async Task<ActionResult<Medico>> GetMedico(Guid id)
         {
             var medico = await _context.Medicos.FindAsync(id);
 
@@ -49,7 +49,7 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/Medicos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMedico(int id, Medico medico)
+        public async Task<IActionResult> PutMedico(Guid id, Medico medico)
         {
             if (id != medico.Id)
             {
@@ -104,7 +104,7 @@ namespace Api.ClinicaMedica.Controllers
 
         // DELETE: api/Medicos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMedico(int id)
+        public async Task<IActionResult> DeleteMedico(Guid id)
         {
             var medico = await _context.Medicos.FindAsync(id);
             if (medico == null)
@@ -118,7 +118,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        private bool MedicoExists(int id)
+        private bool MedicoExists(Guid id)
         {
             return _context.Medicos.Any(e => e.Id == id);
         }

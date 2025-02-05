@@ -31,7 +31,7 @@ namespace Api.ClinicaMedica.Controllers
             var usuarios = await _context.Usuarios
           .Select(u => new UsuarioDTO
           {
-              Id = u.Id,
+              Id = u.Id.ToString(),
               Nombre = u.Nombre,
               Apellido = u.Apellido,
               Email = u.Email,
@@ -45,7 +45,7 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/Register/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<UsuarioDTO>> GetUsuario(int id)
+        public async Task<ActionResult<UsuarioDTO>> GetUsuario(Guid id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
 
@@ -56,7 +56,7 @@ namespace Api.ClinicaMedica.Controllers
 
             var usuarioDTO = new UsuarioDTO
             {
-                Id = usuario.Id,
+                Id = usuario.Id.ToString(),
                 Nombre = usuario.Nombre,
                 Apellido = usuario.Apellido,
                 Email = usuario.Email,
@@ -68,7 +68,7 @@ namespace Api.ClinicaMedica.Controllers
 
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UserUpdate(int id, [FromBody] UsuarioUpdateDTO usuarioUpdateDTO)
+        public async Task<IActionResult> UserUpdate(Guid id, [FromBody] UsuarioUpdateDTO usuarioUpdateDTO)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)
@@ -148,7 +148,7 @@ namespace Api.ClinicaMedica.Controllers
 
         // DELETE: api/Register/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteUsuario(int id)
+        public async Task<IActionResult> DeleteUsuario(Guid id)
         {
             var usuario = await _context.Usuarios.FindAsync(id);
             if (usuario == null)

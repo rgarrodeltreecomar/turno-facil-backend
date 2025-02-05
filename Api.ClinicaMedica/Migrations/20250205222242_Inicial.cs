@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Api.ClinicaMedica.Migrations
 {
     /// <inheritdoc />
-    public partial class _2701 : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,37 +25,29 @@ namespace Api.ClinicaMedica.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pacientes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ObraSocial = table.Column<bool>(type: "bit", nullable: false, defaultValue: false),
-                    Activo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Dni = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    FechaNac = table.Column<DateOnly>(type: "date", nullable: true),
-                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Direccion = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Pacientes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Paquetes",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Paquetes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -66,7 +58,7 @@ namespace Api.ClinicaMedica.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Codigo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,31 +66,41 @@ namespace Api.ClinicaMedica.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Medicos",
+                name: "Usuarios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    EspecialidadId = table.Column<int>(type: "int", nullable: false),
-                    Sueldo = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
-                    Activo = table.Column<bool>(type: "bit", nullable: false, defaultValue: true),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Dni = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Apellido = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Dni = table.Column<string>(type: "nvarchar(15)", maxLength: 15, nullable: true),
+                    Email = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     FechaNac = table.Column<DateOnly>(type: "date", nullable: true),
-                    Telefono = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Direccion = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    Telefono = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Direccion = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    RolId = table.Column<int>(type: "int", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
+                    EspecialidadId = table.Column<int>(type: "int", nullable: true),
+                    Sueldo = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
+                    Medico_Activo = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
+                    ObraSocial = table.Column<bool>(type: "bit", nullable: true, defaultValue: false),
+                    Activo = table.Column<bool>(type: "bit", nullable: true, defaultValue: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Medicos", x => x.Id);
+                    table.PrimaryKey("PK_Usuarios", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Medicos_Especialidades_EspecialidadId",
+                        name: "FK_Usuarios_Especialidades_EspecialidadId",
                         column: x => x.EspecialidadId,
                         principalTable: "Especialidades",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Usuarios_Roles_RolId",
+                        column: x => x.RolId,
+                        principalTable: "Roles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -133,32 +135,32 @@ namespace Api.ClinicaMedica.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FechaConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HoraConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     Abonado = table.Column<bool>(type: "bit", nullable: false),
-                    PacienteId = table.Column<int>(type: "int", nullable: false),
-                    MedicoId = table.Column<int>(type: "int", nullable: false),
+                    PacienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    MedicoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     PaqueteId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CitasMedicas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CitasMedicas_Medicos_MedicoId",
-                        column: x => x.MedicoId,
-                        principalTable: "Medicos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_CitasMedicas_Pacientes_PacienteId",
-                        column: x => x.PacienteId,
-                        principalTable: "Pacientes",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_CitasMedicas_Paquetes_PaqueteId",
                         column: x => x.PaqueteId,
                         principalTable: "Paquetes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_CitasMedicas_Usuarios_MedicoId",
+                        column: x => x.MedicoId,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CitasMedicas_Usuarios_PacienteId",
+                        column: x => x.PacienteId,
+                        principalTable: "Usuarios",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -170,15 +172,15 @@ namespace Api.ClinicaMedica.Migrations
                     FechaHoraInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaHoraFin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Disponible = table.Column<bool>(type: "bit", nullable: false),
-                    MedicoId = table.Column<int>(type: "int", nullable: false)
+                    MedicoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Horarios", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Horarios_Medicos_MedicoId",
+                        name: "FK_Horarios_Usuarios_MedicoId",
                         column: x => x.MedicoId,
-                        principalTable: "Medicos",
+                        principalTable: "Usuarios",
                         principalColumn: "Id");
                 });
 
@@ -203,14 +205,19 @@ namespace Api.ClinicaMedica.Migrations
                 column: "MedicoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Medicos_EspecialidadId",
-                table: "Medicos",
-                column: "EspecialidadId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_PaquetesServicios_ServicioId",
                 table: "PaquetesServicios",
                 column: "ServicioId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_EspecialidadId",
+                table: "Usuarios",
+                column: "EspecialidadId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Usuarios_RolId",
+                table: "Usuarios",
+                column: "RolId");
         }
 
         /// <inheritdoc />
@@ -226,10 +233,7 @@ namespace Api.ClinicaMedica.Migrations
                 name: "PaquetesServicios");
 
             migrationBuilder.DropTable(
-                name: "Pacientes");
-
-            migrationBuilder.DropTable(
-                name: "Medicos");
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Paquetes");
@@ -239,6 +243,9 @@ namespace Api.ClinicaMedica.Migrations
 
             migrationBuilder.DropTable(
                 name: "Especialidades");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

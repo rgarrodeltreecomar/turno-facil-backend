@@ -45,7 +45,7 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/Pacientes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaciente(int id, Paciente paciente)
+        public async Task<IActionResult> PutPaciente(Guid id, Paciente paciente)
         {
             if (id != paciente.Id)
             {
@@ -100,7 +100,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        private bool PacienteExists(int id)
+        private bool PacienteExists(Guid id)
         {
             return _context.Pacientes.Any(e => e.Id == id);
         }
