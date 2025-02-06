@@ -17,7 +17,7 @@ namespace Api.ClinicaMedica.DTOs.DtoRegister
         public string Password { get; set; } = null!;
 
         [Required(ErrorMessage = "El RolId es obligatorio.")]
-        public Guid RolId { get; set; }
+        public int RolId { get; set; }
 
     }
 }
