@@ -34,11 +34,18 @@ builder.Services.AddAutoMapper(typeof(Program));
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowVercel", builder =>
+    options.AddPolicy("AllowAll", builder => // Desarrollo
     {
-        builder.WithOrigins("https://turno-facil.vercel.app").
-        AllowAnyHeader().
-        AllowAnyMethod();
+        builder.AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader();
+    });
+
+    options.AddPolicy("AllowVercel", builder => // Producción
+    {
+        builder.WithOrigins("https://turno-facil.vercel.app")
+               .AllowAnyMethod() // Métodos específicos si es posible (POST, GET, etc.)
+               .AllowAnyHeader(); // Cabeceras específicas si es posible
     });
 });
 
@@ -60,9 +67,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+
+
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseCors(app.Environment.IsDevelopment() ? "AllowAll" : "AllowVercel");
 
 app.MapControllers();
 
