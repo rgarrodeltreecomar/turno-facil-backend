@@ -36,7 +36,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowVercel", builder =>
     {
-        builder.WithOrigins("http://clinicamedica.vercel.app").
+        builder.WithOrigins("https://turno-facil.vercel.app").
         AllowAnyHeader().
         AllowAnyMethod();
     });
@@ -44,11 +44,11 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
-// Aquí es donde llamamos a DataSeeder para agregar los roles al inicio
+// Aquï¿½ es donde llamamos a DataSeeder para agregar los roles al inicio
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    DataSeeder.SeedRoles(context);  // Llamamos a la función para insertar los roles
+    DataSeeder.SeedRoles(context);  // Llamamos a la funciï¿½n para insertar los roles
 }
 
 //MIDDLEWARES:
