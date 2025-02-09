@@ -1,37 +1,38 @@
 using Api.ClinicaMedica.AccesoDatos;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //SERVICES: 
 
-//Evitar referencias ciclicas y serializaciones innecesarias
+//Evitar referencias cíclicas y serializaciones innecesarias
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
-        options.JsonSerializerOptions.DefaultIgnoreCondition = System.Text.Json.Serialization.JsonIgnoreCondition.WhenWritingNull;
-        options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+        options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
     });
-
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-//cambio
+// Obtener la cadena de conexión
 var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
                       ?? builder.Configuration.GetConnectionString("HackacodeConnection");
 
-
-//Registrar ApplicationDbContext en el contenedor de servicios
+// Registrar ApplicationDbContext en el contenedor de servicios
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-//Config de Automapper
+// Config de AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
+// Configurar CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder => // Desarrollo
@@ -44,30 +45,47 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowVercel", builder => // Producción
     {
         builder.WithOrigins("https://turno-facil.vercel.app")
-               .AllowAnyMethod() // Métodos específicos si es posible (POST, GET, etc.)
-               .AllowAnyHeader(); // Cabeceras específicas si es posible
+               .AllowAnyMethod()
+               .AllowAnyHeader();
     });
 });
 
+// Configurar autenticación con JWT
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
+        };
+    });
+
+// Habilitar autorización
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 
-// Aqu� es donde llamamos a DataSeeder para agregar los roles al inicio
+// Aquí es donde llamamos a DataSeeder para agregar los roles al inicio
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    DataSeeder.SeedRoles(context);  // Llamamos a la funci�n para insertar los roles
+    DataSeeder.SeedRoles(context);  // Llamamos a la función para insertar los roles
 }
 
-//MIDDLEWARES:
+// MIDDLEWARES:
 
-//Configure the HTTP request pipeline.
+// Configurar el pipeline de middleware
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-
 
 app.UseHttpsRedirection();
 
@@ -75,6 +93,8 @@ app.UseRouting();
 
 app.UseCors(app.Environment.IsDevelopment() ? "AllowAll" : "AllowVercel");
 
+// Middleware de autenticación y autorización
+app.UseAuthentication();  // <---- AGREGADO
 app.UseAuthorization();
 
 app.MapControllers();
