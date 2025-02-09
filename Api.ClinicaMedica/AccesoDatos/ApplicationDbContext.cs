@@ -81,6 +81,7 @@ namespace Api.ClinicaMedica.AccesoDatos
                 .HasForeignKey(ps => ps.ServicioId)
                 .OnDelete(DeleteBehavior.Cascade); // Comportamiento al eliminar
         }
+        public DbSet<Api.ClinicaMedica.Models.Usuario> Usuario { get; set; } = default!;
 
     }
 }
