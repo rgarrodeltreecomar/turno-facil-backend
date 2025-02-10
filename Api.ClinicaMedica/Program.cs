@@ -62,7 +62,12 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidateIssuerSigningKey = true,
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
+<<<<<<< HEAD
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:ClaveSecreta"]))
+=======
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:SecretKey"]))
+>>>>>>> 742a6a8ece345ce4adfee7674ca9d626b12d93ce
         };
     });
 
@@ -95,8 +100,13 @@ app.UseRouting();
 app.UseCors(app.Environment.IsDevelopment() ? "AllowAll" : "AllowVercel");
 
 // Middleware de autenticación y autorización
+<<<<<<< HEAD
 app.UseAuthentication();  // Se agrega el middleware de autenticación
+=======
+
+>>>>>>> 742a6a8ece345ce4adfee7674ca9d626b12d93ce
 app.UseAuthorization();
+app.UseAuthentication();  // <---- AGREGADO
 
 app.MapControllers();
 
