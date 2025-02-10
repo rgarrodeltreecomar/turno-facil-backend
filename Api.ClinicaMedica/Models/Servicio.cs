@@ -6,7 +6,7 @@ namespace Api.ClinicaMedica.Models
     public class Servicio
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Codigo { get; set; } = null!;
         public string Nombre { get; set; } = null!;
         public decimal Precio { get; set; }

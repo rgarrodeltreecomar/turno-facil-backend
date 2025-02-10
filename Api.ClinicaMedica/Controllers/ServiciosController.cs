@@ -45,7 +45,7 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/Servicios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutServicio(int id, Servicio servicio)
+        public async Task<IActionResult> PutServicio(Guid id, Servicio servicio)
         {
             if (id != servicio.Id)
             {
@@ -86,7 +86,7 @@ namespace Api.ClinicaMedica.Controllers
 
         // DELETE: api/Servicios/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteServicio(int id)
+        public async Task<IActionResult> DeleteServicio(Guid id)
         {
             var servicio = await _context.Servicios.FindAsync(id);
             if (servicio == null)
@@ -100,7 +100,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        private bool ServicioExists(int id)
+        private bool ServicioExists(Guid id)
         {
             return _context.Servicios.Any(e => e.Id == id);
         }

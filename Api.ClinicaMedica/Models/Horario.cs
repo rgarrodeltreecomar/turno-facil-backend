@@ -4,7 +4,7 @@ namespace Api.ClinicaMedica.Models
 {
     public class Horario
     {
-        public int Id { get; set; }
+        public Guid  Id { get; set; }
         public DateTime FechaHoraInicio { get; set; }
         public DateTime FechaHoraFin { get; set; }
         public bool Disponible { get; set; } 

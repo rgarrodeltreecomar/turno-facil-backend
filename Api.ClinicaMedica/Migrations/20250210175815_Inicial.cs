@@ -15,8 +15,7 @@ namespace Api.ClinicaMedica.Migrations
                 name: "Especialidades",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -28,8 +27,7 @@ namespace Api.ClinicaMedica.Migrations
                 name: "Paquetes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
                 },
                 constraints: table =>
@@ -54,8 +52,7 @@ namespace Api.ClinicaMedica.Migrations
                 name: "Servicios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Codigo = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false)
@@ -80,7 +77,7 @@ namespace Api.ClinicaMedica.Migrations
                     Password = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     RolId = table.Column<int>(type: "int", nullable: false),
                     Discriminator = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
-                    EspecialidadId = table.Column<int>(type: "int", nullable: true),
+                    EspecialidadId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     Sueldo = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: true),
                     Medico_Activo = table.Column<bool>(type: "bit", nullable: true, defaultValue: true),
                     ObraSocial = table.Column<bool>(type: "bit", nullable: true, defaultValue: false),
@@ -107,8 +104,8 @@ namespace Api.ClinicaMedica.Migrations
                 name: "PaquetesServicios",
                 columns: table => new
                 {
-                    PaqueteId = table.Column<int>(type: "int", nullable: false),
-                    ServicioId = table.Column<int>(type: "int", nullable: false)
+                    PaqueteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ServicioId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -131,15 +128,14 @@ namespace Api.ClinicaMedica.Migrations
                 name: "CitasMedicas",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FechaConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
                     HoraConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", precision: 18, scale: 2, nullable: false),
                     Abonado = table.Column<bool>(type: "bit", nullable: false),
                     PacienteId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     MedicoId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PaqueteId = table.Column<int>(type: "int", nullable: true)
+                    PaqueteId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -167,8 +163,7 @@ namespace Api.ClinicaMedica.Migrations
                 name: "Horarios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FechaHoraInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
                     FechaHoraFin = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Disponible = table.Column<bool>(type: "bit", nullable: false),

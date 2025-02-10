@@ -52,7 +52,7 @@ namespace Api.ClinicaMedica.Controllers
 
         // PUT: api/Especialidades/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEspecialidad(int id, EspecialidadCreationDTO especialidadDTO)
+        public async Task<IActionResult> PutEspecialidad(Guid id, EspecialidadCreationDTO especialidadDTO)
         {
             var especialidad = _mapper.Map<Especialidad>(especialidadDTO);
 
@@ -112,7 +112,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        private bool EspecialidadExists(int id)
+        private bool EspecialidadExists(Guid id)
         {
             return _context.Especialidades.Any(e => e.Id == id);
         }

@@ -40,7 +40,7 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/Paquetes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaquete(int id, Paquete paquete)
+        public async Task<IActionResult> PutPaquete(Guid id, Paquete paquete)
         {
             if (id != paquete.Id)
             {
@@ -82,7 +82,7 @@ namespace Api.ClinicaMedica.Controllers
 
         // DELETE: api/Paquetes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePaquete(int id)
+        public async Task<IActionResult> DeletePaquete(Guid id)
         {
             var paquete = await _context.Paquetes.FindAsync(id);
             if (paquete == null)
@@ -96,7 +96,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        private bool PaqueteExists(int id)
+        private bool PaqueteExists(Guid id)
         {
             return _context.Paquetes.Any(e => e.Id == id);
         }

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.ClinicaMedica.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250205222242_Inicial")]
+    [Migration("20250210175815_Inicial")]
     partial class Inicial
     {
         /// <inheritdoc />
@@ -27,11 +27,9 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.CitaMedica", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Abonado")
                         .HasColumnType("bit");
@@ -48,8 +46,8 @@ namespace Api.ClinicaMedica.Migrations
                     b.Property<Guid>("PacienteId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int?>("PaqueteId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("PaqueteId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Precio")
                         .HasPrecision(18, 2)
@@ -68,11 +66,9 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Especialidad", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Descripcion")
                         .IsRequired()
@@ -85,11 +81,9 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Horario", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Disponible")
                         .HasColumnType("bit");
@@ -112,11 +106,9 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Paquete", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("Precio")
                         .HasPrecision(18, 2)
@@ -129,11 +121,11 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.PaqueteServicio", b =>
                 {
-                    b.Property<int>("PaqueteId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("PaqueteId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("ServicioId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("ServicioId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("PaqueteId", "ServicioId");
 
@@ -162,11 +154,9 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Models.Servicio", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Codigo")
                         .IsRequired()
@@ -253,8 +243,8 @@ namespace Api.ClinicaMedica.Migrations
                         .HasColumnType("bit")
                         .HasDefaultValue(true);
 
-                    b.Property<int>("EspecialidadId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("EspecialidadId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal?>("Sueldo")
                         .HasPrecision(18, 2)

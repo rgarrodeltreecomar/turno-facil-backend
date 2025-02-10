@@ -7,7 +7,7 @@ namespace Api.ClinicaMedica.Models
 {
     public class Medico : Usuario
     {
-        public int EspecialidadId { get; set; }
+        public Guid EspecialidadId { get; set; }
         public Especialidad Especialidad { get; set; } = null!;
         public decimal? Sueldo { get; set; }
         public bool Activo { get; set; }
@@ -15,3 +15,4 @@ namespace Api.ClinicaMedica.Models
         public ICollection<Horario> Turnos { get; set; } = new List<Horario>();
     }
 }
+    

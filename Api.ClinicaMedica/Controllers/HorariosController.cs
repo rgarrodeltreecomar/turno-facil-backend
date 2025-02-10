@@ -38,7 +38,7 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/Horarios/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Horario>> GetHorario(int id)
+        public async Task<ActionResult<Horario>> GetHorario(Guid id)
         {
             var horario = await _context.Horarios.FindAsync(id);
 
@@ -53,7 +53,7 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/Horarios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutHorario(int id, Horario horario)
+        public async Task<IActionResult> PutHorario(Guid id, Horario horario)
         {
             if (id != horario.Id)
             {
@@ -107,7 +107,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        private bool HorarioExists(int id)
+        private bool HorarioExists(Guid id)
         {
             return _context.Horarios.Any(e => e.Id == id);
         }

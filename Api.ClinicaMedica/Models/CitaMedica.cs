@@ -6,7 +6,7 @@ namespace Api.ClinicaMedica.Models
     public class CitaMedica
     {
         [Key]
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public DateTime FechaConsulta { get; set; }
         public DateTime HoraConsulta { get; set; }
         public decimal Precio { get; set; }
@@ -18,7 +18,7 @@ namespace Api.ClinicaMedica.Models
         public Guid MedicoId { get; set; }
         public Medico Medico { get; set; } = null!;
         //Paquete
-        public int? PaqueteId { get; set; }
+        public Guid? PaqueteId { get; set; }
         public Paquete Paquete { get; set; } = null!;
 
     }
