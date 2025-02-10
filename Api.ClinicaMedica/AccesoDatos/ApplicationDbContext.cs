@@ -45,7 +45,7 @@ namespace Api.ClinicaMedica.AccesoDatos
                 HasMany(m => m.CitaMedica).
                 WithOne(cm => cm.Medico).
                 HasForeignKey(cm => cm.MedicoId);
-
+            
             //Medico(N) - Especialidad(1)
             modelBuilder.Entity<Medico>().
                 HasOne(m => m.Especialidad).
@@ -93,6 +93,7 @@ namespace Api.ClinicaMedica.AccesoDatos
 
 
         }
+        
 
     }
 }

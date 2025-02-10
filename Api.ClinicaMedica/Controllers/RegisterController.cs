@@ -116,7 +116,8 @@ namespace Api.ClinicaMedica.Controllers
                 //Encriptacion de la contraseña
 
                 string hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerDTOs.Password);
-
+                Console.WriteLine($"Contraseña Original: {registerDTOs.Password}");
+                Console.WriteLine($"Contraseña Hasheada: {hashedPassword}");
                 // Crear un nuevo usuario
                 var usuario = new Usuario
                 {
