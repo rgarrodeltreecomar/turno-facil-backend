@@ -1,4 +1,4 @@
-﻿# Ignorar archivos de compilación y dependencias
+﻿﻿# Ignorar archivos de compilación y dependencias
 # Carpetas de compilación
 **/[Bb]in/
 **/[Oo]bj/
@@ -42,9 +42,3 @@ project.nuget.cache
 
 # Ignorar archivos de configuración local de Visual Studio Code
 .vscode/
-
-<<<<<<< HEAD
-=======
-# Ignorar configuraciones de Docker (si aplica)
-.dockerignore
->>>>>>> 3fa17b5cf179f9c62542238ccc394eabc2b24020
