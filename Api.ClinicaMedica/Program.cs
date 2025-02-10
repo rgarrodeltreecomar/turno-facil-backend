@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 //SERVICES: 
 
-//Evitar referencias cíclicas y serializaciones innecesarias
+// Evitar referencias cíclicas y serializaciones innecesarias
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
@@ -29,7 +29,7 @@ var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 
-// Config de AutoMapper
+// Configuración de AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Configurar CORS
@@ -63,10 +63,9 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             ValidIssuer = builder.Configuration["Jwt:Issuer"],
             ValidAudience = builder.Configuration["Jwt:Audience"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:ClaveSecreta"]))
-
-
         };
     });
+
 // Habilitar autorización
 builder.Services.AddAuthorization();
 
@@ -92,10 +91,11 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+// Configuración CORS
 app.UseCors(app.Environment.IsDevelopment() ? "AllowAll" : "AllowVercel");
 
 // Middleware de autenticación y autorización
-app.UseAuthentication();  // <---- AGREGADO
+app.UseAuthentication();  // Se agrega el middleware de autenticación
 app.UseAuthorization();
 
 app.MapControllers();
