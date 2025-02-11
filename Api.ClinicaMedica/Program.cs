@@ -23,7 +23,7 @@ builder.Services.AddSwaggerGen();
 
 // Obtener la cadena de conexión
 var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
-                      ?? builder.Configuration.GetConnectionString("HackacodeConnection");
+                      ?? builder.Configuration.GetConnectionString("DefaultConnection");
 
 // Registrar ApplicationDbContext en el contenedor de servicios
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
