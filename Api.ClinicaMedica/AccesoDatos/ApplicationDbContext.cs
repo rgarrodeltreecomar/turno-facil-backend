@@ -21,7 +21,6 @@ namespace Api.ClinicaMedica.AccesoDatos
         public DbSet<PaqueteServicio> PaquetesServicios => Set<PaqueteServicio>();
         public DbSet<Horario> Horarios => Set<Horario>();
         public DbSet<Usuario> Usuarios => Set<Usuario>();
-        public DbSet<Rol> Roles => Set<Rol>();
 
 
 
@@ -83,13 +82,6 @@ namespace Api.ClinicaMedica.AccesoDatos
                 .WithMany(s => s.Paquetes) // Propiedad de navegación: Servicio.Paquetes
                 .HasForeignKey(ps => ps.ServicioId)
                 .OnDelete(DeleteBehavior.Cascade); // Comportamiento al eliminar
-
-            // Usuario(1) - Rol(N)
-            modelBuilder.Entity<Usuario>()
-                .HasOne(u => u.Rol)
-                .WithMany(r => r.Usuarios)
-                .HasForeignKey(u => u.RolId)
-                .OnDelete(DeleteBehavior.Restrict);
 
 
         }

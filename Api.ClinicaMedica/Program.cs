@@ -71,13 +71,6 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// Aquí es donde llamamos a DataSeeder para agregar los roles al inicio
-using (var scope = app.Services.CreateScope())
-{
-    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    DataSeeder.SeedRoles(context);  // Llamamos a la función para insertar los roles
-}
-
 // MIDDLEWARES:
 
 // Configurar el pipeline de middleware

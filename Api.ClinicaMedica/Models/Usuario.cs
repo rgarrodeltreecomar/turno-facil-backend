@@ -20,8 +20,7 @@ namespace Api.ClinicaMedica.Models
         [Required]
         public string Password { get; set; } = null!;
 
-        public int RolId { get; set; }
+        public int Rol { get; set; }
 
-        public Rol Rol { get; set; } = null!; 
     }
 }

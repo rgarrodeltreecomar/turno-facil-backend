@@ -35,7 +35,7 @@ namespace Api.ClinicaMedica.Controllers
               Nombre = u.Nombre,
               Apellido = u.Apellido,
               Email = u.Email,
-              RolId = u.RolId
+              Rol = u.Rol
           })
           .ToListAsync();
 
@@ -60,7 +60,7 @@ namespace Api.ClinicaMedica.Controllers
                 Nombre = usuario.Nombre,
                 Apellido = usuario.Apellido,
                 Email = usuario.Email,
-                RolId = usuario.RolId
+                Rol = usuario.Rol
             };
 
             return Ok(usuarioDTO);
@@ -79,7 +79,7 @@ namespace Api.ClinicaMedica.Controllers
             usuario.Nombre = usuarioUpdateDTO.Nombre;
             usuario.Apellido = usuarioUpdateDTO.Apellido;
             usuario.Email = usuarioUpdateDTO.Email;
-            usuario.RolId = usuarioUpdateDTO.RolId;
+            usuario.Rol = usuarioUpdateDTO.Rol;
 
             _context.Entry(usuario).State = EntityState.Modified;
             await _context.SaveChangesAsync();
@@ -90,61 +90,53 @@ namespace Api.ClinicaMedica.Controllers
 
 
         [HttpPost]
-        public async Task<ActionResult> RegisterUser([FromBody] RegisterDTOs registerDTOs)
+public async Task<ActionResult> RegisterUser([FromBody] RegisterDTOs registerDTOs)
+{
+    if (!ModelState.IsValid)
+    {
+        return BadRequest(ModelState);
+    }
+
+    try
+    {
+        // Validar si el correo ya está registrado
+        bool emailExists = await _context.Usuarios.AnyAsync(u => u.Email == registerDTOs.Email);
+        if (emailExists)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-
-            }
-            try
-            {
-                //Validar si el correo ya esta registrado
-                bool emailExists = await _context.Usuarios.AnyAsync(u => u.Email == registerDTOs.Email);
-                if (emailExists)
-                {
-                    return BadRequest("El correo ya está registrado.");
-                }
-
-                //validar si el rol existe en la DB
-                var rol = await _context.Roles.FindAsync(registerDTOs.RolId);
-                if (rol == null)
-                {
-                    return BadRequest("El rol especificado no existe.");
-                }
-
-                //Encriptacion de la contraseña
-
-                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerDTOs.Password);
-                Console.WriteLine($"Contraseña Original: {registerDTOs.Password}");
-                Console.WriteLine($"Contraseña Hasheada: {hashedPassword}");
-                // Crear un nuevo usuario
-                var usuario = new Usuario
-                {
-                    Nombre = registerDTOs.Nombre,
-                    Apellido = registerDTOs.Apellido,
-                    Email = registerDTOs.Email,
-                    Password = hashedPassword,
-                    RolId = rol.Id
-                };
-
-                _context.Usuarios.Add(usuario);
-                await _context.SaveChangesAsync();
-
-                return Ok("Usuario registrado con éxito.");
-
-            }
-            catch (DbUpdateException ex)
-            {
-                var innerException = ex.InnerException?.Message;
-                return StatusCode(500, $"Error al guardar en la base de datos: {innerException}");
-            }
-
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Ocurrió un error inesperado. " + ex.Message);
-            }
+            return BadRequest("El correo ya está registrado.");
         }
+
+        // Encriptación de la contraseña
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(registerDTOs.Password);
+        Console.WriteLine($"Contraseña Original: {registerDTOs.Password}");
+        Console.WriteLine($"Contraseña Hasheada: {hashedPassword}");
+
+        // Crear un nuevo usuario
+        var usuario = new Usuario
+        {
+            Nombre = registerDTOs.Nombre,
+            Apellido = registerDTOs.Apellido,
+            Email = registerDTOs.Email,
+            Password = hashedPassword,
+            Rol = registerDTOs.Rol  // Asignar el rol directamente desde el DTO
+        };
+
+        // Agregar el usuario a la base de datos
+        _context.Usuarios.Add(usuario);
+        await _context.SaveChangesAsync();
+
+        return Ok("Usuario registrado con éxito.");
+    }
+    catch (DbUpdateException ex)
+    {
+        var innerException = ex.InnerException?.Message;
+        return StatusCode(500, $"Error al guardar en la base de datos: {innerException}");
+    }
+    catch (Exception ex)
+    {
+        return StatusCode(500, "Ocurrió un error inesperado. " + ex.Message);
+    }
+}
 
 
         // DELETE: api/Register/5

@@ -69,7 +69,7 @@ namespace Api.ClinicaMedica.Controllers
             {
         new Claim(ClaimTypes.NameIdentifier, usuario.Id.ToString()),
         new Claim(ClaimTypes.Email, usuario.Email),
-        new Claim(ClaimTypes.Role, usuario.RolId.ToString())
+        new Claim(ClaimTypes.Role, usuario.Rol.ToString())
     };
 
             var token = new JwtSecurityToken(
