@@ -25,6 +25,9 @@ namespace Api.ClinicaMedica.Utilities
             CreateMap<Especialidades, EspecialidadesCreateDTO>().ReverseMap();
             CreateMap<Especialidades, EspecialidadesDTO>().ReverseMap();
 
+            // Horarios
+            CreateMap<Horarios, HorariosCreateDTO>().ReverseMap();  
+
         }
     }
 }

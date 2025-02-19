@@ -8,5 +8,7 @@
 
         // Relación 1 a 1 con Persona
         public Personas Persona { get; set; }
+
+        public virtual ICollection<Turnos> Turnos { get; set; } = new List<Turnos>();
     }
 }

@@ -12,5 +12,7 @@ namespace Api.ClinicaMedica.Entities
         // Relaciones
         public Personas Persona { get; set; } // Relación 1 a 1 con Persona
         public Especialidades Especialidad { get; set; } // Relación 1 a 1 con Especialidad
+
+        public virtual ICollection<Turnos> Turnos { get; set; } = new List<Turnos>();
     }
 }
