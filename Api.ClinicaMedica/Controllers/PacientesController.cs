@@ -6,7 +6,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
-using Api.ClinicaMedica.Models;
+using Api.ClinicaMedica.Entities;
+using Api.ClinicaMedica.DTO.Basic;
+using Api.ClinicaMedica.DTO.Create;
+using AutoMapper;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -15,44 +18,48 @@ namespace Api.ClinicaMedica.Controllers
     public class PacientesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public PacientesController(ApplicationDbContext context)
+        public PacientesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Pacientes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Paciente>>> GetPacientes()
+        public async Task<ActionResult<IEnumerable<PacientesDTO>>> GetPacientes()
         {
-            return await _context.Pacientes.ToListAsync();
+            var listaPacientes = await _context.Pacientes.Include(p => p.Persona).ToListAsync();
+            return _mapper.Map<List<PacientesDTO>>(listaPacientes);
         }
 
         // GET: api/Pacientes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Paciente>> GetPaciente(int id)
+        public async Task<ActionResult<PacientesDTO>> GetPacientes(string id)
         {
-            var paciente = await _context.Pacientes.FindAsync(id);
+            var pacientes = await _context.Pacientes.Include(p => p.Persona).FirstOrDefaultAsync(p => p.IdPaciente == id);
 
-            if (paciente == null)
+            var pacienteDTO = _mapper.Map<PacientesDTO>(pacientes);
+            if (pacientes == null)
             {
                 return NotFound();
             }
 
-            return paciente;
+            return pacienteDTO;
         }
 
         // PUT: api/Pacientes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaciente(Guid id, Paciente paciente)
+        public async Task<IActionResult> PutPacientes(string id, Pacientes pacientes)
         {
-            if (id != paciente.Id)
+            if (id != pacientes.IdPaciente)
             {
                 return BadRequest();
             }
 
-            _context.Entry(paciente).State = EntityState.Modified;
+            _context.Entry(pacientes).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +67,7 @@ namespace Api.ClinicaMedica.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PacienteExists(id))
+                if (!PacientesExists(id))
                 {
                     return NotFound();
                 }
@@ -76,33 +83,51 @@ namespace Api.ClinicaMedica.Controllers
         // POST: api/Pacientes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Paciente>> PostPaciente(Paciente paciente)
+        public async Task<ActionResult<Pacientes>> PostPacientes(PacientesCreateDTO pacientesCreateDTO)
         {
-            _context.Pacientes.Add(paciente);
-            await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetPaciente", new { id = paciente.Id }, paciente);
+            var paciente = _mapper.Map<Pacientes>(pacientesCreateDTO);
+
+            _context.Personas.Add(paciente.Persona);
+            _context.Pacientes.Add(paciente);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (PacientesExists(paciente.IdPaciente))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return CreatedAtAction("GetPacientes", new { id = paciente.IdPaciente }, paciente);
         }
 
         // DELETE: api/Pacientes/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeletePaciente(int id)
+        public async Task<IActionResult> DeletePacientes(string id)
         {
-            var paciente = await _context.Pacientes.FindAsync(id);
-            if (paciente == null)
+            var pacientes = await _context.Pacientes.FindAsync(id);
+            if (pacientes == null)
             {
                 return NotFound();
             }
 
-            _context.Pacientes.Remove(paciente);
+            _context.Pacientes.Remove(pacientes);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool PacienteExists(Guid id)
+        private bool PacientesExists(string id)
         {
-            return _context.Pacientes.Any(e => e.Id == id);
+            return _context.Pacientes.Any(e => e.IdPaciente == id);
         }
     }
 }

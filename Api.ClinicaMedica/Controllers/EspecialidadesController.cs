@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
-using Api.ClinicaMedica.Models;
+using Api.ClinicaMedica.Entities;
+using Api.ClinicaMedica.DTO.Create;
 using AutoMapper;
-using Api.ClinicaMedica.DTOs.Especialidad;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -27,41 +27,36 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/Especialidades
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<EspecialidadGetDTO>>> GetEspecialidades()
+        public async Task<ActionResult<IEnumerable<Especialidades>>> GetEspecialidades()
         {
-            var especialidades = await _context.Especialidades.Include(e => e.Medicos).ToListAsync();
-
-            var especialidadesDto = _mapper.Map<List<EspecialidadGetDTO>>(especialidades);
-
-            return Ok(especialidadesDto);
+            return await _context.Especialidades.ToListAsync();
         }
 
         // GET: api/Especialidades/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Especialidad>> GetEspecialidad(int id)
+        public async Task<ActionResult<Especialidades>> GetEspecialidades(string id)
         {
-            var especialidad = await _context.Especialidades.FindAsync(id);
+            var especialidades = await _context.Especialidades.FindAsync(id);
 
-            if (especialidad == null)
+            if (especialidades == null)
             {
                 return NotFound();
             }
 
-            return especialidad;
+            return especialidades;
         }
 
         // PUT: api/Especialidades/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutEspecialidad(Guid id, EspecialidadCreationDTO especialidadDTO)
+        public async Task<IActionResult> PutEspecialidades(string id, Especialidades especialidades)
         {
-            var especialidad = _mapper.Map<Especialidad>(especialidadDTO);
-
-            if (id != especialidad.Id)
+            if (id != especialidades.IdEspecialidad)
             {
-                return NotFound(new { mensaje = "La especialidad no existe" });
+                return BadRequest();
             }
 
-            _context.Entry(especialidad).State = EntityState.Modified;
+            _context.Entry(especialidades).State = EntityState.Modified;
 
             try
             {
@@ -69,7 +64,7 @@ namespace Api.ClinicaMedica.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!EspecialidadExists(id))
+                if (!EspecialidadesExists(id))
                 {
                     return NotFound();
                 }
@@ -83,38 +78,50 @@ namespace Api.ClinicaMedica.Controllers
         }
 
         // POST: api/Especialidades
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Especialidad>> PostEspecialidad(EspecialidadCreationDTO especialidadDTO)
+        public async Task<ActionResult<Especialidades>> PostEspecialidades(EspecialidadesCreateDTO especialidadesCreateDTO)
         {
-            //Mapear DTO a Especialidad
-            var especialidad = _mapper.Map<Especialidad>(especialidadDTO);
-            
-            //Guardar en BD
-            _context.Especialidades.Add(especialidad);
-            await _context.SaveChangesAsync();
+            var especialidades = _mapper.Map<Especialidades>(especialidadesCreateDTO);
+            _context.Especialidades.Add(especialidades);
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateException)
+            {
+                if (EspecialidadesExists(especialidades.IdEspecialidad))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            return CreatedAtAction("GetEspecialidad", new { id = especialidad.Id }, especialidad);
+            return CreatedAtAction("GetEspecialidades", new { id = especialidades.IdEspecialidad }, especialidades);
         }
 
-        // DELETE: api/Especialidads/5
+        // DELETE: api/Especialidades/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteEspecialidad(int id)
+        public async Task<IActionResult> DeleteEspecialidades(string id)
         {
-            var especialidad = await _context.Especialidades.FindAsync(id);
-            if (especialidad == null)
+            var especialidades = await _context.Especialidades.FindAsync(id);
+            if (especialidades == null)
             {
                 return NotFound();
             }
 
-            _context.Especialidades.Remove(especialidad);
+            _context.Especialidades.Remove(especialidades);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool EspecialidadExists(Guid id)
+        private bool EspecialidadesExists(string id)
         {
-            return _context.Especialidades.Any(e => e.Id == id);
+            return _context.Especialidades.Any(e => e.IdEspecialidad == id);
         }
     }
 }

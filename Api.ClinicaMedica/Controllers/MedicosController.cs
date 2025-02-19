@@ -6,9 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
-using Api.ClinicaMedica.Models;
+using Api.ClinicaMedica.Entities;
+using Api.ClinicaMedica.DTO.Create;
 using AutoMapper;
-using Api.ClinicaMedica.DTOs.Medico;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -27,36 +27,36 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/Medicos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Medico>>> GetMedicos()
+        public async Task<ActionResult<IEnumerable<Medicos>>> GetMedicos()
         {
             return await _context.Medicos.ToListAsync();
         }
 
         // GET: api/Medicos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Medico>> GetMedico(Guid id)
+        public async Task<ActionResult<Medicos>> GetMedicos(string id)
         {
-            var medico = await _context.Medicos.FindAsync(id);
+            var medicos = await _context.Medicos.FindAsync(id);
 
-            if (medico == null)
+            if (medicos == null)
             {
                 return NotFound();
             }
 
-            return medico;
+            return medicos;
         }
 
         // PUT: api/Medicos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMedico(Guid id, Medico medico)
+        public async Task<IActionResult> PutMedicos(string id, Medicos medicos)
         {
-            if (id != medico.Id)
+            if (id != medicos.IdMedico)
             {
                 return BadRequest();
             }
 
-            _context.Entry(medico).State = EntityState.Modified;
+            _context.Entry(medicos).State = EntityState.Modified;
 
             try
             {
@@ -64,7 +64,7 @@ namespace Api.ClinicaMedica.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!MedicoExists(id))
+                if (!MedicosExists(id))
                 {
                     return NotFound();
                 }
@@ -78,49 +78,53 @@ namespace Api.ClinicaMedica.Controllers
         }
 
         // POST: api/Medicos
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Medico>> PostMedico(MedicoCreationDTO medicoDTO)
+        public async Task<ActionResult<Medicos>> PostMedicos(MedicosCreateDTO medicosCreateDTO)
         {
-            //Mapeo medicoDto a Medico
-            var medico = _mapper.Map<Medico>(medicoDTO);
+            var medicos = _mapper.Map<Medicos>(medicosCreateDTO);
 
-            //Guardo la especialidad que se quiere insertar
-            var especialidad = await _context.Especialidades.FindAsync(medico.EspecialidadId);
 
-            //Valido si existe
-            if(especialidad == null)
+            _context.Personas.Add(medicos.Persona);
+            _context.Medicos.Add(medicos);
+            try
             {
-                return NotFound(new { mensaje = "La especialidad no existe." });
+                await _context.SaveChangesAsync();
             }
-            //Le asigno la especialidad
-            medico.Especialidad = especialidad;
+            catch (DbUpdateException)
+            {
+                if (MedicosExists(medicos.IdMedico))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
+            }
 
-            //Lo guardo en la BD
-            _context.Medicos.Add(medico);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetMedico", new { id = medico.Id }, medico);
+            return CreatedAtAction("GetMedicos", new { id = medicos.IdMedico }, medicos);
         }
 
         // DELETE: api/Medicos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteMedico(Guid id)
+        public async Task<IActionResult> DeleteMedicos(string id)
         {
-            var medico = await _context.Medicos.FindAsync(id);
-            if (medico == null)
+            var medicos = await _context.Medicos.FindAsync(id);
+            if (medicos == null)
             {
                 return NotFound();
             }
 
-            _context.Medicos.Remove(medico);
+            _context.Medicos.Remove(medicos);
             await _context.SaveChangesAsync();
 
             return NoContent();
         }
 
-        private bool MedicoExists(Guid id)
+        private bool MedicosExists(string id)
         {
-            return _context.Medicos.Any(e => e.Id == id);
+            return _context.Medicos.Any(e => e.IdMedico == id);
         }
     }
 }

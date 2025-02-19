@@ -1,6 +1,9 @@
-﻿using Api.ClinicaMedica.DTOs.Especialidad;
+﻿using Api.ClinicaMedica.DTO.Basic;
+using Api.ClinicaMedica.DTO.Create;
+using Api.ClinicaMedica.DTOs.Especialidad;
 using Api.ClinicaMedica.DTOs.Medico;
 using Api.ClinicaMedica.DTOs.Paciente;
+using Api.ClinicaMedica.Entities;
 using Api.ClinicaMedica.Models;
 using AutoMapper;
 
@@ -10,23 +13,17 @@ namespace Api.ClinicaMedica.Utilities
     {
         public AutomapperProfile()
         {
-            CreateMap<EspecialidadGetDTO, Especialidad>();
-            CreateMap<EspecialidadCreationDTO, Especialidad>();
-            CreateMap<Especialidad, EspecialidadGetDTO>();
+            // Pacientes
+            CreateMap<Pacientes, PacientesDTO>().ReverseMap();
+            CreateMap<Pacientes, PacientesCreateDTO>().ReverseMap();
 
-            CreateMap<MedicoGetDTO, Medico>();
-            CreateMap<Medico, MedicoGetDTO>();
+            // Personas
+            CreateMap<Personas, PersonasDTO>().ReverseMap();
+            CreateMap<Personas, PersonasCreateDTO>().ReverseMap();
 
-            CreateMap<MedicoCreationDTO, Medico>();
-            CreateMap < Medico, MedicoCreationDTO>();
-
-            CreateMap<Medico, MedicoGetDTO>();
-            CreateMap<MedicoGetDTO, Medico>();
-
-            CreateMap<MedicoCitaMedicaDTO, Medico>();
-
-            CreateMap<Paciente, PacienteDTO>();
-            CreateMap<PacienteDTO, Paciente>();
+            // Especialidades
+            CreateMap<Especialidades, EspecialidadesCreateDTO>().ReverseMap();
+            CreateMap<Especialidades, EspecialidadesDTO>().ReverseMap();
 
         }
     }
