@@ -1,8 +1,5 @@
 ﻿using Api.ClinicaMedica.DTO.Basic;
 using Api.ClinicaMedica.DTO.Create;
-using Api.ClinicaMedica.DTOs.Especialidad;
-using Api.ClinicaMedica.DTOs.Medico;
-using Api.ClinicaMedica.DTOs.Paciente;
 using Api.ClinicaMedica.Entities;
 using Api.ClinicaMedica.Models;
 using AutoMapper;
@@ -27,6 +24,10 @@ namespace Api.ClinicaMedica.Utilities
 
             // Horarios
             CreateMap<Horarios, HorariosCreateDTO>().ReverseMap();  
+
+            // Medicos
+            CreateMap<Medicos, MedicosCreateDTO>().ReverseMap();
+            CreateMap<Medicos, MedicosDTO>().ReverseMap();
 
         }
     }

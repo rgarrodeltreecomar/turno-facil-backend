@@ -1,6 +1,8 @@
 ﻿using Api.ClinicaMedica.AccesoDatos;
+using Api.ClinicaMedica.DTO.Basic;
 using Api.ClinicaMedica.DTO.Create;
 using Api.ClinicaMedica.Entities;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,10 +14,12 @@ namespace Api.ClinicaMedica.Controllers
     public class RegisterController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public RegisterController(ApplicationDbContext context)
+        public RegisterController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -73,6 +77,14 @@ namespace Api.ClinicaMedica.Controllers
             {
                 return StatusCode(500, "Ocurrió un error inesperado. " + ex.Message);
             }
+        }
+
+        // GET: api/Pacientes
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PersonasDTO>>> GetPersonas()
+        {
+            var listaPersonas = await _context.Personas.ToListAsync();
+            return _mapper.Map<List<PersonasDTO>>(listaPersonas);
         }
     }
 }

@@ -10,6 +10,6 @@ namespace Api.ClinicaMedica.DTO.Create
         public string IdEspecialidad { get; set; }
         public decimal? Sueldo { get; set; }
 
-        public PersonasCreateDTO Persona { get; set; }
+        public PersonasCreateDTO? Persona { get; set; }
     }
 }

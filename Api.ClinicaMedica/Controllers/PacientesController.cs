@@ -88,7 +88,7 @@ namespace Api.ClinicaMedica.Controllers
 
             var paciente = _mapper.Map<Pacientes>(pacientesCreateDTO);
 
-            _context.Personas.Add(paciente.Persona);
+            //_context.Personas.Add(paciente.Persona);
             _context.Pacientes.Add(paciente);
             try
             {
