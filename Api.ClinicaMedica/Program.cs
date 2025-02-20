@@ -74,7 +74,7 @@ var app = builder.Build();
 // MIDDLEWARES:
 
 // Configurar el pipeline de middleware
-if (app.Environment.IsDevelopment())
+if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
 {
     app.UseSwagger();
     app.UseSwaggerUI();

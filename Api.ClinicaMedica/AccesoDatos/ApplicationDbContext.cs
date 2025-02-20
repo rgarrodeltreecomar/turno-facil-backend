@@ -14,6 +14,9 @@ namespace Api.ClinicaMedica.AccesoDatos
         public DbSet<Pacientes> Pacientes { get; set; }
         public DbSet<Medicos> Medicos { get; set; }
         public DbSet<Especialidades> Especialidades { get; set; }
+        public DbSet<Horarios> Horarios { get; set; }
+        public DbSet<Turnos> Turnos { get; set; }
+        public DbSet<Roles> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -31,6 +34,17 @@ namespace Api.ClinicaMedica.AccesoDatos
             .WithOne(m => m.Persona)
                 .HasForeignKey<Medicos>(m => m.IdPersona);
 
+            modelBuilder.Entity<Personas>()
+                .HasOne(p => p.Rol)
+                .WithMany(r => r.Personas)
+                .HasForeignKey(p => p.IdRol)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Personas>()
+            .HasOne(p => p.Rol)  // Una Persona tiene un Rol
+            .WithMany(r => r.Personas)  // Un Rol puede estar en muchas Personas
+            .HasForeignKey(p => p.IdRol)  // Clave foránea en Personas
+            .OnDelete(DeleteBehavior.Restrict);  // Evita la eliminación en cascada
             // ---------- Medicos ----------------
 
             modelBuilder.Entity<Medicos>()
@@ -142,10 +156,32 @@ namespace Api.ClinicaMedica.AccesoDatos
                     .HasDatabaseName("UQ_Turnos_Horario_Medico_Fecha");
             });
 
-            
+            // Configuración de la entidad Roles
+            modelBuilder.Entity<Roles>(entity =>
+            {
+                entity.ToTable("Roles");
+
+                entity.Property(r => r.IdRol)
+                    .ValueGeneratedNever(); // Evita que se genere automáticamente (útil si insertas datos iniciales)
+
+                entity.Property(r => r.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                // Relación con Personas (Uno a Muchos)
+                entity.HasMany(r => r.Personas)
+                    .WithOne(p => p.Rol)
+                    .HasForeignKey(p => p.IdRol)
+                    .OnDelete(DeleteBehavior.Restrict); // Evita eliminaciones en cascada
+
+                // Seed de datos iniciales (opcional)
+                entity.HasData(
+                    new Roles { IdRol = 1, Nombre = "Administrador" },
+                    new Roles { IdRol = 2, Nombre = "Médico" },
+                    new Roles { IdRol = 3, Nombre = "Paciente" }
+                );
+            });
+
         }
-        public DbSet<Api.ClinicaMedica.Entities.Horarios> Horarios { get; set; } = default!;
-
-
     }
 }
