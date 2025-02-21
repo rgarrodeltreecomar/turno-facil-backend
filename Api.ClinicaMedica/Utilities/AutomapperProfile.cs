@@ -24,6 +24,12 @@ namespace Api.ClinicaMedica.Utilities
             CreateMap<Medicos, MedicosCreateDTO>().ReverseMap();
             CreateMap<Medicos, MedicosDTO>().ReverseMap();
 
+            // Citas Medicas
+            CreateMap<CitasMedicas,CitasMedicasCreacionDTO>().ReverseMap();
+
+            // DetalleCitas
+            CreateMap<DetalleServicios, DetalleServicioCreacionDTO>().ReverseMap();
+
         }
     }
 }
