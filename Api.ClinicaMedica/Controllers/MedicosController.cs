@@ -9,6 +9,7 @@ using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Entities;
 using Api.ClinicaMedica.DTO.Create;
 using AutoMapper;
+using Api.ClinicaMedica.DTO.Put;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -49,14 +50,30 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/Medicos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutMedicos(string id, Medicos medicos)
+        public async Task<IActionResult> PutMedicos(string id, MedicosPutDTO medicosDTO)
         {
-            if (id != medicos.IdMedico)
+            if (id != medicosDTO.IdMedico)
             {
                 return BadRequest();
             }
+            var medico = _context.Medicos.Find(id);
 
-            _context.Entry(medicos).State = EntityState.Modified;
+            if (medico != null)
+            {
+                medico.IdMedico = medicosDTO.IdMedico;
+                medico.Nombre = medicosDTO.Nombre;
+                medico.Apellido = medicosDTO.Apellido;
+                medico.Dni = medicosDTO.Dni;
+                medico.Email = medicosDTO.Email;
+                medico.Telefono = medicosDTO.Telefono;
+                medico.IdEspecialidad = medicosDTO.IdEspecialidad;
+                medico.Sueldo = medicosDTO.Sueldo;
+
+                _context.Entry(medico).State = EntityState.Modified;
+            }
+            else
+                return NotFound("Medico no encontrado");
+
 
             try
             {

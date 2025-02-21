@@ -38,7 +38,7 @@ namespace Api.ClinicaMedica.Controllers
         public async Task<ActionResult<CitasMedicas>> GetCitasMedicas(string id)
         {
             var citasMedicas = await _context.CitasMedicas.Include(c => c.Paciente).Include(c => c.Medico).Include(c => c.Servicio)
-                                .Include(c => c.DetallesServicios).FirstOrDefaultAsync(c => c.IdCitas == id); ;
+                                .Include(c => c.DetallesServicios).FirstOrDefaultAsync(c => c.IdCitas == id);
 
             if (citasMedicas == null)
             {
@@ -53,30 +53,37 @@ namespace Api.ClinicaMedica.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCitasMedicas(string id, CitasMedicas citasMedicas)
         {
-            if (id != citasMedicas.IdCitas)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(citasMedicas).State = EntityState.Modified;
+            var citaM = await _context.CitasMedicas.Include(dc => dc.DetallesServicios)
+                            .FirstOrDefaultAsync(cm => cm.IdCitas == id);
+
+            if (citaM == null) { return NotFound(); }
 
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CitasMedicasExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                citaM.IdCitas = citasMedicas.IdCitas;
+                citaM.IdMedico = citasMedicas.IdMedico;
+                citaM.IdPaciente = citasMedicas.IdPaciente;
+                citaM.IdServicio = citasMedicas.IdServicio;
+                citaM.FechaConsulta = citasMedicas.FechaConsulta;
+                citaM.HoraConsulta = citasMedicas.HoraConsulta;
+                citaM.MontoTotal = citasMedicas.MontoTotal;
+                citaM.PagadoONo = citasMedicas.PagadoONo;
 
-            return NoContent();
+                _context.DetalleServicios.RemoveRange(citasMedicas.DetallesServicios);
+                _context.CitasMedicas.Update(citaM);
+                _context.DetalleServicios.AddRange(citasMedicas.DetallesServicios);
+                
+                await _context.SaveChangesAsync();  
+
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+
+                return NotFound(ex.Message);
+            }
+             
         }
 
         // POST: api/CitasMedicas
@@ -123,12 +130,14 @@ namespace Api.ClinicaMedica.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCitasMedicas(string id)
         {
-            var citasMedicas = await _context.CitasMedicas.FindAsync(id);
+            var citasMedicas = await _context.CitasMedicas.Include(c => c.DetallesServicios).FirstOrDefaultAsync(c => c.IdCitas == id);
+
             if (citasMedicas == null)
             {
                 return NotFound();
             }
 
+            _context.DetalleServicios.RemoveRange(citasMedicas.DetallesServicios);
             _context.CitasMedicas.Remove(citasMedicas);
             await _context.SaveChangesAsync();
 
