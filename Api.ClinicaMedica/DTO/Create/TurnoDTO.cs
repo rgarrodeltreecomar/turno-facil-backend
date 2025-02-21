@@ -13,6 +13,8 @@ namespace Api.ClinicaMedica.DTO.Create
         public DateTime Fecha { get; set; }
 
         public bool Asistencia { get; set; }
+       
+        [JsonIgnore]
         public string? IdPaciente { get; set; }
         public string Estado { get; set; }
     }

@@ -132,9 +132,9 @@ namespace Api.ClinicaMedica.Controllers
                 IdHorario = turnoDTO.IdHorario,
                 IdMedico = turnoDTO.IdMedico,
                 Fecha = turnoDTO.Fecha,
-                Asistencia = turnoDTO.Asistencia,
+                Asistencia = turnoDTO.Asistencia, //por defecto
                 IdPaciente = turnoDTO.IdPaciente,
-                Estado = turnoDTO.Estado
+                Estado = "Disponible"
             };
 
             // Agregar el nuevo turno a la base de datos
@@ -168,6 +168,25 @@ namespace Api.ClinicaMedica.Controllers
 
             return Ok("Turno reservado con éxito.");
         }
+
+        [HttpPost("cancelar")]
+        public async Task<IActionResult> CancelarTurno([FromBody] CancelarTurnoDTO cancelacion)
+        {
+            var turno = await _context.Turnos.FirstOrDefaultAsync(t => t.IdTurno == cancelacion.IdTurno);
+
+            if (turno == null)
+                return NotFound("El turno no existe.");
+
+            if (turno.Estado == "Disponible")
+                return BadRequest("El turno ya está disponible, no necesita ser cancelado.");
+
+            turno.Estado = "Disponible"; // Volver a estado disponible
+            turno.IdPaciente = null; // Quitar la asignación del paciente
+
+            await _context.SaveChangesAsync();
+            return Ok("Turno cancelado y ahora está disponible.");
+        }
+
 
         // DELETE: api/Turnos/5
         [HttpDelete("{id}")]
