@@ -17,10 +17,11 @@ namespace Api.ClinicaMedica.AccesoDatos
         public DbSet<Roles> Roles { get; set; }
 
         public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Servicios> Servicios { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+
             // ---------- Medicos ----------------
 
             modelBuilder.Entity<Medicos>()
@@ -169,8 +170,8 @@ namespace Api.ClinicaMedica.AccesoDatos
                 entity.ToTable("Usuarios");
             });
 
-                // Configuración de la entidad Roles
-                modelBuilder.Entity<Roles>(entity =>
+            // Configuración de la entidad Roles
+            modelBuilder.Entity<Roles>(entity =>
             {
                 entity.ToTable("Roles");
 
@@ -187,6 +188,32 @@ namespace Api.ClinicaMedica.AccesoDatos
                     new Roles { IdRol = 2, Nombre = "Médico" },
                     new Roles { IdRol = 3, Nombre = "Paciente" }
                 );
+            });
+
+            // Servicios
+            modelBuilder.Entity<Servicios>(entity =>
+            {
+                // Nombre de la tabla
+                entity.ToTable("Servicios");
+
+                // Clave primaria
+                entity.HasKey(s => s.IdServicio);
+
+                // Configuración de propiedades
+                entity.Property(s => s.IdServicio)
+                    .HasMaxLength(50)  // Longitud máxima del ID
+                    .IsRequired();     // No puede ser nulo
+
+                entity.Property(s => s.Nombre)
+                    .HasMaxLength(100) // Longitud máxima del nombre
+                    .IsRequired();     // No puede ser nulo
+
+                entity.Property(s => s.Descripcion)
+                    .HasMaxLength(500); // Longitud máxima de la descripción
+
+                entity.Property(s => s.Precio)
+                    .HasColumnType("decimal(18,2)") // Define la precisión del decimal
+                    .IsRequired(); // No puede ser nulo
             });
 
         }
