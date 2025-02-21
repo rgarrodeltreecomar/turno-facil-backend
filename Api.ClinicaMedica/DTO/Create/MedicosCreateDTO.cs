@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Api.ClinicaMedica.Entities;
+using System.ComponentModel.DataAnnotations;
 
 namespace Api.ClinicaMedica.DTO.Create
 {
@@ -6,10 +7,17 @@ namespace Api.ClinicaMedica.DTO.Create
     {
         [Required]
         public string IdMedico { get; set; }
-        public string IdPersona { get; set; }
+        public string Nombre { get; set; }
+        public string Apellido { get; set; }
+        public string? Dni { get; set; }
+        public string? Email { get; set; }
+        public DateTime? FechaNacimiento { get; set; }
+        public string? Telefono { get; set; }
+        public string? Direccion { get; set; }
+        public string Password { get; set; } = null!;
+        public int IdRol { get; set; }
         public string IdEspecialidad { get; set; }
         public decimal? Sueldo { get; set; }
 
-        public PersonasCreateDTO? Persona { get; set; }
     }
 }

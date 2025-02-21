@@ -30,7 +30,7 @@ namespace Api.ClinicaMedica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PacientesDTO>>> GetPacientes()
         {
-            var listaPacientes = await _context.Pacientes.Include(p => p.Persona).ToListAsync();
+            var listaPacientes = await _context.Pacientes.ToListAsync();
             return _mapper.Map<List<PacientesDTO>>(listaPacientes);
         }
 
@@ -38,7 +38,7 @@ namespace Api.ClinicaMedica.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<PacientesDTO>> GetPacientes(string id)
         {
-            var pacientes = await _context.Pacientes.Include(p => p.Persona).FirstOrDefaultAsync(p => p.IdPaciente == id);
+            var pacientes = await _context.Pacientes.FirstOrDefaultAsync(p => p.IdPaciente == id);
 
             var pacienteDTO = _mapper.Map<PacientesDTO>(pacientes);
             if (pacientes == null)

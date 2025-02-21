@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.ClinicaMedica.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250220174723_Roles-Personas")]
-    partial class RolesPersonas
+    [Migration("20250221000252_Eliminar-Personas-Modificar-Medicos-Pacientes")]
+    partial class EliminarPersonasModificarMedicosPacientes
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -60,23 +60,46 @@ namespace Api.ClinicaMedica.Migrations
                     b.Property<string>("IdMedico")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Direccion")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Dni")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("FechaNacimiento")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("IdEspecialidad")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("IdPersona")
+                    b.Property<int>("IdRol")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Sueldo")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<string>("Telefono")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("IdMedico");
 
                     b.HasIndex("IdEspecialidad");
-
-                    b.HasIndex("IdPersona")
-                        .IsUnique();
 
                     b.ToTable("Medicos");
                 });
@@ -84,26 +107,6 @@ namespace Api.ClinicaMedica.Migrations
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Pacientes", b =>
                 {
                     b.Property<string>("IdPaciente")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("IdPersona")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<bool>("ObraSocial")
-                        .HasColumnType("bit");
-
-                    b.HasKey("IdPaciente");
-
-                    b.HasIndex("IdPersona")
-                        .IsUnique();
-
-                    b.ToTable("Pacientes");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Entities.Personas", b =>
-                {
-                    b.Property<string>("IdPersona")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Apellido")
@@ -129,6 +132,9 @@ namespace Api.ClinicaMedica.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("ObraSocial")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -136,11 +142,9 @@ namespace Api.ClinicaMedica.Migrations
                     b.Property<string>("Telefono")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("IdPersona");
+                    b.HasKey("IdPaciente");
 
-                    b.HasIndex("IdRol");
-
-                    b.ToTable("Personas");
+                    b.ToTable("Pacientes");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Roles", b =>
@@ -225,37 +229,7 @@ namespace Api.ClinicaMedica.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Api.ClinicaMedica.Entities.Personas", "Persona")
-                        .WithOne("Medico")
-                        .HasForeignKey("Api.ClinicaMedica.Entities.Medicos", "IdPersona")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Especialidad");
-
-                    b.Navigation("Persona");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Entities.Pacientes", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Entities.Personas", "Persona")
-                        .WithOne("Paciente")
-                        .HasForeignKey("Api.ClinicaMedica.Entities.Pacientes", "IdPersona")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Persona");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Entities.Personas", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Entities.Roles", "Rol")
-                        .WithMany("Personas")
-                        .HasForeignKey("IdRol")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Turnos", b =>
@@ -302,18 +276,6 @@ namespace Api.ClinicaMedica.Migrations
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Pacientes", b =>
                 {
                     b.Navigation("Turnos");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Entities.Personas", b =>
-                {
-                    b.Navigation("Medico");
-
-                    b.Navigation("Paciente");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Entities.Roles", b =>
-                {
-                    b.Navigation("Personas");
                 });
 #pragma warning restore 612, 618
         }
