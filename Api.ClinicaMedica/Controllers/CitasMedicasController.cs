@@ -38,7 +38,8 @@ namespace Api.ClinicaMedica.Controllers
         public async Task<ActionResult<CitasMedicas>> GetCitasMedicas(string id)
         {
             var citasMedicas = await _context.CitasMedicas.Include(c => c.Paciente).Include(c=> c.Servicio)
-                                .Include(c=>c.Medico).FirstOrDefaultAsync(c => c.IdCitas == id);
+                                .Include(c=>c.Medico)
+                                .Include(c => c.DetallesServicios).FirstOrDefaultAsync(c => c.IdCitas == id);
 
             if (citasMedicas == null)
             {
