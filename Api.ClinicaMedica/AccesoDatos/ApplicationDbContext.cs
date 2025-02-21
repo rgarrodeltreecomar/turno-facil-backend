@@ -20,7 +20,7 @@ namespace Api.ClinicaMedica.AccesoDatos
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-           
+
             // ---------- Medicos ----------------
 
             modelBuilder.Entity<Medicos>()
@@ -83,6 +83,29 @@ namespace Api.ClinicaMedica.AccesoDatos
                 .WithOne(t => t.Horario)
                 .HasForeignKey(t => t.IdHorario)
                 .OnDelete(DeleteBehavior.Restrict); // Si se borra un horario, se eliminan los turnos
+
+            // Sembrar franjas horarias de 30 minutos
+            modelBuilder.Entity<Horarios>().HasData(
+                // Turnos de la mañana: 08:00 - 12:00
+                new Horarios { IdHorario = "H1", HorarioInicio = new TimeSpan(8, 0, 0), HorarioFin = new TimeSpan(8, 30, 0) },
+                new Horarios { IdHorario = "H2", HorarioInicio = new TimeSpan(8, 30, 0), HorarioFin = new TimeSpan(9, 0, 0) },
+                new Horarios { IdHorario = "H3", HorarioInicio = new TimeSpan(9, 0, 0), HorarioFin = new TimeSpan(9, 30, 0) },
+                new Horarios { IdHorario = "H4", HorarioInicio = new TimeSpan(9, 30, 0), HorarioFin = new TimeSpan(10, 0, 0) },
+                new Horarios { IdHorario = "H5", HorarioInicio = new TimeSpan(10, 0, 0), HorarioFin = new TimeSpan(10, 30, 0) },
+                new Horarios { IdHorario = "H6", HorarioInicio = new TimeSpan(10, 30, 0), HorarioFin = new TimeSpan(11, 0, 0) },
+                new Horarios { IdHorario = "H7", HorarioInicio = new TimeSpan(11, 0, 0), HorarioFin = new TimeSpan(11, 30, 0) },
+                new Horarios { IdHorario = "H8", HorarioInicio = new TimeSpan(11, 30, 0), HorarioFin = new TimeSpan(12, 0, 0) },
+
+                // Turnos de la tarde: 13:00 - 17:00
+                new Horarios { IdHorario = "H9", HorarioInicio = new TimeSpan(13, 0, 0), HorarioFin = new TimeSpan(13, 30, 0) },
+                new Horarios { IdHorario = "H10", HorarioInicio = new TimeSpan(13, 30, 0), HorarioFin = new TimeSpan(14, 0, 0) },
+                new Horarios { IdHorario = "H11", HorarioInicio = new TimeSpan(14, 0, 0), HorarioFin = new TimeSpan(14, 30, 0) },
+                new Horarios { IdHorario = "H12", HorarioInicio = new TimeSpan(14, 30, 0), HorarioFin = new TimeSpan(15, 0, 0) },
+                new Horarios { IdHorario = "H13", HorarioInicio = new TimeSpan(15, 0, 0), HorarioFin = new TimeSpan(15, 30, 0) },
+                new Horarios { IdHorario = "H14", HorarioInicio = new TimeSpan(15, 30, 0), HorarioFin = new TimeSpan(16, 0, 0) },
+                new Horarios { IdHorario = "H15", HorarioInicio = new TimeSpan(16, 0, 0), HorarioFin = new TimeSpan(16, 30, 0) },
+                new Horarios { IdHorario = "H16", HorarioInicio = new TimeSpan(16, 30, 0), HorarioFin = new TimeSpan(17, 0, 0) }
+            );
 
             // ----- 📌 Turnos ---------------
 
@@ -169,25 +192,25 @@ namespace Api.ClinicaMedica.AccesoDatos
                 entity.ToTable("Usuarios");
             });
 
-                // Configuración de la entidad Roles
-                modelBuilder.Entity<Roles>(entity =>
-            {
-                entity.ToTable("Roles");
+            // Configuración de la entidad Roles
+            modelBuilder.Entity<Roles>(entity =>
+        {
+            entity.ToTable("Roles");
 
-                entity.Property(r => r.IdRol)
-                    .ValueGeneratedNever(); // Evita que se genere automáticamente (útil si insertas datos iniciales)
+            entity.Property(r => r.IdRol)
+                .ValueGeneratedNever(); // Evita que se genere automáticamente (útil si insertas datos iniciales)
 
-                entity.Property(r => r.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(50);
+            entity.Property(r => r.Nombre)
+                .IsRequired()
+                .HasMaxLength(50);
 
-                // Seed de datos iniciales (opcional)
-                entity.HasData(
-                    new Roles { IdRol = 1, Nombre = "Administrador" },
-                    new Roles { IdRol = 2, Nombre = "Médico" },
-                    new Roles { IdRol = 3, Nombre = "Paciente" }
-                );
-            });
+            // Seed de datos iniciales (opcional)
+            entity.HasData(
+                new Roles { IdRol = 1, Nombre = "Administrador" },
+                new Roles { IdRol = 2, Nombre = "Médico" },
+                new Roles { IdRol = 3, Nombre = "Paciente" }
+            );
+        });
 
         }
     }

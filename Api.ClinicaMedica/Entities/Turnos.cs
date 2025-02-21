@@ -1,4 +1,7 @@
-﻿namespace Api.ClinicaMedica.Entities
+﻿using Newtonsoft.Json.Converters;
+using System.Text.Json.Serialization;
+
+namespace Api.ClinicaMedica.Entities
 {
     public class Turnos
     {
@@ -7,14 +10,14 @@
         public string IdHorario { get; set; }
 
         public string IdMedico { get; set; }
-
+        
         public DateTime Fecha { get; set; }
 
         public bool Asistencia { get; set; }
 
         public string? IdPaciente { get; set; }
 
-        public string Estado { get; set; } = null!;
+        public string Estado { get; set; } = "Disponible";
 
         public virtual Horarios Horario { get; set; } = null!;
 
