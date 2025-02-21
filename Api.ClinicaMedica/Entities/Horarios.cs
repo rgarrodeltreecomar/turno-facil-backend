@@ -8,6 +8,6 @@
 
         public TimeSpan HorarioFin { get; set; }
 
-        public ICollection<Turnos> Turnos { get; set; }
+        public virtual ICollection<Turnos> Turnos { get; set; } = new List<Turnos>();
     }
 }

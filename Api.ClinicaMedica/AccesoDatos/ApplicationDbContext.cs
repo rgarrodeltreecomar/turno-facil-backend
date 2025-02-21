@@ -18,6 +18,8 @@ namespace Api.ClinicaMedica.AccesoDatos
 
         public DbSet<Usuarios> Usuarios { get; set; }
         public DbSet<Servicios> Servicios { get; set; }
+        public DbSet<CitasMedicas> CitasMedicas { get; set; }
+        public DbSet<DetalleServicios> DetalleServicios {  get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -214,6 +216,54 @@ namespace Api.ClinicaMedica.AccesoDatos
                 entity.Property(s => s.Precio)
                     .HasColumnType("decimal(18,2)") // Define la precisión del decimal
                     .IsRequired(); // No puede ser nulo
+            });
+
+            // *** CITAS MÉDICAS ***
+            modelBuilder.Entity<CitasMedicas>(entity =>
+            {
+                entity.HasKey(c => c.IdCitas);
+
+                entity.HasOne(c => c.Paciente)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdPaciente)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(c => c.Medico)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdMedico)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(c => c.Servicio)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdServicio)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasMany(c => c.DetallesServicios)
+                      .WithOne(ds => ds.CitaMedica)
+                      .HasForeignKey(ds => ds.IdCitas)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.Property(c => c.MontoTotal)
+                       .HasPrecision(18, 2); // Define la precisión del decimal
+            });
+
+            // *** DETALLE SERVICIOS (Clave compuesta) ***
+            modelBuilder.Entity<DetalleServicios>(entity =>
+            {
+                entity.HasKey(ds => new { ds.IdCitas, ds.IdServicio }); // Clave compuesta
+
+                entity.Property(ds => ds.MontoParcial)
+                        .HasPrecision(18, 2); // Define la precisión del decimal
+
+                entity.HasOne(ds => ds.CitaMedica)
+                      .WithMany(c => c.DetallesServicios)
+                      .HasForeignKey(ds => ds.IdCitas)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(ds => ds.Servicio)
+                      .WithMany()
+                      .HasForeignKey(ds => ds.IdServicio)
+                      .OnDelete(DeleteBehavior.Restrict);
             });
 
         }
