@@ -9,7 +9,7 @@ namespace Api.ClinicaMedica.Utilities
     public static class FuncionesToken
     {
         // Generar el token con datos de la cuenta y datos del appsetting.json, el key, etc
-        public static string GenerarToken(LoginDTO usuario, IConfiguration confi)
+        public static string GenerarToken(LoginDTO usuario, string rol, IConfiguration confi)
         {
             // Header
             var _symmetricSecurityKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(confi["Jwt:Key"]));
@@ -20,7 +20,7 @@ namespace Api.ClinicaMedica.Utilities
             var _claims = new[]
             {
                 new Claim(JwtRegisteredClaimNames.Email,usuario.Email.ToString()),
-                new Claim("rol", usuario.IdRol.ToString())
+                new Claim("rol", rol)
                 
             };
 

@@ -230,50 +230,82 @@ namespace Api.ClinicaMedica.Controllers
         }
 
 
-        [HttpPost("Login")]
+        //[HttpPost("Login")]
+        //public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
+        //{
+        //    if (loginDTO.IdRol == 1) // Administrador
+        //    {
+        //        var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
+        //        if (usuario == null)
+        //            return NotFound("Usuario Inexistente");
+
+        //        if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, usuario.Password))
+        //            return Unauthorized("Contraseña incorrecta");
+
+        //        var token = FuncionesToken.GenerarToken(loginDTO, _confi);
+        //        return Ok(token);
+        //    }
+        //    else if (loginDTO.IdRol == 2) // Médico
+        //    {
+        //        var medico = await _context.Medicos.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
+        //        if (medico == null)
+        //            return NotFound("Médico Inexistente");
+
+        //        if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, medico.Password))
+        //            return Unauthorized("Contraseña incorrecta");
+
+        //        var token = FuncionesToken.GenerarToken(loginDTO, _confi);
+        //        return Ok(token);
+        //    }
+        //    else if (loginDTO.IdRol == 3) // Paciente
+        //    {
+        //        var paciente = await _context.Pacientes.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
+        //        if (paciente == null)
+        //            return NotFound("Paciente Inexistente");
+
+        //        if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, paciente.Password))
+        //            return Unauthorized("Contraseña incorrecta");
+
+        //        var token = FuncionesToken.GenerarToken(loginDTO, _confi);
+        //        return Ok(token);
+        //    }
+        //    else
+        //    {
+        //        return NotFound("Rol inexistente");
+        //    }
+        //}
+
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
         {
-            if (loginDTO.IdRol == 1) // Administrador
+            object usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
+            string rol = "Administrador";
+
+            if (usuario == null)
             {
-                var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
-                if (usuario == null)
-                    return NotFound("Usuario Inexistente");
-
-                if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, usuario.Password))
-                    return Unauthorized("Contraseña incorrecta");
-
-                var token = FuncionesToken.GenerarToken(loginDTO, _confi);
-                return Ok(token);
+                usuario = await _context.Medicos.FirstOrDefaultAsync(m => m.Email == loginDTO.Email);
+                rol = "Médico";
             }
-            else if (loginDTO.IdRol == 2) // Médico
+            if (usuario == null)
             {
-                var medico = await _context.Medicos.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
-                if (medico == null)
-                    return NotFound("Médico Inexistente");
-
-                if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, medico.Password))
-                    return Unauthorized("Contraseña incorrecta");
-
-                var token = FuncionesToken.GenerarToken(loginDTO, _confi);
-                return Ok(token);
+                usuario = await _context.Pacientes.FirstOrDefaultAsync(p => p.Email == loginDTO.Email);
+                rol = "Paciente";
             }
-            else if (loginDTO.IdRol == 3) // Paciente
-            {
-                var paciente = await _context.Pacientes.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
-                if (paciente == null)
-                    return NotFound("Paciente Inexistente");
 
-                if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, paciente.Password))
-                    return Unauthorized("Contraseña incorrecta");
+            if (usuario == null)
+                return NotFound("Usuario inexistente");
 
-                var token = FuncionesToken.GenerarToken(loginDTO, _confi);
-                return Ok(token);
-            }
-            else
-            {
-                return NotFound("Rol inexistente");
-            }
+            // Obtener la contraseña del objeto dinámico
+            string passwordHash = (string)usuario.GetType().GetProperty("Password")?.GetValue(usuario);
+
+            if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, passwordHash))
+                return Unauthorized("Contraseña incorrecta");
+
+            // Generar el token con el rol determinado
+            var token = FuncionesToken.GenerarToken(loginDTO, rol, _confi);
+            return Ok(token);
         }
-                
+
+
     }
 }
