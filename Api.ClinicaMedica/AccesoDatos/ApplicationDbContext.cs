@@ -296,10 +296,53 @@ namespace Api.ClinicaMedica.AccesoDatos
                 .HasForeignKey(c => c.IdPaquete)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Consultas>()
-            .Property(c => c.MontoTotal)
-            .HasColumnType("decimal(10,2)");
+            modelBuilder.Entity<Consultas>(entity =>
+            {
+                entity.HasKey(c => c.IdConsulta);
 
+                entity.Property(c => c.FechaConsulta)
+                      .IsRequired();
+
+                entity.Property(c => c.HoraConsulta)
+                      .IsRequired();
+
+                entity.Property(c => c.MontoTotal)
+                      .HasColumnType("decimal(18,2)")
+                      .IsRequired();
+
+                entity.Property(c => c.Pagado)
+                      .IsRequired();
+
+                // Clave foránea opcional (nullable) para Paciente
+                entity.HasOne(c => c.Paciente)
+                      .WithMany() // Si Paciente tiene una lista de Consultas, usa `.WithMany(p => p.Consultas)`
+                      .HasForeignKey(c => c.IdPaciente)
+                      .IsRequired(false)
+                      .OnDelete(DeleteBehavior.SetNull); // Opcional: si se borra el paciente, se pone en NULL
+
+                // Clave foránea opcional (nullable) para Medico
+                entity.HasOne(c => c.Medico)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdMedico)
+                      .IsRequired(false)
+                      .OnDelete(DeleteBehavior.SetNull);
+
+                // Clave foránea opcional (nullable) para Servicio
+                entity.HasOne(c => c.Servicio)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdServicio)
+                      .IsRequired(false)
+                      .OnDelete(DeleteBehavior.SetNull);
+
+                // Clave foránea opcional (nullable) para Paquete
+                entity.HasOne(c => c.Paquete)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdPaquete)
+                      .IsRequired(false)
+                      .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            
             modelBuilder.Entity<Facturacion>()
                 .Property(f => f.FechaPago)
                 .HasDefaultValueSql("GETDATE()");
