@@ -33,6 +33,14 @@ namespace Api.ClinicaMedica.Utilities
             CreateMap<DetalleServicios, DetalleServicioCreacionDTO>().ReverseMap();
             CreateMap<DetalleServicios, DetalleServicioCreacionDTO>().ReverseMap();
 
+            // Consultas
+            CreateMap<Consultas,ConsultasDTO>().ReverseMap();
+            CreateMap<Consultas,ConsultasCreateDTO>().ReverseMap();
+
+            // Paquetes
+            CreateMap<Paquetes, PaquetesCreateDTO>().ReverseMap();
+            
+
         }
     }
 }
