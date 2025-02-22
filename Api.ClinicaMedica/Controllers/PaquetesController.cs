@@ -49,8 +49,9 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/Paquetes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaquetes(string id, Paquetes paquetes)
+        public async Task<IActionResult> PutPaquetes(string id, PaquetesCreateDTO paquetesDTO)
         {
+            var paquetes = _mapper.Map<Paquetes>(paquetesDTO);
             if (id != paquetes.CodigoPaquete)
             {
                 return BadRequest();
