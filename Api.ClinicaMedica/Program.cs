@@ -35,12 +35,13 @@ builder.Services.AddAutoMapper(typeof(Program));
 // Configurar CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder => // Desarrollo
-    {
-        builder.AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader();
-    });
+   options.AddPolicy("AllowAll", builder => 
+{
+    builder.WithOrigins("http://localhost:5173") // desarrollo
+           .AllowAnyMethod()
+           .AllowAnyHeader()
+           .WithExposedHeaders("Content-Disposition"); 
+});
 
     options.AddPolicy("AllowVercel", builder => // Producción
     {
