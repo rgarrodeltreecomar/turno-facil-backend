@@ -21,6 +21,12 @@ namespace Api.ClinicaMedica.AccesoDatos
         public DbSet<CitasMedicas> CitasMedicas { get; set; }
         public DbSet<DetalleServicios> DetalleServicios {  get; set; }
 
+        public DbSet<Paquetes> Paquetes { get; set; }
+        public DbSet<PaqueteServicio> PaqueteServicios { get; set; }
+        public DbSet<Consultas> Consultas { get; set; }
+        public DbSet<Facturacion> Facturaciones { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
 
@@ -265,6 +271,46 @@ namespace Api.ClinicaMedica.AccesoDatos
                       .HasForeignKey(ds => ds.IdServicio)
                       .OnDelete(DeleteBehavior.Restrict);
             });
+
+            modelBuilder.Entity<PaqueteServicio>()
+            .HasOne(ps => ps.Paquete)
+            .WithMany(p => p.PaqueteServicios)
+            .HasForeignKey(ps => ps.CodigoPaquete)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PaqueteServicio>()
+                .HasOne(ps => ps.Servicio)
+                .WithMany()
+                .HasForeignKey(ps => ps.CodigoServicio)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Consultas>()
+            .HasOne(c => c.Servicio)
+            .WithMany()
+            .HasForeignKey(c => c.IdServicio)
+            .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Consultas>()
+                .HasOne(c => c.Paquete)
+                .WithMany()
+                .HasForeignKey(c => c.IdPaquete)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Consultas>()
+            .Property(c => c.MontoTotal)
+            .HasColumnType("decimal(10,2)");
+
+            modelBuilder.Entity<Facturacion>()
+                .Property(f => f.FechaPago)
+                .HasDefaultValueSql("GETDATE()");
+
+            modelBuilder.Entity<Facturacion>()
+            .Property(f => f.MontoPagado)
+            .HasColumnType("decimal(10,2)");
+
+            modelBuilder.Entity<Paquetes>()
+            .Property(p => p.PrecioPaquete)
+            .HasColumnType("decimal(10,2)");
 
         }
     }
