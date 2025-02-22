@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Entities;
+using Api.ClinicaMedica.DTO.Create;
+using AutoMapper;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -15,10 +17,12 @@ namespace Api.ClinicaMedica.Controllers
     public class PaqueteServiciosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public PaqueteServiciosController(ApplicationDbContext context)
+        public PaqueteServiciosController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/PaqueteServicios
@@ -76,8 +80,9 @@ namespace Api.ClinicaMedica.Controllers
         // POST: api/PaqueteServicios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<PaqueteServicio>> PostPaqueteServicio(PaqueteServicio paqueteServicio)
+        public async Task<ActionResult<PaqueteServicio>> PostPaqueteServicio(PaqueteServicioCreateDTO paqueteServicioDTO)
         {
+            var paqueteServicio = _mapper.Map<PaqueteServicio>(paqueteServicioDTO);
             _context.PaqueteServicios.Add(paqueteServicio);
             try
             {

@@ -355,6 +355,12 @@ namespace Api.ClinicaMedica.AccesoDatos
             .Property(p => p.PrecioPaquete)
             .HasColumnType("decimal(10,2)");
 
+            modelBuilder.Entity<Facturacion>()
+                .HasOne(f => f.Consulta)  // Relación 1 a 1 o 1 a muchos
+                .WithMany()  // Si `Consultas` no tiene lista de `Facturacion`, usa WithMany()
+                .HasForeignKey(f => f.IdConsulta)  // Clave foránea
+                .OnDelete(DeleteBehavior.Restrict);  // Evita eliminaciones en cascada si no lo deseas
+
         }
     }
 }

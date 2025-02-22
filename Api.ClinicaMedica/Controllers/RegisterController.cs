@@ -228,52 +228,7 @@ namespace Api.ClinicaMedica.Controllers
             var listaMedicos = await _context.Pacientes.ToListAsync();
             return _mapper.Map<List<MedicosDTO>>(listaMedicos);
         }
-
-
-        //[HttpPost("Login")]
-        //public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
-        //{
-        //    if (loginDTO.IdRol == 1) // Administrador
-        //    {
-        //        var usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
-        //        if (usuario == null)
-        //            return NotFound("Usuario Inexistente");
-
-        //        if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, usuario.Password))
-        //            return Unauthorized("Contraseña incorrecta");
-
-        //        var token = FuncionesToken.GenerarToken(loginDTO, _confi);
-        //        return Ok(token);
-        //    }
-        //    else if (loginDTO.IdRol == 2) // Médico
-        //    {
-        //        var medico = await _context.Medicos.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
-        //        if (medico == null)
-        //            return NotFound("Médico Inexistente");
-
-        //        if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, medico.Password))
-        //            return Unauthorized("Contraseña incorrecta");
-
-        //        var token = FuncionesToken.GenerarToken(loginDTO, _confi);
-        //        return Ok(token);
-        //    }
-        //    else if (loginDTO.IdRol == 3) // Paciente
-        //    {
-        //        var paciente = await _context.Pacientes.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
-        //        if (paciente == null)
-        //            return NotFound("Paciente Inexistente");
-
-        //        if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, paciente.Password))
-        //            return Unauthorized("Contraseña incorrecta");
-
-        //        var token = FuncionesToken.GenerarToken(loginDTO, _confi);
-        //        return Ok(token);
-        //    }
-        //    else
-        //    {
-        //        return NotFound("Rol inexistente");
-        //    }
-        //}
+            
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)

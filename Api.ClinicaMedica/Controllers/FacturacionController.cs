@@ -7,32 +7,36 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Api.ClinicaMedica.AccesoDatos;
 using Api.ClinicaMedica.Entities;
+using AutoMapper;
+using Api.ClinicaMedica.DTO.Create;
 
 namespace Api.ClinicaMedica.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class FacturacionsController : ControllerBase
+    public class FacturacionController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public FacturacionsController(ApplicationDbContext context)
+        public FacturacionController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: api/Facturacions
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Facturacion>>> GetFacturaciones()
         {
-            return await _context.Facturaciones.ToListAsync();
+            return await _context.Facturaciones.Include(f => f.Consulta).ToListAsync();
         }
 
         // GET: api/Facturacions/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Facturacion>> GetFacturacion(string id)
         {
-            var facturacion = await _context.Facturaciones.FindAsync(id);
+            var facturacion = await _context.Facturaciones.Include(f => f.Consulta).FirstOrDefaultAsync(f => f.IdFactura == id);
 
             if (facturacion == null)
             {
@@ -45,8 +49,9 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/Facturacions/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutFacturacion(string id, Facturacion facturacion)
+        public async Task<IActionResult> PutFacturacion(string id, FacturacionCreateDTO facturacionDTO)
         {
+            var facturacion = _mapper.Map<Facturacion>(facturacionDTO);
             if (id != facturacion.IdFactura)
             {
                 return BadRequest();
@@ -76,8 +81,9 @@ namespace Api.ClinicaMedica.Controllers
         // POST: api/Facturacions
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Facturacion>> PostFacturacion(Facturacion facturacion)
+        public async Task<ActionResult<Facturacion>> PostFacturacion(FacturacionCreateDTO facturacionDTO)
         {
+            var facturacion = _mapper.Map<Facturacion>(facturacionDTO);
             _context.Facturaciones.Add(facturacion);
             try
             {
