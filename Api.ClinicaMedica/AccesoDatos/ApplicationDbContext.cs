@@ -17,6 +17,15 @@ namespace Api.ClinicaMedica.AccesoDatos
         public DbSet<Roles> Roles { get; set; }
 
         public DbSet<Usuarios> Usuarios { get; set; }
+        public DbSet<Servicios> Servicios { get; set; }
+        public DbSet<CitasMedicas> CitasMedicas { get; set; }
+        public DbSet<DetalleServicios> DetalleServicios {  get; set; }
+
+        public DbSet<Paquetes> Paquetes { get; set; }
+        public DbSet<PaqueteServicio> PaqueteServicios { get; set; }
+        public DbSet<Consultas> Consultas { get; set; }
+        public DbSet<Facturacion> Facturaciones { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -194,8 +203,8 @@ namespace Api.ClinicaMedica.AccesoDatos
 
             // Configuración de la entidad Roles
             modelBuilder.Entity<Roles>(entity =>
-        {
-            entity.ToTable("Roles");
+            {
+                entity.ToTable("Roles");
 
             entity.Property(r => r.IdRol)
                 .ValueGeneratedNever(); // Evita que se genere automáticamente (útil si insertas datos iniciales)
@@ -204,13 +213,176 @@ namespace Api.ClinicaMedica.AccesoDatos
                 .IsRequired()
                 .HasMaxLength(50);
 
-            // Seed de datos iniciales (opcional)
-            entity.HasData(
-                new Roles { IdRol = 1, Nombre = "Administrador" },
-                new Roles { IdRol = 2, Nombre = "Médico" },
-                new Roles { IdRol = 3, Nombre = "Paciente" }
-            );
-        });
+                // Seed de datos iniciales (opcional)
+                entity.HasData(
+                    new Roles { IdRol = 1, Nombre = "Administrador" },
+                    new Roles { IdRol = 2, Nombre = "Médico" },
+                    new Roles { IdRol = 3, Nombre = "Paciente" }
+                );
+            });
+
+            // Servicios
+            modelBuilder.Entity<Servicios>(entity =>
+            {
+                // Nombre de la tabla
+                entity.ToTable("Servicios");
+
+                // Clave primaria
+                entity.HasKey(s => s.IdServicio);
+
+                // Configuración de propiedades
+                entity.Property(s => s.IdServicio)
+                    .HasMaxLength(50)  // Longitud máxima del ID
+                    .IsRequired();     // No puede ser nulo
+
+                entity.Property(s => s.Nombre)
+                    .HasMaxLength(100) // Longitud máxima del nombre
+                    .IsRequired();     // No puede ser nulo
+
+                entity.Property(s => s.Descripcion)
+                    .HasMaxLength(500); // Longitud máxima de la descripción
+
+                entity.Property(s => s.Precio)
+                    .HasColumnType("decimal(18,2)") // Define la precisión del decimal
+                    .IsRequired(); // No puede ser nulo
+            });
+
+            // *** CITAS MÉDICAS ***
+            modelBuilder.Entity<CitasMedicas>(entity =>
+            {
+                entity.HasKey(c => c.IdCitas);
+
+                entity.HasOne(c => c.Paciente)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdPaciente)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(c => c.Medico)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdMedico)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasOne(c => c.Servicio)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdServicio)
+                      .OnDelete(DeleteBehavior.Restrict);
+
+                entity.HasMany(c => c.DetallesServicios)
+                      .WithOne(ds => ds.CitaMedica)
+                      .HasForeignKey(ds => ds.IdCitas)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.Property(c => c.MontoTotal)
+                       .HasPrecision(18, 2); // Define la precisión del decimal
+            });
+
+            // *** DETALLE SERVICIOS (Clave compuesta) ***
+            modelBuilder.Entity<DetalleServicios>(entity =>
+            {
+                entity.HasKey(ds => new { ds.IdCitas, ds.IdServicio }); // Clave compuesta
+
+                entity.Property(ds => ds.MontoParcial)
+                        .HasPrecision(18, 2); // Define la precisión del decimal
+
+                entity.HasOne(ds => ds.CitaMedica)
+                      .WithMany(c => c.DetallesServicios)
+                      .HasForeignKey(ds => ds.IdCitas)
+                      .OnDelete(DeleteBehavior.Cascade);
+
+                entity.HasOne(ds => ds.Servicio)
+                      .WithMany()
+                      .HasForeignKey(ds => ds.IdServicio)
+                      .OnDelete(DeleteBehavior.Restrict);
+            });
+
+            modelBuilder.Entity<PaqueteServicio>()
+            .HasOne(ps => ps.Paquete)
+            .WithMany(p => p.PaqueteServicios)
+            .HasForeignKey(ps => ps.CodigoPaquete)
+            .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<PaqueteServicio>()
+                .HasOne(ps => ps.Servicio)
+                .WithMany()
+                .HasForeignKey(ps => ps.CodigoServicio)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Consultas>()
+            .HasOne(c => c.Servicio)
+            .WithMany()
+            .HasForeignKey(c => c.IdServicio)
+            .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Consultas>()
+                .HasOne(c => c.Paquete)
+                .WithMany()
+                .HasForeignKey(c => c.IdPaquete)
+                .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Consultas>(entity =>
+            {
+                entity.HasKey(c => c.IdConsulta);
+
+                entity.Property(c => c.FechaConsulta)
+                      .IsRequired();
+
+                entity.Property(c => c.HoraConsulta)
+                      .IsRequired();
+
+                entity.Property(c => c.MontoTotal)
+                      .HasColumnType("decimal(18,2)")
+                      .IsRequired();
+
+                entity.Property(c => c.Pagado)
+                      .IsRequired();
+
+                // Clave foránea opcional (nullable) para Paciente
+                entity.HasOne(c => c.Paciente)
+                      .WithMany() // Si Paciente tiene una lista de Consultas, usa `.WithMany(p => p.Consultas)`
+                      .HasForeignKey(c => c.IdPaciente)
+                      .IsRequired(false)
+                      .OnDelete(DeleteBehavior.SetNull); // Opcional: si se borra el paciente, se pone en NULL
+
+                // Clave foránea opcional (nullable) para Medico
+                entity.HasOne(c => c.Medico)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdMedico)
+                      .IsRequired(false)
+                      .OnDelete(DeleteBehavior.SetNull);
+
+                // Clave foránea opcional (nullable) para Servicio
+                entity.HasOne(c => c.Servicio)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdServicio)
+                      .IsRequired(false)
+                      .OnDelete(DeleteBehavior.SetNull);
+
+                // Clave foránea opcional (nullable) para Paquete
+                entity.HasOne(c => c.Paquete)
+                      .WithMany()
+                      .HasForeignKey(c => c.IdPaquete)
+                      .IsRequired(false)
+                      .OnDelete(DeleteBehavior.SetNull);
+            });
+
+            
+            modelBuilder.Entity<Facturacion>()
+                .Property(f => f.FechaPago)
+                .HasDefaultValueSql("GETDATE()");
+
+            modelBuilder.Entity<Facturacion>()
+            .Property(f => f.MontoPagado)
+            .HasColumnType("decimal(10,2)");
+
+            modelBuilder.Entity<Paquetes>()
+            .Property(p => p.PrecioPaquete)
+            .HasColumnType("decimal(10,2)");
+
+            modelBuilder.Entity<Facturacion>()
+                .HasOne(f => f.Consulta)  // Relación 1 a 1 o 1 a muchos
+                .WithMany()  // Si `Consultas` no tiene lista de `Facturacion`, usa WithMany()
+                .HasForeignKey(f => f.IdConsulta)  // Clave foránea
+                .OnDelete(DeleteBehavior.Restrict);  // Evita eliminaciones en cascada si no lo deseas
 
         }
     }

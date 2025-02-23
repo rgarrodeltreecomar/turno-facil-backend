@@ -4,6 +4,7 @@ using Api.ClinicaMedica.AccesoDatos;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.ClinicaMedica.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250222165330_Facturacion-Api-Fluet")]
+    partial class FacturacionApiFluet
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -180,104 +183,6 @@ namespace Api.ClinicaMedica.Migrations
                     b.HasKey("IdHorario");
 
                     b.ToTable("Horarios");
-
-                    b.HasData(
-                        new
-                        {
-                            IdHorario = "H1",
-                            HorarioFin = new TimeSpan(0, 8, 30, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 8, 0, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H2",
-                            HorarioFin = new TimeSpan(0, 9, 0, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 8, 30, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H3",
-                            HorarioFin = new TimeSpan(0, 9, 30, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 9, 0, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H4",
-                            HorarioFin = new TimeSpan(0, 10, 0, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 9, 30, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H5",
-                            HorarioFin = new TimeSpan(0, 10, 30, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 10, 0, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H6",
-                            HorarioFin = new TimeSpan(0, 11, 0, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 10, 30, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H7",
-                            HorarioFin = new TimeSpan(0, 11, 30, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 11, 0, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H8",
-                            HorarioFin = new TimeSpan(0, 12, 0, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 11, 30, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H9",
-                            HorarioFin = new TimeSpan(0, 13, 30, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 13, 0, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H10",
-                            HorarioFin = new TimeSpan(0, 14, 0, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 13, 30, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H11",
-                            HorarioFin = new TimeSpan(0, 14, 30, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 14, 0, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H12",
-                            HorarioFin = new TimeSpan(0, 15, 0, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 14, 30, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H13",
-                            HorarioFin = new TimeSpan(0, 15, 30, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 15, 0, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H14",
-                            HorarioFin = new TimeSpan(0, 16, 0, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 15, 30, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H15",
-                            HorarioFin = new TimeSpan(0, 16, 30, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 16, 0, 0, 0)
-                        },
-                        new
-                        {
-                            IdHorario = "H16",
-                            HorarioFin = new TimeSpan(0, 17, 0, 0, 0),
-                            HorarioInicio = new TimeSpan(0, 16, 30, 0, 0)
-                        });
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Medicos", b =>
@@ -507,6 +412,144 @@ namespace Api.ClinicaMedica.Migrations
                         .HasDatabaseName("UQ_Turnos_Horario_Medico_Fecha");
 
                     b.ToTable("Turnos");
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.Usuarios", b =>
+                {
+                    b.Property<string>("IdUsuario")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Direccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Dni")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("FechaNacimiento")
+                        .HasColumnType("date");
+
+                    b.Property<int>("IdRol")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Telefono")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("IdUsuario");
+
+                    b.HasIndex("IdRol");
+
+                    b.ToTable("Usuarios", (string)null);
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.CitasMedicas", b =>
+                {
+                    b.HasOne("Api.ClinicaMedica.Entities.Medicos", "Medico")
+                        .WithMany()
+                        .HasForeignKey("IdMedico")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Pacientes", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("IdPaciente")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Servicios", "Servicio")
+                        .WithMany()
+                        .HasForeignKey("IdServicio")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Medico");
+
+                    b.Navigation("Paciente");
+
+                    b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.Consultas", b =>
+                {
+                    b.HasOne("Api.ClinicaMedica.Entities.Medicos", "Medico")
+                        .WithMany()
+                        .HasForeignKey("IdMedico")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Pacientes", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("IdPaciente")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Paquetes", "Paquete")
+                        .WithMany()
+                        .HasForeignKey("IdPaquete")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Servicios", "Servicio")
+                        .WithMany()
+                        .HasForeignKey("IdServicio")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Medico");
+
+                    b.Navigation("Paciente");
+
+                    b.Navigation("Paquete");
+
+                    b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.DetalleServicios", b =>
+                {
+                    b.HasOne("Api.ClinicaMedica.Entities.CitasMedicas", "CitaMedica")
+                        .WithMany("DetallesServicios")
+                        .HasForeignKey("IdCitas")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Servicios", "Servicio")
+                        .WithMany()
+                        .HasForeignKey("IdServicio")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CitaMedica");
+
+                    b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.Facturacion", b =>
+                {
+                    b.HasOne("Api.ClinicaMedica.Entities.Consultas", "Consulta")
+                        .WithMany()
+                        .HasForeignKey("IdConsulta")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Consulta");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Medicos", b =>

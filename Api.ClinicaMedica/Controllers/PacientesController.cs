@@ -82,32 +82,32 @@ namespace Api.ClinicaMedica.Controllers
 
         // POST: api/Pacientes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPost]
-        public async Task<ActionResult<Pacientes>> PostPacientes(PacientesCreateDTO pacientesCreateDTO)
-        {
+        //[HttpPost]
+        //public async Task<ActionResult<Pacientes>> PostPacientes(PacientesCreateDTO pacientesCreateDTO)
+        //{
 
-            var paciente = _mapper.Map<Pacientes>(pacientesCreateDTO);
+        //    var paciente = _mapper.Map<Pacientes>(pacientesCreateDTO);
 
-            //_context.Personas.Add(paciente.Persona);
-            _context.Pacientes.Add(paciente);
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateException)
-            {
-                if (PacientesExists(paciente.IdPaciente))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    //_context.Personas.Add(paciente.Persona);
+        //    _context.Pacientes.Add(paciente);
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateException)
+        //    {
+        //        if (PacientesExists(paciente.IdPaciente))
+        //        {
+        //            return Conflict();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return CreatedAtAction("GetPacientes", new { id = paciente.IdPaciente }, paciente);
-        }
+        //    return CreatedAtAction("GetPacientes", new { id = paciente.IdPaciente }, paciente);
+        //}
 
         // DELETE: api/Pacientes/5
         [HttpDelete("{id}")]

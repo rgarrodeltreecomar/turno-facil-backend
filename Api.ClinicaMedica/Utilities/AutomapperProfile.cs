@@ -1,6 +1,8 @@
 ﻿using Api.ClinicaMedica.DTO.Basic;
 using Api.ClinicaMedica.DTO.Create;
+using Api.ClinicaMedica.DTO.Put;
 using Api.ClinicaMedica.Entities;
+using Api.ClinicaMedica.Models;
 using AutoMapper;
 
 namespace Api.ClinicaMedica.Utilities
@@ -23,6 +25,33 @@ namespace Api.ClinicaMedica.Utilities
             // Medicos
             CreateMap<Medicos, MedicosCreateDTO>().ReverseMap();
             CreateMap<Medicos, MedicosDTO>().ReverseMap();
+            CreateMap<Medicos, MedicosPutDTO>().ReverseMap();
+
+            // Citas Medicas
+            CreateMap<CitasMedicas,CitasMedicasCreacionDTO>().ReverseMap();
+
+            // DetalleCitas
+            CreateMap<DetalleServicios, DetalleServicioCreacionDTO>().ReverseMap();
+            CreateMap<DetalleServicios, DetalleServicioCreacionDTO>().ReverseMap();
+
+            // Consultas
+            CreateMap<Consultas,ConsultasDTO>().ReverseMap();
+            CreateMap<Consultas,ConsultasCreateDTO>().ReverseMap();
+
+            // Paquetes
+            CreateMap<Paquetes, PaquetesCreateDTO>().ReverseMap();
+            
+
+            // PaquetesServicios
+            CreateMap<PaqueteServicio,PaqueteServicioCreateDTO>().ReverseMap();
+
+            // Facturacion
+            CreateMap<Facturacion, FacturacionCreateDTO>().ReverseMap();
+
+            // Registered View Model
+            CreateMap<RegisteredViewModel, Usuarios>().ReverseMap();
+            CreateMap<RegisteredViewModel, Pacientes>().ReverseMap();
+            CreateMap<RegisteredViewModel, Medicos>().ReverseMap();
 
         }
     }
