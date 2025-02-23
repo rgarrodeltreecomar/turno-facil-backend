@@ -2,6 +2,7 @@
 using Api.ClinicaMedica.DTO.Basic;
 using Api.ClinicaMedica.DTO.Create;
 using Api.ClinicaMedica.Entities;
+using Api.ClinicaMedica.Models;
 using Api.ClinicaMedica.Utilities;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
@@ -256,8 +257,27 @@ namespace Api.ClinicaMedica.Controllers
             if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, passwordHash))
                 return Unauthorized("Contraseña incorrecta");
 
+            // Mapear usuario a RegisteredViewModel
+            var usuarioViewModel = new RegisteredViewModel
+            {
+                Nombre = usuario.GetType().GetProperty("Nombre")?.GetValue(usuario)?.ToString(),
+                Apellido = usuario.GetType().GetProperty("Apellido")?.GetValue(usuario)?.ToString(),
+                Dni = usuario.GetType().GetProperty("Dni")?.GetValue(usuario)?.ToString(),
+                Email = usuario.GetType().GetProperty("Email")?.GetValue(usuario)?.ToString(),
+                FechaNacimiento = usuario.GetType().GetProperty("FechaNacimiento")?.GetValue(usuario) as DateTime?,
+                Telefono = usuario.GetType().GetProperty("Telefono")?.GetValue(usuario)?.ToString(),
+                Direccion = usuario.GetType().GetProperty("Direccion")?.GetValue(usuario)?.ToString(),
+                IdRol = rol switch
+                {
+                    "Administrador" => 1,
+                    "Médico" => 2,
+                    "Paciente" => 3,
+                    _ => 0
+                }
+            };
+
             // Generar el token con el rol determinado
-            var token = FuncionesToken.GenerarToken(loginDTO, rol, _confi);
+            var token = FuncionesToken.GenerarToken(usuarioViewModel, rol, _confi);
             return Ok(token);
         }
 

@@ -54,8 +54,9 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/Consultas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutConsultas(string id, Consultas consultas)
+        public async Task<IActionResult> PutConsultas(string id, ConsultasCreateDTO consultasDTO)
         {
+            var consultas = _mapper.Map<Consultas>(consultasDTO);
             if (id != consultas.IdConsulta)
             {
                 return BadRequest();

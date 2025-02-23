@@ -2,6 +2,7 @@
 using Api.ClinicaMedica.DTO.Create;
 using Api.ClinicaMedica.DTO.Put;
 using Api.ClinicaMedica.Entities;
+using Api.ClinicaMedica.Models;
 using AutoMapper;
 
 namespace Api.ClinicaMedica.Utilities
@@ -46,6 +47,11 @@ namespace Api.ClinicaMedica.Utilities
 
             // Facturacion
             CreateMap<Facturacion, FacturacionCreateDTO>().ReverseMap();
+
+            // Registered View Model
+            CreateMap<RegisteredViewModel, Usuarios>().ReverseMap();
+            CreateMap<RegisteredViewModel, Pacientes>().ReverseMap();
+            CreateMap<RegisteredViewModel, Medicos>().ReverseMap();
 
         }
     }
