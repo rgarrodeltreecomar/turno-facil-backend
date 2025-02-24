@@ -89,7 +89,9 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 // Configuración CORS nueva
-app.UseCors(app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing") ? "AllowAll" : "AllowVercel");
+//app.UseCors(app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing") ? "AllowAll" : "AllowVercel");
+
+app.UseCors("AllowVercel");
 
 // Middleware de autenticación y autorización
 app.UseAuthentication();  // Se agrega el middleware de autenticación
