@@ -35,19 +35,22 @@ builder.Services.AddAutoMapper(typeof(Program));
 // Configurar CORS
 builder.Services.AddCors(options =>
 {
-   options.AddPolicy("AllowAll", builder => 
-{
-    builder.WithOrigins("http://localhost:5173") // desarrollo
-           .AllowAnyMethod()
-           .AllowAnyHeader()
-           .WithExposedHeaders("Content-Disposition"); 
-});
+    options.AddPolicy("AllowAll", builder => 
+    {
+        builder.WithOrigins("http://localhost:5173")
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .AllowCredentials() //  Agregar aquí también si es necesario
+               .WithExposedHeaders("Content-Disposition");
+    });
 
-    options.AddPolicy("AllowVercel", builder => // Producción
+    options.AddPolicy("AllowVercel", builder => 
     {
         builder.WithOrigins("https://turno-facil.vercel.app", "http://localhost:5173")
                .AllowAnyMethod()
-               .AllowAnyHeader();
+               .AllowAnyHeader()
+               .AllowCredentials() //  Credenciales habilitadas
+               .WithExposedHeaders("Authorization", "Content-Disposition"); // Opcional
     });
 });
 
