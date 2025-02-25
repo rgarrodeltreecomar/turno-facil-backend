@@ -37,7 +37,7 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", builder => 
     {
-        builder.WithOrigins("http://localhost:5173")
+        builder.WithOrigins("http://localhost:5173", "https://turno-facil.vercel.app")
                .AllowAnyMethod()
                .AllowAnyHeader()
                .AllowCredentials() //  Agregar aquí también si es necesario
@@ -89,9 +89,9 @@ app.UseHttpsRedirection();
 app.UseRouting();
 
 // Configuración CORS nueva
-//app.UseCors(app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing") ? "AllowAll" : "AllowVercel");
+app.UseCors(app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Testing") ? "AllowAll" : "AllowVercel");
 
-app.UseCors("AllowVercel");
+//app.UseCors("AllowVercel");
 
 // Middleware de autenticación y autorización
 app.UseAuthentication();  // Se agrega el middleware de autenticación
