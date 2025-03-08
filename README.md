@@ -1,6 +1,6 @@
 # Backend .NET con Docker
 
-![Logo](https://raw.githubusercontent.com/rgarrodeltreecomar/turnoFacilFront/master/public/logoApplogin.png)
+<img src="https://raw.githubusercontent.com/rgarrodeltreecomar/turnoFacilFront/master/public/logoApplogin.png" alt="Logo" width="100"/>
 
 
 
