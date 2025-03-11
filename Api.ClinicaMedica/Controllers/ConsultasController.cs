@@ -26,7 +26,7 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Consultas
+        // GET: api/consultas
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Consultas>>> GetConsultas()
         {
@@ -37,7 +37,7 @@ namespace Api.ClinicaMedica.Controllers
             return await _context.Consultas.ToListAsync();
         }
 
-        // GET: api/Consultas/5
+        // GET: api/consultas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Consultas>> GetConsultas(string id)
         {
@@ -51,7 +51,7 @@ namespace Api.ClinicaMedica.Controllers
             return consultas;
         }
 
-        // PUT: api/Consultas/5
+        // PUT: api/consultas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutConsultas(string id, ConsultasCreateDTO consultasDTO)
@@ -83,7 +83,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/Consultas
+        // POST: api/consultas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Consultas>> PostConsultas(ConsultasCreateDTO consultasDTO)
@@ -109,7 +109,7 @@ namespace Api.ClinicaMedica.Controllers
             return CreatedAtAction("GetConsultas", new { id = consultas.IdConsulta }, consultas);
         }
 
-        // DELETE: api/Consultas/5
+        // DELETE: api/consultas/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteConsultas(string id)
         {

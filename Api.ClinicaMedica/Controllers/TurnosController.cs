@@ -22,7 +22,7 @@ namespace Api.ClinicaMedica.Controllers
             _context = context;
         }
 
-        // GET: api/Turnos/disponibles
+        // GET: api/turnos/disponibles
         // Este endpoint devuelve solo los turnos que están disponibles
         [HttpGet("disponibles")]
         public async Task<IActionResult> ObtenerTurnosDisponibles()
@@ -51,7 +51,7 @@ namespace Api.ClinicaMedica.Controllers
         }
 
 
-        // GET: api/Turnos/5
+        // GET: api/turnos/5
         [HttpGet("{id}")]
         public async Task<IActionResult> ObtenerTurnoPorId(string id)
 
@@ -73,7 +73,7 @@ namespace Api.ClinicaMedica.Controllers
             return Ok(turno);
         }
 
-        // PUT: api/Turnos/5
+        // PUT: api/turnos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> ActualizarTurno(string id, Turnos turnoActualizado)
@@ -107,7 +107,7 @@ namespace Api.ClinicaMedica.Controllers
             return Ok("Turno actualizado correctamente.");
         }
 
-        // POST: api/Turnos/crear
+        // POST: api/turnos/crear
         // Este endpoint es para que el administrador cree los turnos
         [HttpPost("crear")]
         public async Task<ActionResult<TurnoDTO>> CrearTurno([FromBody] TurnoDTO turnoDTO)
@@ -145,7 +145,7 @@ namespace Api.ClinicaMedica.Controllers
             return Ok(turnoDTO);
         }
 
-        // POST: api/Turnos/reservar
+        // POST: api/turnos/reservar
         // Este endpoint permite que un paciente reserve un turno
         [HttpPost("reservar")]
         public async Task<IActionResult> ReservarTurno([FromBody] ReservaTurnoDTO reserva)
@@ -188,7 +188,7 @@ namespace Api.ClinicaMedica.Controllers
         }
 
 
-        // DELETE: api/Turnos/5
+        // DELETE: api/turnos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> EliminarTurno(string id)
         {

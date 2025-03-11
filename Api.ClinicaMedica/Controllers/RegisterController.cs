@@ -194,7 +194,7 @@ namespace Api.ClinicaMedica.Controllers
             }
         }
 
-        // GET: api/Pacientes
+        // GET: api/pacientes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PacientesDTO>>> GetPacientes()
         {

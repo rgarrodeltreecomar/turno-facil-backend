@@ -25,14 +25,14 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Especialidades
+        // GET: api/especialidades
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Especialidades>>> GetEspecialidades()
         {
             return await _context.Especialidades.ToListAsync();
         }
 
-        // GET: api/Especialidades/5
+        // GET: api/especialidades/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Especialidades>> GetEspecialidades(string id)
         {
@@ -46,7 +46,7 @@ namespace Api.ClinicaMedica.Controllers
             return especialidades;
         }
 
-        // PUT: api/Especialidades/5
+        // PUT: api/especialidades/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutEspecialidades(string id, Especialidades especialidades)
@@ -77,7 +77,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/Especialidades
+        // POST: api/especialidades
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Especialidades>> PostEspecialidades(EspecialidadesCreateDTO especialidadesCreateDTO)
@@ -103,7 +103,7 @@ namespace Api.ClinicaMedica.Controllers
             return CreatedAtAction("GetEspecialidades", new { id = especialidades.IdEspecialidad }, especialidades);
         }
 
-        // DELETE: api/Especialidades/5
+        // DELETE: api/especialidades/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteEspecialidades(string id)
         {

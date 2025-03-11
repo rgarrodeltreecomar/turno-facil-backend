@@ -26,14 +26,14 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Medicos
+        // GET: api/medicos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Medicos>>> GetMedicos()
         {
             return await _context.Medicos.ToListAsync();
         }
 
-        // GET: api/Medicos/5
+        // GET: api/medicos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Medicos>> GetMedicos(string id)
         {
@@ -47,7 +47,7 @@ namespace Api.ClinicaMedica.Controllers
             return medicos;
         }
 
-        // PUT: api/Medicos/5
+        // PUT: api/medicos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPut("{id}")]
         //public async Task<IActionResult> PutMedicos(string id, MedicosPutDTO medicosDTO)
@@ -123,7 +123,7 @@ namespace Api.ClinicaMedica.Controllers
         //    return CreatedAtAction("GetMedicos", new { id = medicos.IdMedico }, medicos);
         //}
 
-        // DELETE: api/Medicos/5
+        // DELETE: api/medicos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMedicos(string id)
         {

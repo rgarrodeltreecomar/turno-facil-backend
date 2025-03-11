@@ -26,7 +26,7 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Pacientes
+        // GET: api/pacientes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PacientesDTO>>> GetPacientes()
         {
@@ -34,7 +34,7 @@ namespace Api.ClinicaMedica.Controllers
             return _mapper.Map<List<PacientesDTO>>(listaPacientes);
         }
 
-        // GET: api/Pacientes/5
+        // GET: api/pacientes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PacientesDTO>> GetPacientes(string id)
         {
@@ -49,7 +49,7 @@ namespace Api.ClinicaMedica.Controllers
             return pacienteDTO;
         }
 
-        // PUT: api/Pacientes/5
+        // PUT: api/pacientes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPacientes(string id, Pacientes pacientes)
@@ -80,7 +80,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/Pacientes
+        // POST: api/pacientes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         //[HttpPost]
         //public async Task<ActionResult<Pacientes>> PostPacientes(PacientesCreateDTO pacientesCreateDTO)
@@ -109,7 +109,7 @@ namespace Api.ClinicaMedica.Controllers
         //    return CreatedAtAction("GetPacientes", new { id = paciente.IdPaciente }, paciente);
         //}
 
-        // DELETE: api/Pacientes/5
+        // DELETE: api/pacientes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePacientes(string id)
         {

@@ -25,14 +25,14 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/PaqueteServicios
+        // GET: api/paqueteservicios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PaqueteServicio>>> GetPaqueteServicios()
         {
             return await _context.PaqueteServicios.ToListAsync();
         }
 
-        // GET: api/PaqueteServicios/5
+        // GET: api/paqueteservicios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PaqueteServicio>> GetPaqueteServicio(string id)
         {
@@ -46,7 +46,7 @@ namespace Api.ClinicaMedica.Controllers
             return paqueteServicio;
         }
 
-        // PUT: api/PaqueteServicios/5
+        // PUT: api/paqueteservicios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPaqueteServicio(string id, PaqueteServicio paqueteServicio)
@@ -77,7 +77,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/PaqueteServicios
+        // POST: api/paqueteservicios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<PaqueteServicio>> PostPaqueteServicio(PaqueteServicioCreateDTO paqueteServicioDTO)
@@ -103,7 +103,7 @@ namespace Api.ClinicaMedica.Controllers
             return CreatedAtAction("GetPaqueteServicio", new { id = paqueteServicio.Id }, paqueteServicio);
         }
 
-        // DELETE: api/PaqueteServicios/5
+        // DELETE: api/paqueteservicios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePaqueteServicio(string id)
         {
