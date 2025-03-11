@@ -33,7 +33,14 @@ namespace Api.ClinicaMedica.AccesoDatos
             // ---------- Medicos ----------------
 
             modelBuilder.Entity<Medicos>()
+                .ToTable("Medicos")
                 .HasKey(m => m.IdMedico);
+
+            modelBuilder.Entity<Medicos>()
+                .HasOne(m => m.Usuario)
+                .WithOne(u => u.Medico)
+                .HasForeignKey<Medicos>(m => m.IdMedico)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Medicos>()
                 .HasOne(m => m.Especialidad)
@@ -63,7 +70,15 @@ namespace Api.ClinicaMedica.AccesoDatos
             // -------- Pacientes ----------------
 
             modelBuilder.Entity<Pacientes>()
+                .ToTable("Pacientes")
                 .HasKey(p => p.IdPaciente);
+
+            modelBuilder.Entity<Pacientes>()
+                .HasOne(p => p.Usuario)
+                .WithOne(u => u.Paciente)
+                .HasForeignKey<Pacientes>(p => p.IdUsuario)
+                .OnDelete(DeleteBehavior.Cascade);
+
 
             modelBuilder.Entity<Pacientes>()
                 .HasMany(p => p.Turnos)
@@ -156,30 +171,27 @@ namespace Api.ClinicaMedica.AccesoDatos
 
             modelBuilder.Entity<Usuarios>(entity =>
             {
-                // Definir clave primaria
-                entity.HasKey(u => u.IdUsuario);
+                // Tabla Usuario
+                entity.ToTable("Usuarios")
+                    .HasKey(u => u.IdUsuario);
 
-                // Configurar propiedades
-                entity.Property(u => u.IdUsuario)
-                    .IsRequired()
-                    .HasMaxLength(50); // Ajusta el tamaño según sea necesario
-
-                entity.Property(u => u.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(u => u.Apellido)
-                    .IsRequired()
-                    .HasMaxLength(100);
-
-                entity.Property(u => u.Dni)
-                    .HasMaxLength(20); // Puede ser NULL según la entidad
+                entity.HasIndex(u => u.Email)
+                    .IsUnique();
 
                 entity.Property(u => u.Email)
-                    .HasMaxLength(150);
+                    .IsRequired()
+                    .HasMaxLength(255);
 
-                entity.Property(u => u.FechaNacimiento)
-                    .HasColumnType("date"); // Opcional: Mejor definición en base de datos
+                entity.Property(u => u.PasswordHash)
+                    .IsRequired()
+                    .HasMaxLength(255);
+
+                // Relación Usuario -> Rol (Muchos a Uno)
+                entity.HasOne(u => u.Rol)
+                    .WithMany(r => r.Usuarios)
+                    .HasForeignKey(u => u.IdRol)
+                    .OnDelete(DeleteBehavior.Restrict);
+                                             
 
                 entity.Property(u => u.Telefono)
                     .HasMaxLength(20);
@@ -187,18 +199,11 @@ namespace Api.ClinicaMedica.AccesoDatos
                 entity.Property(u => u.Direccion)
                     .HasMaxLength(200);
 
-                entity.Property(u => u.Password)
+                entity.Property(u => u.PasswordHash)
                     .IsRequired()
                     .HasMaxLength(255); // Tamaño recomendado para almacenar hash
 
-                // Relación con Rol (suponiendo que existe una tabla de Roles)
-                entity.HasOne<Roles>()  // Cambia "Rol" por la entidad correspondiente
-                    .WithMany()
-                    .HasForeignKey(u => u.IdRol)
-                    .OnDelete(DeleteBehavior.Restrict); // Evita eliminación en cascada
-
-                // Nombre de la tabla en la BD (opcional)
-                entity.ToTable("Usuarios");
+                                
             });
 
             // Configuración de la entidad Roles
@@ -206,12 +211,12 @@ namespace Api.ClinicaMedica.AccesoDatos
             {
                 entity.ToTable("Roles");
 
-            entity.Property(r => r.IdRol)
+                entity.Property(r => r.IdRol)
                 .ValueGeneratedNever(); // Evita que se genere automáticamente (útil si insertas datos iniciales)
 
-            entity.Property(r => r.Nombre)
-                .IsRequired()
-                .HasMaxLength(50);
+                entity.Property(r => r.Nombre)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 // Seed de datos iniciales (opcional)
                 entity.HasData(
@@ -341,7 +346,7 @@ namespace Api.ClinicaMedica.AccesoDatos
                       .WithMany() // Si Paciente tiene una lista de Consultas, usa `.WithMany(p => p.Consultas)`
                       .HasForeignKey(c => c.IdPaciente)
                       .IsRequired(false)
-                      .OnDelete(DeleteBehavior.SetNull); // Opcional: si se borra el paciente, se pone en NULL
+                      .OnDelete(DeleteBehavior.NoAction); // Opcional: si se borra el paciente, se pone en NULL
 
                 // Clave foránea opcional (nullable) para Medico
                 entity.HasOne(c => c.Medico)
@@ -362,7 +367,7 @@ namespace Api.ClinicaMedica.AccesoDatos
                       .WithMany()
                       .HasForeignKey(c => c.IdPaquete)
                       .IsRequired(false)
-                      .OnDelete(DeleteBehavior.SetNull);
+                      .OnDelete(DeleteBehavior.NoAction);
             });
 
             

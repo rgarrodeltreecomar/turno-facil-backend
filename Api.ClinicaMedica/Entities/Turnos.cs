@@ -24,5 +24,6 @@ namespace Api.ClinicaMedica.Entities
         public virtual Medicos Medico { get; set; } = null!;
 
         public virtual Pacientes? Paciente { get; set; }
+
     }
 }

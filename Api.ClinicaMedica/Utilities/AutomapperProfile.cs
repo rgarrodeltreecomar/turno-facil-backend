@@ -11,9 +11,15 @@ namespace Api.ClinicaMedica.Utilities
     {
         public AutomapperProfile()
         {
+            // Usuarios
+            CreateMap<UsuariosCreateDTO, Usuarios>()
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore()); 
+
             // Pacientes
             CreateMap<Pacientes, PacientesDTO>().ReverseMap();
-            CreateMap<Pacientes, PacientesCreateDTO>().ReverseMap();
+
+            CreateMap<Pacientes, PacientesCreateDTO>().ReverseMap()
+                .ForMember(dest => dest.Usuario, opt => opt.MapFrom(src => src.Usuario));
 
             // Especialidades
             CreateMap<Especialidades, EspecialidadesCreateDTO>().ReverseMap();

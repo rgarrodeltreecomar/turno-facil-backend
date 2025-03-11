@@ -11,5 +11,8 @@ namespace Api.ClinicaMedica.Entities
         [MaxLength(50)] // Limita el nombre del rol a 50 caracteres
         public string Nombre { get; set; } = string.Empty;
 
+        // Propiedad de navegacion
+        public ICollection<Usuarios> Usuarios { get; set; } = new List<Usuarios>();
+
     }
 }

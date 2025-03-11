@@ -285,48 +285,22 @@ namespace Api.ClinicaMedica.Migrations
                     b.Property<string>("IdMedico")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Direccion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Dni")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("FechaNacimiento")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("IdEspecialidad")
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("IdRol")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
+                    b.Property<string>("IdUsuario")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal?>("Sueldo")
                         .HasColumnType("decimal(18,2)");
 
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("IdMedico");
 
                     b.HasIndex("IdEspecialidad");
 
-                    b.ToTable("Medicos");
+                    b.ToTable("Medicos", (string)null);
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Pacientes", b =>
@@ -334,42 +308,22 @@ namespace Api.ClinicaMedica.Migrations
                     b.Property<string>("IdPaciente")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("Apellido")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Direccion")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Dni")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("FechaNacimiento")
+                    b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdRol")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nombre")
+                    b.Property<string>("IdUsuario")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("ObraSocial")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Telefono")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("IdPaciente");
 
-                    b.ToTable("Pacientes");
+                    b.HasIndex("IdUsuario")
+                        .IsUnique();
+
+                    b.ToTable("Pacientes", (string)null);
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.PaqueteServicio", b =>
@@ -509,6 +463,144 @@ namespace Api.ClinicaMedica.Migrations
                     b.ToTable("Turnos");
                 });
 
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.Usuarios", b =>
+                {
+                    b.Property<string>("IdUsuario")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Direccion")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("Dni")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<DateTime>("FechaRegistro")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("IdRol")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("nvarchar(255)");
+
+                    b.Property<string>("Telefono")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("IdUsuario");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("IdRol");
+
+                    b.ToTable("Usuarios", (string)null);
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.CitasMedicas", b =>
+                {
+                    b.HasOne("Api.ClinicaMedica.Entities.Medicos", "Medico")
+                        .WithMany()
+                        .HasForeignKey("IdMedico")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Pacientes", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("IdPaciente")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Servicios", "Servicio")
+                        .WithMany()
+                        .HasForeignKey("IdServicio")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Medico");
+
+                    b.Navigation("Paciente");
+
+                    b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.Consultas", b =>
+                {
+                    b.HasOne("Api.ClinicaMedica.Entities.Medicos", "Medico")
+                        .WithMany()
+                        .HasForeignKey("IdMedico")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Pacientes", "Paciente")
+                        .WithMany()
+                        .HasForeignKey("IdPaciente")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Paquetes", "Paquete")
+                        .WithMany()
+                        .HasForeignKey("IdPaquete")
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Servicios", "Servicio")
+                        .WithMany()
+                        .HasForeignKey("IdServicio")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Medico");
+
+                    b.Navigation("Paciente");
+
+                    b.Navigation("Paquete");
+
+                    b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.DetalleServicios", b =>
+                {
+                    b.HasOne("Api.ClinicaMedica.Entities.CitasMedicas", "CitaMedica")
+                        .WithMany("DetallesServicios")
+                        .HasForeignKey("IdCitas")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api.ClinicaMedica.Entities.Servicios", "Servicio")
+                        .WithMany()
+                        .HasForeignKey("IdServicio")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CitaMedica");
+
+                    b.Navigation("Servicio");
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.Facturacion", b =>
+                {
+                    b.HasOne("Api.ClinicaMedica.Entities.Consultas", "Consulta")
+                        .WithMany()
+                        .HasForeignKey("IdConsulta")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Consulta");
+                });
+
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Medicos", b =>
                 {
                     b.HasOne("Api.ClinicaMedica.Entities.Especialidades", "Especialidad")
@@ -517,7 +609,26 @@ namespace Api.ClinicaMedica.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("Api.ClinicaMedica.Entities.Usuarios", "Usuario")
+                        .WithOne("Medico")
+                        .HasForeignKey("Api.ClinicaMedica.Entities.Medicos", "IdMedico")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Especialidad");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.Pacientes", b =>
+                {
+                    b.HasOne("Api.ClinicaMedica.Entities.Usuarios", "Usuario")
+                        .WithOne("Paciente")
+                        .HasForeignKey("Api.ClinicaMedica.Entities.Pacientes", "IdUsuario")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.PaqueteServicio", b =>
@@ -567,11 +678,13 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Usuarios", b =>
                 {
-                    b.HasOne("Api.ClinicaMedica.Entities.Roles", null)
-                        .WithMany()
+                    b.HasOne("Api.ClinicaMedica.Entities.Roles", "Rol")
+                        .WithMany("Usuarios")
                         .HasForeignKey("IdRol")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Rol");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.CitasMedicas", b =>
@@ -602,6 +715,20 @@ namespace Api.ClinicaMedica.Migrations
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Paquetes", b =>
                 {
                     b.Navigation("PaqueteServicios");
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.Roles", b =>
+                {
+                    b.Navigation("Usuarios");
+                });
+
+            modelBuilder.Entity("Api.ClinicaMedica.Entities.Usuarios", b =>
+                {
+                    b.Navigation("Medico")
+                        .IsRequired();
+
+                    b.Navigation("Paciente")
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

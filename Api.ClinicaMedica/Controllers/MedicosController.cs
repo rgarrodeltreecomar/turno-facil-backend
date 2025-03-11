@@ -49,50 +49,50 @@ namespace Api.ClinicaMedica.Controllers
 
         // PUT: api/Medicos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutMedicos(string id, MedicosPutDTO medicosDTO)
-        {
-            if (id != medicosDTO.IdMedico)
-            {
-                return BadRequest();
-            }
-            var medico = _context.Medicos.Find(id);
+        //[HttpPut("{id}")]
+        //public async Task<IActionResult> PutMedicos(string id, MedicosPutDTO medicosDTO)
+        //{
+        //    if (id != medicosDTO.IdMedico)
+        //    {
+        //        return BadRequest();
+        //    }
+        //    var medico = _context.Medicos.Find(id);
 
-            if (medico != null)
-            {
-                medico.IdMedico = medicosDTO.IdMedico;
-                medico.Nombre = medicosDTO.Nombre;
-                medico.Apellido = medicosDTO.Apellido;
-                medico.Dni = medicosDTO.Dni;
-                medico.Email = medicosDTO.Email;
-                medico.Telefono = medicosDTO.Telefono;
-                medico.IdEspecialidad = medicosDTO.IdEspecialidad;
-                medico.Sueldo = medicosDTO.Sueldo;
+        //    if (medico != null)
+        //    {
+        //        medico.IdMedico = medicosDTO.IdMedico;
+        //        medico.Nombre = medicosDTO.Nombre;
+        //        medico.Apellido = medicosDTO.Apellido;
+        //        medico.Dni = medicosDTO.Dni;
+        //        medico.Email = medicosDTO.Email;
+        //        medico.Telefono = medicosDTO.Telefono;
+        //        medico.IdEspecialidad = medicosDTO.IdEspecialidad;
+        //        medico.Sueldo = medicosDTO.Sueldo;
 
-                _context.Entry(medico).State = EntityState.Modified;
-            }
-            else
-                return NotFound("Medico no encontrado");
+        //        _context.Entry(medico).State = EntityState.Modified;
+        //    }
+        //    else
+        //        return NotFound("Medico no encontrado");
 
 
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!MedicosExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+        //    try
+        //    {
+        //        await _context.SaveChangesAsync();
+        //    }
+        //    catch (DbUpdateConcurrencyException)
+        //    {
+        //        if (!MedicosExists(id))
+        //        {
+        //            return NotFound();
+        //        }
+        //        else
+        //        {
+        //            throw;
+        //        }
+        //    }
 
-            return NoContent();
-        }
+        //    return NoContent();
+        //}
 
         // POST: api/Medicos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

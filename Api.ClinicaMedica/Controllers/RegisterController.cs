@@ -35,124 +35,104 @@ namespace Api.ClinicaMedica.Controllers
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-
             }
+
             try
             {
-                //Validar si el correo ya esta registrado
-                bool emailExists = await _context.Pacientes.AnyAsync(u => u.Email == pacientesCreateDTO.Email);
+                // Validar si el correo ya está registrado
+                bool emailExists = await _context.Usuarios.AnyAsync(u => u.Email == pacientesCreateDTO.Usuario.Email);
                 if (emailExists)
                 {
                     return BadRequest("El correo ya está registrado.");
                 }
 
-                //validar si el rol existe en la DB
-                var rol = await _context.Roles.FindAsync(pacientesCreateDTO.IdRol);
+                // Validar si el rol existe en la DB
+                var rol = await _context.Roles.FindAsync(pacientesCreateDTO.Usuario.IdRol);
                 if (rol == null)
                 {
                     return BadRequest("El rol especificado no existe.");
                 }
 
-                //Encriptacion de la contraseña
+                // Encriptación de la contraseña
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(pacientesCreateDTO.Usuario.Password);
 
-                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(pacientesCreateDTO.Password);
+                // Mapear DTO a Entidad
+                var paciente = _mapper.Map<Pacientes>(pacientesCreateDTO);
 
-                // Crear un nuevo usuario
-                var paciente = new Pacientes
-                {
-                    IdPaciente = pacientesCreateDTO.IdPaciente,
-                    Nombre = pacientesCreateDTO.Nombre,
-                    Apellido = pacientesCreateDTO.Apellido,
-                    Dni = pacientesCreateDTO.Dni,
-                    Email = pacientesCreateDTO.Email,
-                    FechaNacimiento = pacientesCreateDTO.FechaNacimiento,
-                    Telefono = pacientesCreateDTO.Telefono,
-                    Direccion = pacientesCreateDTO.Direccion,
-                    Password = hashedPassword,
-                    IdRol = pacientesCreateDTO.IdRol,
-                    ObraSocial = pacientesCreateDTO.ObraSocial
-                };
+                // Asignar el hash de la contraseña manualmente
+                paciente.Usuario.PasswordHash = hashedPassword;
 
+                // Guardar en la base de datos
+                _context.Usuarios.Add(paciente.Usuario);
                 _context.Pacientes.Add(paciente);
                 await _context.SaveChangesAsync();
 
                 return Ok("Paciente registrado con éxito.");
-
             }
             catch (DbUpdateException ex)
             {
                 var innerException = ex.InnerException?.Message;
                 return StatusCode(500, $"Error al guardar en la base de datos: {innerException}");
             }
-
             catch (Exception ex)
             {
                 return StatusCode(500, "Ocurrió un error inesperado. " + ex.Message);
             }
         }
 
-        [HttpPost("register-medico")]
-        public async Task<ActionResult> RegisterMedico([FromBody] MedicosCreateDTO medicosCreateDTO)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
+        //[HttpPost("register-medico")]
+        //public async Task<ActionResult> RegisterMedico([FromBody] MedicosCreateDTO medicosCreateDTO)
+        //{
+        //    if (!ModelState.IsValid)
+        //    {
+        //        return BadRequest(ModelState);
 
-            }
-            try
-            {
-                //Validar si el correo ya esta registrado
-                bool emailExists = await _context.Medicos.AnyAsync(u => u.Email == medicosCreateDTO.Email);
-                if (emailExists)
-                {
-                    return BadRequest("El correo ya está registrado.");
-                }
+        //    }
+        //    try
+        //    {
+        //        //Validar si el correo ya esta registrado
+        //        bool emailExists = await _context.Medicos.AnyAsync(u => u.Email == medicosCreateDTO.Email);
+        //        if (emailExists)
+        //        {
+        //            return BadRequest("El correo ya está registrado.");
+        //        }
 
-                //validar si el rol existe en la DB
-                var rol = await _context.Roles.FindAsync(medicosCreateDTO.IdRol);
-                if (rol == null)
-                {
-                    return BadRequest("El rol especificado no existe.");
-                }
+        //        //validar si el rol existe en la DB
+        //        var rol = await _context.Roles.FindAsync(medicosCreateDTO.IdRol);
+        //        if (rol == null)
+        //        {
+        //            return BadRequest("El rol especificado no existe.");
+        //        }
 
-                //Encriptacion de la contraseña
+        //        //Encriptacion de la contraseña
 
-                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(medicosCreateDTO.Password);
+        //        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(medicosCreateDTO.Password);
 
-                // Crear un nuevo usuario
-                var medico = new Medicos
-                {
-                    IdMedico = medicosCreateDTO.IdMedico,
-                    Nombre = medicosCreateDTO.Nombre,
-                    Apellido = medicosCreateDTO.Apellido,
-                    Dni = medicosCreateDTO.Dni,
-                    Email = medicosCreateDTO.Email,
-                    FechaNacimiento = medicosCreateDTO.FechaNacimiento,
-                    Telefono = medicosCreateDTO.Telefono,
-                    Direccion = medicosCreateDTO.Direccion,
-                    IdRol = medicosCreateDTO.IdRol,
-                    IdEspecialidad = medicosCreateDTO.IdEspecialidad,
-                    Password = hashedPassword,
-                    Sueldo = medicosCreateDTO.Sueldo
-                };
+        //        // Crear un nuevo usuario
+        //        var medico = new Medicos
+        //        {
+        //            IdMedico = medicosCreateDTO.IdMedico,
+        //            IdEspecialidad = medicosCreateDTO.IdEspecialidad,
+        //            Sueldo = medicosCreateDTO.Sueldo
+        //        };
 
-                _context.Medicos.Add(medico);
-                await _context.SaveChangesAsync();
+        //        _context.Medicos.Add(medico);
+        //        await _context.SaveChangesAsync();
 
-                return Ok("Medico registrado con éxito.");
+        //        return Ok("Medico registrado con éxito.");
 
-            }
-            catch (DbUpdateException ex)
-            {
-                var innerException = ex.InnerException?.Message;
-                return StatusCode(500, $"Error al guardar en la base de datos: {innerException}");
-            }
+        //    }
+        //    catch (DbUpdateException ex)
+        //    {
+        //        var innerException = ex.InnerException?.Message;
+        //        return StatusCode(500, $"Error al guardar en la base de datos: {innerException}");
+        //    }
 
-            catch (Exception ex)
-            {
-                return StatusCode(500, "Ocurrió un error inesperado. " + ex.Message);
-            }
-        }
+        //    catch (Exception ex)
+        //    {
+        //        return StatusCode(500, "Ocurrió un error inesperado. " + ex.Message);
+        //    }
+        //}
 
         [HttpPost("register-usuario")]
         public async Task<ActionResult> RegisterUsuario([FromBody] UsuariosCreateDTO usuariosCreateDTO)
@@ -190,11 +170,10 @@ namespace Api.ClinicaMedica.Controllers
                     Apellido = usuariosCreateDTO.Apellido,
                     Dni = usuariosCreateDTO.Dni,
                     Email = usuariosCreateDTO.Email,
-                    FechaNacimiento = usuariosCreateDTO.FechaNacimiento,
                     Telefono = usuariosCreateDTO.Telefono,
                     Direccion = usuariosCreateDTO.Direccion,
                     IdRol = usuariosCreateDTO.IdRol,
-                    Password = hashedPassword,
+                    PasswordHash = hashedPassword,
                 };
 
                 _context.Usuarios.Add(usuario);
@@ -231,55 +210,55 @@ namespace Api.ClinicaMedica.Controllers
         }
             
 
-        [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
-        {
-            object usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
-            string rol = "Administrador";
+        //[HttpPost("login")]
+        //public async Task<IActionResult> Login([FromBody] LoginDTO loginDTO)
+        //{
+        //    object usuario = await _context.Usuarios.FirstOrDefaultAsync(u => u.Email == loginDTO.Email);
+        //    string rol = "Administrador";
 
-            if (usuario == null)
-            {
-                usuario = await _context.Medicos.FirstOrDefaultAsync(m => m.Email == loginDTO.Email);
-                rol = "Médico";
-            }
-            if (usuario == null)
-            {
-                usuario = await _context.Pacientes.FirstOrDefaultAsync(p => p.Email == loginDTO.Email);
-                rol = "Paciente";
-            }
+        //    if (usuario == null)
+        //    {
+        //        usuario = await _context.Medicos.FirstOrDefaultAsync(m => m.Email == loginDTO.Email);
+        //        rol = "Médico";
+        //    }
+        //    if (usuario == null)
+        //    {
+        //        usuario = await _context.Pacientes.FirstOrDefaultAsync(p => p.Email == loginDTO.Email);
+        //        rol = "Paciente";
+        //    }
 
-            if (usuario == null)
-                return NotFound("Usuario inexistente");
+        //    if (usuario == null)
+        //        return NotFound("Usuario inexistente");
 
-            // Obtener la contraseña del objeto dinámico
-            string passwordHash = (string)usuario.GetType().GetProperty("Password")?.GetValue(usuario);
+        //    // Obtener la contraseña del objeto dinámico
+        //    string passwordHash = (string)usuario.GetType().GetProperty("Password")?.GetValue(usuario);
 
-            if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, passwordHash))
-                return Unauthorized("Contraseña incorrecta");
+        //    if (!BCrypt.Net.BCrypt.Verify(loginDTO.Password, passwordHash))
+        //        return Unauthorized("Contraseña incorrecta");
 
-            // Mapear usuario a RegisteredViewModel
-            var usuarioViewModel = new RegisteredViewModel
-            {
-                Nombre = usuario.GetType().GetProperty("Nombre")?.GetValue(usuario)?.ToString(),
-                Apellido = usuario.GetType().GetProperty("Apellido")?.GetValue(usuario)?.ToString(),
-                Dni = usuario.GetType().GetProperty("Dni")?.GetValue(usuario)?.ToString(),
-                Email = usuario.GetType().GetProperty("Email")?.GetValue(usuario)?.ToString(),
-                FechaNacimiento = usuario.GetType().GetProperty("FechaNacimiento")?.GetValue(usuario) as DateTime?,
-                Telefono = usuario.GetType().GetProperty("Telefono")?.GetValue(usuario)?.ToString(),
-                Direccion = usuario.GetType().GetProperty("Direccion")?.GetValue(usuario)?.ToString(),
-                IdRol = rol switch
-                {
-                    "Administrador" => 1,
-                    "Médico" => 2,
-                    "Paciente" => 3,
-                    _ => 0
-                }
-            };
+        //    // Mapear usuario a RegisteredViewModel
+        //    var usuarioViewModel = new RegisteredViewModel
+        //    {
+        //        Nombre = usuario.GetType().GetProperty("Nombre")?.GetValue(usuario)?.ToString(),
+        //        Apellido = usuario.GetType().GetProperty("Apellido")?.GetValue(usuario)?.ToString(),
+        //        Dni = usuario.GetType().GetProperty("Dni")?.GetValue(usuario)?.ToString(),
+        //        Email = usuario.GetType().GetProperty("Email")?.GetValue(usuario)?.ToString(),
+        //        FechaNacimiento = usuario.GetType().GetProperty("FechaNacimiento")?.GetValue(usuario) as DateTime?,
+        //        Telefono = usuario.GetType().GetProperty("Telefono")?.GetValue(usuario)?.ToString(),
+        //        Direccion = usuario.GetType().GetProperty("Direccion")?.GetValue(usuario)?.ToString(),
+        //        IdRol = rol switch
+        //        {
+        //            "Administrador" => 1,
+        //            "Médico" => 2,
+        //            "Paciente" => 3,
+        //            _ => 0
+        //        }
+        //    };
 
-            // Generar el token con el rol determinado
-            var token = FuncionesToken.GenerarToken(usuarioViewModel, rol, _confi);
-            return Ok(token);
-        }
+        //    // Generar el token con el rol determinado
+        //    var token = FuncionesToken.GenerarToken(usuarioViewModel, rol, _confi);
+        //    return Ok(token);
+        //}
 
 
     }

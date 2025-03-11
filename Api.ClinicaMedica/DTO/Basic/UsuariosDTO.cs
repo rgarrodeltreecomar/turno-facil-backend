@@ -1,8 +1,8 @@
 ﻿using Api.ClinicaMedica.Entities;
 
-namespace Api.ClinicaMedica.DTO.Create
+namespace Api.ClinicaMedica.DTO.Basic
 {
-    public class UsuariosCreateDTO
+    public class UsuariosDTO
     {
         public string IdUsuario { get; set; }
         public string Nombre { get; set; }
@@ -12,9 +12,14 @@ namespace Api.ClinicaMedica.DTO.Create
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
         public string? Telefono { get; set; }
         public string? Direccion { get; set; }
-        public string? PasswordHash { get; set; } = null!;
-        public string Password { get; set; } = null!;
+        public string PasswordHash { get; set; } = null!;
         public int IdRol { get; set; }
-                
+
+        // Propiedad de navegacion
+        public Roles? Rol { get; set; }
+
+        // Relación con Médico o Paciente
+        public Medicos? Medico { get; set; }
+        public Pacientes? Paciente { get; set; }
     }
 }
