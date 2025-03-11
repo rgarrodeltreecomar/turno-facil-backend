@@ -4,6 +4,7 @@ using Api.ClinicaMedica.DTO.Create;
 using Api.ClinicaMedica.Entities;
 using Api.ClinicaMedica.Models;
 using Api.ClinicaMedica.Utilities;
+using Api.ClinicaMedica.ViewModel;
 using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -80,59 +81,68 @@ namespace Api.ClinicaMedica.Controllers
             }
         }
 
-        //[HttpPost("register-medico")]
-        //public async Task<ActionResult> RegisterMedico([FromBody] MedicosCreateDTO medicosCreateDTO)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        return BadRequest(ModelState);
+        [HttpPost("register-medico")]
+        public async Task<ActionResult> RegisterMedico([FromBody] MedicViewModel medicVM)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
 
-        //    }
-        //    try
-        //    {
-        //        //Validar si el correo ya esta registrado
-        //        bool emailExists = await _context.Medicos.AnyAsync(u => u.Email == medicosCreateDTO.Email);
-        //        if (emailExists)
-        //        {
-        //            return BadRequest("El correo ya está registrado.");
-        //        }
+            }
+            try
+            {
+                //Validar si el correo ya esta registrado
+                bool emailExists = await _context.Usuarios.AnyAsync(u => u.Email == medicVM.Email);
+                if (emailExists)
+                {
+                    return BadRequest("El correo ya está registrado.");
+                }
 
-        //        //validar si el rol existe en la DB
-        //        var rol = await _context.Roles.FindAsync(medicosCreateDTO.IdRol);
-        //        if (rol == null)
-        //        {
-        //            return BadRequest("El rol especificado no existe.");
-        //        }
+                
+                //Encriptacion de la contraseña
 
-        //        //Encriptacion de la contraseña
+                string hashedPassword = BCrypt.Net.BCrypt.HashPassword(medicVM.Password);
 
-        //        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(medicosCreateDTO.Password);
+                // Crear un nuevo usuario
+                var medico = new Medicos
+                {
+                    IdMedico = medicVM.IdMedico,
+                    IdUsuario = medicVM.IdUsuario,
+                    IdEspecialidad = medicVM.IdEspecialidad,
+                    Sueldo = medicVM.Sueldo,
 
-        //        // Crear un nuevo usuario
-        //        var medico = new Medicos
-        //        {
-        //            IdMedico = medicosCreateDTO.IdMedico,
-        //            IdEspecialidad = medicosCreateDTO.IdEspecialidad,
-        //            Sueldo = medicosCreateDTO.Sueldo
-        //        };
+                    Usuario = new Usuarios
+                    {
+                        IdUsuario = medicVM.IdUsuario,
+                        Nombre = medicVM.Nombre,
+                        Apellido = medicVM.Apellido,
+                        Dni = medicVM.Dni,
+                        Email = medicVM.Email,
+                        Telefono = medicVM.Telefono,
+                        IdRol = 1,
+                        PasswordHash = hashedPassword,
+                        FechaRegistro = DateTime.Now,
+                    }
+                };
 
-        //        _context.Medicos.Add(medico);
-        //        await _context.SaveChangesAsync();
+                _context.Usuarios.Add(medico.Usuario);
+                _context.Medicos.Add(medico);
+                await _context.SaveChangesAsync();
 
-        //        return Ok("Medico registrado con éxito.");
+                return Ok("Medico registrado con éxito.");
 
-        //    }
-        //    catch (DbUpdateException ex)
-        //    {
-        //        var innerException = ex.InnerException?.Message;
-        //        return StatusCode(500, $"Error al guardar en la base de datos: {innerException}");
-        //    }
+            }
+            catch (DbUpdateException ex)
+            {
+                var innerException = ex.InnerException?.Message;
+                return StatusCode(500, $"Error al guardar en la base de datos: {innerException}");
+            }
 
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, "Ocurrió un error inesperado. " + ex.Message);
-        //    }
-        //}
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Ocurrió un error inesperado. " + ex.Message);
+            }
+        }
 
         [HttpPost("register-usuario")]
         public async Task<ActionResult> RegisterUsuario([FromBody] UsuariosCreateDTO usuariosCreateDTO)

@@ -9,7 +9,7 @@ namespace Api.ClinicaMedica.Entities
         
         public string IdEspecialidad { get; set; }
         public decimal? Sueldo { get; set; }
-
+        public DateTime FechaNacimiento { get; set; }
         // Relaciones Propiedad de Navegacion
         public Usuarios Usuario { get; set; }
         public Especialidades Especialidad { get; set; } = null!; // Relación 1 a 1 con Especialidad
