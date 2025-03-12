@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Api.ClinicaMedica.Migrations
 {
     /// <inheritdoc />
-    public partial class modificacionusuariospacientesmedicos : Migration
+    public partial class comienzonuevo : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -81,7 +81,7 @@ namespace Api.ClinicaMedica.Migrations
                 name: "Usuarios",
                 columns: table => new
                 {
-                    IdUsuario = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
                     Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Dni = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -90,8 +90,7 @@ namespace Api.ClinicaMedica.Migrations
                     Telefono = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
                     Direccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     PasswordHash = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    IdRol = table.Column<int>(type: "int", nullable: false),
-                    RolIdRol = table.Column<int>(type: "int", nullable: false)
+                    IdRol = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -102,12 +101,6 @@ namespace Api.ClinicaMedica.Migrations
                         principalTable: "Roles",
                         principalColumn: "IdRol",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Usuarios_Roles_RolIdRol",
-                        column: x => x.RolIdRol,
-                        principalTable: "Roles",
-                        principalColumn: "IdRol",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -140,9 +133,10 @@ namespace Api.ClinicaMedica.Migrations
                 columns: table => new
                 {
                     IdMedico = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdUsuario = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     IdEspecialidad = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Sueldo = table.Column<decimal>(type: "decimal(18,2)", nullable: true)
+                    Sueldo = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -154,8 +148,8 @@ namespace Api.ClinicaMedica.Migrations
                         principalColumn: "IdEspecialidad",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Medicos_Usuarios_IdMedico",
-                        column: x => x.IdMedico,
+                        name: "FK_Medicos_Usuarios_IdUsuario",
+                        column: x => x.IdUsuario,
                         principalTable: "Usuarios",
                         principalColumn: "IdUsuario",
                         onDelete: ReferentialAction.Cascade);
@@ -166,7 +160,7 @@ namespace Api.ClinicaMedica.Migrations
                 columns: table => new
                 {
                     IdPaciente = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdUsuario = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ObraSocial = table.Column<bool>(type: "bit", nullable: false),
                     FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
@@ -423,6 +417,12 @@ namespace Api.ClinicaMedica.Migrations
                 column: "IdEspecialidad");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Medicos_IdUsuario",
+                table: "Medicos",
+                column: "IdUsuario",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pacientes_IdUsuario",
                 table: "Pacientes",
                 column: "IdUsuario",
@@ -464,11 +464,6 @@ namespace Api.ClinicaMedica.Migrations
                 name: "IX_Usuarios_IdRol",
                 table: "Usuarios",
                 column: "IdRol");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Usuarios_RolIdRol",
-                table: "Usuarios",
-                column: "RolIdRol");
         }
 
         /// <inheritdoc />

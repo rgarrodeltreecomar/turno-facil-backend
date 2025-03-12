@@ -2,7 +2,7 @@
 {
     public class Usuarios
     {
-        public string IdUsuario { get; set; }
+        public Guid IdUsuario { get; set; } = Guid.NewGuid(); // Se genera un GUID por defecto
         public string Nombre { get; set; }
         public string Apellido { get; set; }
         public string? Dni { get; set; }

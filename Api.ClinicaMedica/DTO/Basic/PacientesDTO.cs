@@ -5,7 +5,7 @@ namespace Api.ClinicaMedica.DTO.Basic
     public class PacientesDTO
     {
         public string IdPaciente { get; set; }
-        public string IdUsuario { get; set; }
+        public Guid IdUsuario { get; set; }
         public bool ObraSocial { get; set; }
 
         // Relaciones

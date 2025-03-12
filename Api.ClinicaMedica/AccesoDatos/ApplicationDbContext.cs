@@ -37,9 +37,13 @@ namespace Api.ClinicaMedica.AccesoDatos
                 .HasKey(m => m.IdMedico);
 
             modelBuilder.Entity<Medicos>()
+                .Property(m => m.IdMedico)
+                .ValueGeneratedNever(); // No se genera automáticamente porque es el mismo que `Usuarios.IdUsuario`
+
+            modelBuilder.Entity<Medicos>()
                 .HasOne(m => m.Usuario)
                 .WithOne(u => u.Medico)
-                .HasForeignKey<Medicos>(m => m.IdMedico)
+                .HasForeignKey<Medicos>(m => m.IdUsuario) // Clave foránea correcta
                 .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Medicos>()
@@ -72,6 +76,10 @@ namespace Api.ClinicaMedica.AccesoDatos
             modelBuilder.Entity<Pacientes>()
                 .ToTable("Pacientes")
                 .HasKey(p => p.IdPaciente);
+
+            modelBuilder.Entity<Pacientes>()
+                .Property(p => p.IdPaciente)
+                .ValueGeneratedNever(); // Se usa el mismo GUID de `Usuarios.IdUsuario`
 
             modelBuilder.Entity<Pacientes>()
                 .HasOne(p => p.Usuario)
@@ -174,6 +182,10 @@ namespace Api.ClinicaMedica.AccesoDatos
                 // Tabla Usuario
                 entity.ToTable("Usuarios")
                     .HasKey(u => u.IdUsuario);
+
+                entity.Property(u => u.IdUsuario)
+                    .HasDefaultValueSql("NEWID()") // Genera un GUID automáticamente en SQL Server
+                    .ValueGeneratedOnAdd(); // Asegura que se genere en la inserción
 
                 entity.HasIndex(u => u.Email)
                     .IsUnique();

@@ -5,11 +5,11 @@ namespace Api.ClinicaMedica.Entities
     {
         public string IdMedico { get; set; }
         
-        public string IdUsuario { get; set; }
+        public Guid IdUsuario { get; set; }
         
-        public string IdEspecialidad { get; set; }
+        public string? IdEspecialidad { get; set; }
         public decimal? Sueldo { get; set; }
-
+        public DateTime FechaNacimiento { get; set; }
         // Relaciones Propiedad de Navegacion
         public Usuarios Usuario { get; set; }
         public Especialidades Especialidad { get; set; } = null!; // Relación 1 a 1 con Especialidad
