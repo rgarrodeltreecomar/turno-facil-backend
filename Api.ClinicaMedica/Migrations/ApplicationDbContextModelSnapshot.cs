@@ -289,12 +289,10 @@ namespace Api.ClinicaMedica.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("IdEspecialidad")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("IdUsuario")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<Guid>("IdUsuario")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal?>("Sueldo")
                         .HasColumnType("decimal(18,2)");
@@ -302,6 +300,9 @@ namespace Api.ClinicaMedica.Migrations
                     b.HasKey("IdMedico");
 
                     b.HasIndex("IdEspecialidad");
+
+                    b.HasIndex("IdUsuario")
+                        .IsUnique();
 
                     b.ToTable("Medicos", (string)null);
                 });
@@ -314,9 +315,8 @@ namespace Api.ClinicaMedica.Migrations
                     b.Property<DateTime>("FechaNacimiento")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("IdUsuario")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("IdUsuario")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("ObraSocial")
                         .HasColumnType("bit");
@@ -468,8 +468,10 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Usuarios", b =>
                 {
-                    b.Property<string>("IdUsuario")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("IdUsuario")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("NEWID()");
 
                     b.Property<string>("Apellido")
                         .IsRequired()
@@ -609,12 +611,11 @@ namespace Api.ClinicaMedica.Migrations
                     b.HasOne("Api.ClinicaMedica.Entities.Especialidades", "Especialidad")
                         .WithMany("Medicos")
                         .HasForeignKey("IdEspecialidad")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Api.ClinicaMedica.Entities.Usuarios", "Usuario")
                         .WithOne("Medico")
-                        .HasForeignKey("Api.ClinicaMedica.Entities.Medicos", "IdMedico")
+                        .HasForeignKey("Api.ClinicaMedica.Entities.Medicos", "IdUsuario")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

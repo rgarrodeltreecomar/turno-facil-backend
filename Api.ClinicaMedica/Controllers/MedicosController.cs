@@ -30,14 +30,14 @@ namespace Api.ClinicaMedica.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Medicos>>> GetMedicos()
         {
-            return await _context.Medicos.ToListAsync();
+            return await _context.Medicos.Include(m => m.Usuario).ToListAsync();
         }
 
         // GET: api/Medicos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Medicos>> GetMedicos(string id)
         {
-            var medicos = await _context.Medicos.FindAsync(id);
+            var medicos = await _context.Medicos.Include(m => m.Usuario).FirstOrDefaultAsync(m => m.IdMedico == id);
 
             if (medicos == null)
             {
