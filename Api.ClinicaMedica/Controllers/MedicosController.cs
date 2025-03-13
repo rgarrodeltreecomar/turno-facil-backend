@@ -13,7 +13,7 @@ using Api.ClinicaMedica.DTO.Put;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/medicos")]
     [ApiController]
     public class MedicosController : ControllerBase
     {

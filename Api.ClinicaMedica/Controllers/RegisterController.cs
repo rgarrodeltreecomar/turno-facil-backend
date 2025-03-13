@@ -15,7 +15,7 @@ using System.Security.Claims;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/register")]
     [ApiController]
     public class RegisterController : ControllerBase
     {

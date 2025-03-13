@@ -11,7 +11,7 @@ using Api.ClinicaMedica.DTO.Create;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/turnos")]
     [ApiController]
     public class TurnosController : ControllerBase
     {

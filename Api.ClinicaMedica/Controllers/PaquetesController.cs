@@ -12,7 +12,7 @@ using AutoMapper;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/paquetes")]
     [ApiController]
     public class PaquetesController : ControllerBase
     {

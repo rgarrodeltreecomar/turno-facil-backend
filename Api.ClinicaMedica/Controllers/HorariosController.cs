@@ -12,7 +12,7 @@ using Api.ClinicaMedica.DTO.Create;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/horarios")]
     [ApiController]
     public class HorariosController : ControllerBase
     {

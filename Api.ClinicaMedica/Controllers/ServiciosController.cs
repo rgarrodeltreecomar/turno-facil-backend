@@ -10,7 +10,7 @@ using Api.ClinicaMedica.Entities;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/servicios")]
     [ApiController]
     public class ServiciosController : ControllerBase
     {
