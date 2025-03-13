@@ -14,12 +14,12 @@ namespace Api.ClinicaMedica.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class CitasMedicasController : ControllerBase
+    public class citasmedicasController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public CitasMedicasController(ApplicationDbContext context, IMapper mapper)
+        public citasmedicasController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

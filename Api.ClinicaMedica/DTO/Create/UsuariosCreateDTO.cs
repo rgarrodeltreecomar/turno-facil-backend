@@ -12,7 +12,6 @@ namespace Api.ClinicaMedica.DTO.Create
         public DateTime FechaRegistro { get; set; } = DateTime.Now;
         public string? Telefono { get; set; }
         public string? Direccion { get; set; }
-        public string? PasswordHash { get; set; } = null!;
         public string Password { get; set; } = null!;
         public int IdRol { get; set; }
                 

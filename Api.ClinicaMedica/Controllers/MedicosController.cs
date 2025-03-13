@@ -10,17 +10,18 @@ using Api.ClinicaMedica.Entities;
 using Api.ClinicaMedica.DTO.Create;
 using AutoMapper;
 using Api.ClinicaMedica.DTO.Put;
+using Api.ClinicaMedica.DTO.Basic;
 
 namespace Api.ClinicaMedica.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MedicosController : ControllerBase
+    public class medicosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public MedicosController(ApplicationDbContext context, IMapper mapper)
+        public medicosController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -28,23 +29,26 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/Medicos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Medicos>>> GetMedicos()
+        public async Task<ActionResult<IEnumerable<MedicosDTO>>> GetMedicos()
         {
-            return await _context.Medicos.Include(m => m.Usuario).ToListAsync();
+            var medicos = await _context.Medicos.Include(m => m.Usuario).ToListAsync();
+            var medicosDTO = _mapper.Map<IEnumerable<MedicosDTO>>(medicos);
+            return medicosDTO.ToList();
         }
 
         // GET: api/Medicos/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Medicos>> GetMedicos(string id)
+        public async Task<ActionResult<MedicosDTO>> GetMedicos(string id)
         {
             var medicos = await _context.Medicos.Include(m => m.Usuario).FirstOrDefaultAsync(m => m.IdMedico == id);
+            var medicosDTO = _mapper.Map<MedicosDTO>(medicos);
 
             if (medicos == null)
             {
                 return NotFound();
             }
 
-            return medicos;
+            return medicosDTO;
         }
 
         // PUT: api/Medicos/5

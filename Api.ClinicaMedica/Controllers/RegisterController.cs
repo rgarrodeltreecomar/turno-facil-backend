@@ -17,13 +17,13 @@ namespace Api.ClinicaMedica.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegisterController : ControllerBase
+    public class registerController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IConfiguration _confi;
 
-        public RegisterController(ApplicationDbContext context, IMapper mapper, IConfiguration confi)
+        public registerController(ApplicationDbContext context, IMapper mapper, IConfiguration confi)
         {
             _context = context;
             _mapper = mapper;
@@ -192,6 +192,7 @@ namespace Api.ClinicaMedica.Controllers
                     Apellido = usuariosCreateDTO.Apellido,
                     Dni = usuariosCreateDTO.Dni,
                     Email = usuariosCreateDTO.Email,
+                    FechaRegistro = DateTime.Now,
                     Telefono = usuariosCreateDTO.Telefono,
                     Direccion = usuariosCreateDTO.Direccion,
                     IdRol = usuariosCreateDTO.IdRol,
@@ -216,20 +217,7 @@ namespace Api.ClinicaMedica.Controllers
             }
         }
 
-        // GET: api/Pacientes
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<PacientesDTO>>> GetPacientes()
-        {
-            var listaPersonas = await _context.Pacientes.ToListAsync();
-            return _mapper.Map<List<PacientesDTO>>(listaPersonas);
-        }
-
-        [HttpGet("obtener-medicos")]
-        public async Task<ActionResult<IEnumerable<MedicosDTO>>> GetMedicos()
-        {
-            var listaMedicos = await _context.Pacientes.ToListAsync();
-            return _mapper.Map<List<MedicosDTO>>(listaMedicos);
-        }
+          
 
 
         [HttpPost("login")]

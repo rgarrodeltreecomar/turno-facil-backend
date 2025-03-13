@@ -12,11 +12,11 @@ namespace Api.ClinicaMedica.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServiciosController : ControllerBase
+    public class serviciosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public ServiciosController(ApplicationDbContext context)
+        public serviciosController(ApplicationDbContext context)
         {
             _context = context;
         }
