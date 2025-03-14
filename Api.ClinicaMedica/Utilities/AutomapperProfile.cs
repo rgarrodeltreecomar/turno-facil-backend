@@ -1,6 +1,7 @@
 ﻿using Api.ClinicaMedica.DTO.Basic;
 using Api.ClinicaMedica.DTO.Create;
 using Api.ClinicaMedica.DTO.Put;
+using Api.ClinicaMedica.DTO.Update;
 using Api.ClinicaMedica.Entities;
 using Api.ClinicaMedica.Models;
 using AutoMapper;
@@ -13,7 +14,9 @@ namespace Api.ClinicaMedica.Utilities
         {
             // Usuarios
             CreateMap<UsuariosCreateDTO, Usuarios>()
-                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore()); 
+                .ForMember(dest => dest.PasswordHash, opt => opt.Ignore());
+
+            CreateMap<Usuarios, UsuariosDTO>().ReverseMap();
 
             // Pacientes
             CreateMap<Pacientes, PacientesDTO>().ReverseMap();
@@ -58,6 +61,10 @@ namespace Api.ClinicaMedica.Utilities
             CreateMap<RegisteredViewModel, Usuarios>().ReverseMap();
             CreateMap<RegisteredViewModel, Pacientes>().ReverseMap();
             CreateMap<RegisteredViewModel, Medicos>().ReverseMap();
+
+            // Update Pacientes
+            CreateMap<UsuarioUpdateDTO, Usuarios>().ReverseMap();
+            CreateMap<PacienteUpdateDTO, Pacientes>().ReverseMap();
 
         }
     }

@@ -12,7 +12,7 @@ using Api.ClinicaMedica.DTO.Create;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/horarios")]
     [ApiController]
     public class horariosController : ControllerBase
     {
@@ -25,14 +25,14 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Horarios
+        // GET: api/horarios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Horarios>>> GetHorarios()
         {
             return await _context.Horarios.ToListAsync();
         }
 
-        // GET: api/Horarios/5
+        // GET: api/horarios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Horarios>> GetHorarios(string id)
         {
@@ -46,7 +46,7 @@ namespace Api.ClinicaMedica.Controllers
             return horarios;
         }
 
-        // PUT: api/Horarios/5
+        // PUT: api/horarios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutHorarios(string id, Horarios horarios)
@@ -77,7 +77,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/Horarios
+        // POST: api/horarios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Horarios>> PostHorarios(HorariosCreateDTO horariosCreateDTO)
@@ -104,7 +104,7 @@ namespace Api.ClinicaMedica.Controllers
             return CreatedAtAction("GetHorarios", new { id = horarios.IdHorario }, horarios);
         }
 
-        // DELETE: api/Horarios/5
+        // DELETE: api/horarios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteHorarios(string id)
         {

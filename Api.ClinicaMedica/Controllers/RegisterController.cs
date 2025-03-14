@@ -15,7 +15,7 @@ using System.Security.Claims;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/register")]
     [ApiController]
     public class registerController : ControllerBase
     {
@@ -217,7 +217,21 @@ namespace Api.ClinicaMedica.Controllers
             }
         }
 
-          
+
+        // GET: api/pacientes
+        [HttpGet]
+        public async Task<ActionResult<IEnumerable<PacientesDTO>>> GetPacientes()
+        {
+            var listaPersonas = await _context.Pacientes.ToListAsync();
+            return _mapper.Map<List<PacientesDTO>>(listaPersonas);
+        }
+
+        [HttpGet("obtener-medicos")]
+        public async Task<ActionResult<IEnumerable<MedicosDTO>>> GetMedicos()
+        {
+            var listaMedicos = await _context.Pacientes.ToListAsync();
+            return _mapper.Map<List<MedicosDTO>>(listaMedicos);
+        }
 
 
         [HttpPost("login")]

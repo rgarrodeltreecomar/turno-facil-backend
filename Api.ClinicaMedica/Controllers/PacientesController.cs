@@ -10,10 +10,11 @@ using Api.ClinicaMedica.Entities;
 using Api.ClinicaMedica.DTO.Basic;
 using Api.ClinicaMedica.DTO.Create;
 using AutoMapper;
+using Api.ClinicaMedica.DTO.Update;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/pacientes")]
     [ApiController]
     public class pacientesController : ControllerBase
     {
@@ -26,7 +27,7 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Pacientes
+        // GET: api/pacientes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PacientesDTO>>> GetPacientes()
         {
@@ -34,7 +35,7 @@ namespace Api.ClinicaMedica.Controllers
             return _mapper.Map<List<PacientesDTO>>(listaPacientes);
         }
 
-        // GET: api/Pacientes/5
+        // GET: api/pacientes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PacientesDTO>> GetPacientes(string id)
         {
@@ -49,17 +50,35 @@ namespace Api.ClinicaMedica.Controllers
             return pacienteDTO;
         }
 
-        // PUT: api/Pacientes/5
+        // PUT: api/pacientes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPacientes(string id, Pacientes pacientes)
+        public async Task<IActionResult> PutPacientes(string id, PacienteUpdateDTO pacientesDTO)
         {
-            if (id != pacientes.IdPaciente)
+            if (id != pacientesDTO.IdPaciente)
             {
                 return BadRequest();
             }
 
-            _context.Entry(pacientes).State = EntityState.Modified;
+            var idUsuario = (from p in _context.Pacientes where p.IdPaciente == id select p.IdUsuario).FirstOrDefaultAsync().Result;
+            var paciente = new Pacientes
+            {
+                IdPaciente = pacientesDTO.IdPaciente,
+                IdUsuario = idUsuario,
+                FechaNacimiento = pacientesDTO.FechaNacimiento,
+                ObraSocial = pacientesDTO.ObraSocial
+            };
+
+            var usuario = _context.Usuarios.FirstOrDefaultAsync(u => u.IdUsuario == idUsuario).Result;
+
+            usuario.Nombre = pacientesDTO.Usuario.Nombre;
+            usuario.Apellido = pacientesDTO.Usuario.Apellido;
+            usuario.Telefono = pacientesDTO.Usuario.Telefono;
+            usuario.Email = pacientesDTO.Usuario.Email;
+            usuario.Direccion = pacientesDTO.Usuario.Direccion;
+            
+            _context.Entry(usuario).State = EntityState.Modified;
+            _context.Entry(paciente).State = EntityState.Modified;
 
             try
             {
@@ -80,36 +99,9 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/Pacientes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Pacientes>> PostPacientes(PacientesCreateDTO pacientesCreateDTO)
-        //{
+        
 
-        //    var paciente = _mapper.Map<Pacientes>(pacientesCreateDTO);
-
-        //    //_context.Personas.Add(paciente.Persona);
-        //    _context.Pacientes.Add(paciente);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (PacientesExists(paciente.IdPaciente))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return CreatedAtAction("GetPacientes", new { id = paciente.IdPaciente }, paciente);
-        //}
-
-        // DELETE: api/Pacientes/5
+        // DELETE: api/pacientes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePacientes(string id)
         {

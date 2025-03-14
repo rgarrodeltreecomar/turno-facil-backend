@@ -12,7 +12,7 @@ using AutoMapper;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/paquetes")]
     [ApiController]
     public class paquetesController : ControllerBase
     {
@@ -25,14 +25,14 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Paquetes
+        // GET: api/paquetes
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Paquetes>>> GetPaquetes()
         {
             return await _context.Paquetes.ToListAsync();
         }
 
-        // GET: api/Paquetes/5
+        // GET: api/paquetes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Paquetes>> GetPaquetes(string id)
         {
@@ -46,7 +46,7 @@ namespace Api.ClinicaMedica.Controllers
             return paquetes;
         }
 
-        // PUT: api/Paquetes/5
+        // PUT: api/paquetes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPaquetes(string id, PaquetesCreateDTO paquetesDTO)
@@ -78,7 +78,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/Paquetes
+        // POST: api/paquetes
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Paquetes>> PostPaquetes(PaquetesCreateDTO paquetesDTO)
@@ -104,7 +104,7 @@ namespace Api.ClinicaMedica.Controllers
             return CreatedAtAction("GetPaquetes", new { id = paquetes.CodigoPaquete }, paquetes);
         }
 
-        // DELETE: api/Paquetes/5
+        // DELETE: api/paquetes/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeletePaquetes(string id)
         {

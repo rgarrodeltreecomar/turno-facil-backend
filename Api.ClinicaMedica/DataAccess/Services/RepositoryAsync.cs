@@ -1,4 +1,5 @@
 ﻿using Api.ClinicaMedica.AccesoDatos;
+using Api.ClinicaMedica.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 

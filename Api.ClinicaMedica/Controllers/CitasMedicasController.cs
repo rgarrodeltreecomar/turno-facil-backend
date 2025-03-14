@@ -12,7 +12,7 @@ using Api.ClinicaMedica.DTO.Create;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/citasmedicas")]
     [ApiController]
     public class citasmedicasController : ControllerBase
     {
@@ -25,7 +25,7 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/CitasMedicas
+        // GET: api/citasmedicas
         [HttpGet]
         public async Task<ActionResult<IEnumerable<CitasMedicas>>> GetCitasMedicas()
         {
@@ -33,7 +33,7 @@ namespace Api.ClinicaMedica.Controllers
                                 .Include(c => c.DetallesServicios).ToListAsync();
         }
 
-        // GET: api/CitasMedicas/5
+        // GET: api/citasmedicas/5
         [HttpGet("{id}")]
         public async Task<ActionResult<CitasMedicas>> GetCitasMedicas(string id)
         {
@@ -48,7 +48,7 @@ namespace Api.ClinicaMedica.Controllers
             return citasMedicas;
         }
 
-        // PUT: api/CitasMedicas/5
+        // PUT: api/citasmedicas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCitasMedicas(string id, CitasMedicas citasMedicas)
@@ -86,7 +86,7 @@ namespace Api.ClinicaMedica.Controllers
              
         }
 
-        // POST: api/CitasMedicas
+        // POST: api/citasmedicas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<CitasMedicas>> PostCitasMedicas(CitasMedicasCreacionDTO citasMedicasDTO)
@@ -126,7 +126,7 @@ namespace Api.ClinicaMedica.Controllers
             return CreatedAtAction("GetCitasMedicas", new { id = citasMedicas.IdCitas }, citasMedicas);
         }
 
-        // DELETE: api/CitasMedicas/5
+        // DELETE: api/citasmedicas/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCitasMedicas(string id)
         {

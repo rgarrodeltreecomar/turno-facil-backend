@@ -12,7 +12,7 @@ using Api.ClinicaMedica.DTO.Create;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/facturacion")]
     [ApiController]
     public class facturacionController : ControllerBase
     {
@@ -25,14 +25,14 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Facturacions
+        // GET: api/facturacion
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Facturacion>>> GetFacturaciones()
         {
             return await _context.Facturaciones.Include(f => f.Consulta).ToListAsync();
         }
 
-        // GET: api/Facturacions/5
+        // GET: api/facturacion/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Facturacion>> GetFacturacion(string id)
         {
@@ -46,7 +46,7 @@ namespace Api.ClinicaMedica.Controllers
             return facturacion;
         }
 
-        // PUT: api/Facturacions/5
+        // PUT: api/facturacion/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutFacturacion(string id, FacturacionCreateDTO facturacionDTO)
@@ -78,7 +78,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/Facturacions
+        // POST: api/facturacion
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Facturacion>> PostFacturacion(FacturacionCreateDTO facturacionDTO)
@@ -104,7 +104,7 @@ namespace Api.ClinicaMedica.Controllers
             return CreatedAtAction("GetFacturacion", new { id = facturacion.IdFactura }, facturacion);
         }
 
-        // DELETE: api/Facturacions/5
+        // DELETE: api/facturacion/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFacturacion(string id)
         {

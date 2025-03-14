@@ -11,10 +11,11 @@ using Api.ClinicaMedica.DTO.Create;
 using AutoMapper;
 using Api.ClinicaMedica.DTO.Put;
 using Api.ClinicaMedica.DTO.Basic;
+using Api.ClinicaMedica.DTO.Update;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/medicos")]
     [ApiController]
     public class medicosController : ControllerBase
     {
@@ -27,7 +28,7 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/Medicos
+        // GET: api/medicos
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MedicosDTO>>> GetMedicos()
         {
@@ -36,7 +37,7 @@ namespace Api.ClinicaMedica.Controllers
             return medicosDTO.ToList();
         }
 
-        // GET: api/Medicos/5
+        // GET: api/medicos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MedicosDTO>> GetMedicos(string id)
         {
@@ -51,52 +52,55 @@ namespace Api.ClinicaMedica.Controllers
             return medicosDTO;
         }
 
-        // PUT: api/Medicos/5
+        // PUT: api/medicos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> PutMedicos(string id, MedicosPutDTO medicosDTO)
-        //{
-        //    if (id != medicosDTO.IdMedico)
-        //    {
-        //        return BadRequest();
-        //    }
-        //    var medico = _context.Medicos.Find(id);
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutMedicos(string id, MedicosUpdateDTO medicosDTO)
+        {
+            if (id != medicosDTO.IdMedico)
+            {
+                return BadRequest();
+            }
 
-        //    if (medico != null)
-        //    {
-        //        medico.IdMedico = medicosDTO.IdMedico;
-        //        medico.Nombre = medicosDTO.Nombre;
-        //        medico.Apellido = medicosDTO.Apellido;
-        //        medico.Dni = medicosDTO.Dni;
-        //        medico.Email = medicosDTO.Email;
-        //        medico.Telefono = medicosDTO.Telefono;
-        //        medico.IdEspecialidad = medicosDTO.IdEspecialidad;
-        //        medico.Sueldo = medicosDTO.Sueldo;
+            var idUsuario = (from p in _context.Medicos where p.IdMedico == id select p.IdUsuario).FirstOrDefaultAsync().Result;
+            var medico = new Medicos
+            {
+                IdMedico = medicosDTO.IdMedico,
+                IdUsuario = idUsuario,
+                FechaNacimiento = medicosDTO.FechaNacimiento,
+                IdEspecialidad = medicosDTO.IdEspecialidad,
+                Sueldo = medicosDTO.Sueldo
+            };
 
-        //        _context.Entry(medico).State = EntityState.Modified;
-        //    }
-        //    else
-        //        return NotFound("Medico no encontrado");
+            var usuario = _context.Usuarios.FirstOrDefaultAsync(u => u.IdUsuario == idUsuario).Result;
 
+            usuario.Nombre = medicosDTO.Usuario.Nombre;
+            usuario.Apellido = medicosDTO.Usuario.Apellido;
+            usuario.Telefono = medicosDTO.Usuario.Telefono;
+            usuario.Email = medicosDTO.Usuario.Email;
+            usuario.Direccion = medicosDTO.Usuario.Direccion;
 
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateConcurrencyException)
-        //    {
-        //        if (!MedicosExists(id))
-        //        {
-        //            return NotFound();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
+            _context.Entry(usuario).State = EntityState.Modified;
+            _context.Entry(medico).State = EntityState.Modified;
 
-        //    return NoContent();
-        //}
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!MedicosExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
+        }
 
         // POST: api/Medicos
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -127,7 +131,7 @@ namespace Api.ClinicaMedica.Controllers
         //    return CreatedAtAction("GetMedicos", new { id = medicos.IdMedico }, medicos);
         //}
 
-        // DELETE: api/Medicos/5
+        // DELETE: api/medicos/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteMedicos(string id)
         {

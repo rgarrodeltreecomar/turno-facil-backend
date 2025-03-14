@@ -10,7 +10,7 @@ using Api.ClinicaMedica.Entities;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/servicios")]
     [ApiController]
     public class serviciosController : ControllerBase
     {
@@ -21,14 +21,14 @@ namespace Api.ClinicaMedica.Controllers
             _context = context;
         }
 
-        // GET: api/Servicios
+        // GET: api/servicios
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Servicios>>> GetServicios()
         {
             return await _context.Servicios.ToListAsync();
         }
 
-        // GET: api/Servicios/5
+        // GET: api/servicios/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Servicios>> GetServicios(string id)
         {
@@ -42,7 +42,7 @@ namespace Api.ClinicaMedica.Controllers
             return servicios;
         }
 
-        // PUT: api/Servicios/5
+        // PUT: api/servicios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
         public async Task<IActionResult> PutServicios(string id, Servicios servicios)
@@ -73,7 +73,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/Servicios
+        // POST: api/servicios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Servicios>> PostServicios(Servicios servicios)
@@ -98,7 +98,7 @@ namespace Api.ClinicaMedica.Controllers
             return CreatedAtAction("GetServicios", new { id = servicios.IdServicio }, servicios);
         }
 
-        // DELETE: api/Servicios/5
+        // DELETE: api/servicios/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteServicios(string id)
         {
