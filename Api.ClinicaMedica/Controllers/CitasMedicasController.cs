@@ -12,7 +12,7 @@ using Api.ClinicaMedica.DTO.Create;
 
 namespace Api.ClinicaMedica.Controllers
 {
-    [Route("api/citas-medicas")]
+    [Route("api/cita-medicas")]
     [ApiController]
     public class CitasMedicasController : ControllerBase
     {
