@@ -14,12 +14,12 @@ namespace Api.ClinicaMedica.Controllers
 {
     [Route("api/horarios")]
     [ApiController]
-    public class HorariosController : ControllerBase
+    public class horariosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public HorariosController(ApplicationDbContext context, IMapper mapper)
+        public horariosController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

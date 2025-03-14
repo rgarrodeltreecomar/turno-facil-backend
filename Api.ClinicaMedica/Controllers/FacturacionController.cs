@@ -14,12 +14,12 @@ namespace Api.ClinicaMedica.Controllers
 {
     [Route("api/facturacion")]
     [ApiController]
-    public class FacturacionController : ControllerBase
+    public class facturacionController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public FacturacionController(ApplicationDbContext context, IMapper mapper)
+        public facturacionController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

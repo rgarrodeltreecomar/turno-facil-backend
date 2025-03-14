@@ -14,12 +14,12 @@ namespace Api.ClinicaMedica.Controllers
 {
     [Route("api/especialidades")]
     [ApiController]
-    public class EspecialidadesController : ControllerBase
+    public class especialidadesController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
 
-        public EspecialidadesController(ApplicationDbContext context, IMapper mapper)
+        public especialidadesController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;

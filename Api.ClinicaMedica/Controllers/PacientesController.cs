@@ -10,6 +10,7 @@ using Api.ClinicaMedica.Entities;
 using Api.ClinicaMedica.DTO.Basic;
 using Api.ClinicaMedica.DTO.Create;
 using AutoMapper;
+using Api.ClinicaMedica.DTO.Update;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -52,14 +53,32 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/pacientes/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPacientes(string id, Pacientes pacientes)
+        public async Task<IActionResult> PutPacientes(string id, PacienteUpdateDTO pacientesDTO)
         {
-            if (id != pacientes.IdPaciente)
+            if (id != pacientesDTO.IdPaciente)
             {
                 return BadRequest();
             }
 
-            _context.Entry(pacientes).State = EntityState.Modified;
+            var idUsuario = (from p in _context.Pacientes where p.IdPaciente == id select p.IdUsuario).FirstOrDefaultAsync().Result;
+            var paciente = new Pacientes
+            {
+                IdPaciente = pacientesDTO.IdPaciente,
+                IdUsuario = idUsuario,
+                FechaNacimiento = pacientesDTO.FechaNacimiento,
+                ObraSocial = pacientesDTO.ObraSocial
+            };
+
+            var usuario = _context.Usuarios.FirstOrDefaultAsync(u => u.IdUsuario == idUsuario).Result;
+
+            usuario.Nombre = pacientesDTO.Usuario.Nombre;
+            usuario.Apellido = pacientesDTO.Usuario.Apellido;
+            usuario.Telefono = pacientesDTO.Usuario.Telefono;
+            usuario.Email = pacientesDTO.Usuario.Email;
+            usuario.Direccion = pacientesDTO.Usuario.Direccion;
+            
+            _context.Entry(usuario).State = EntityState.Modified;
+            _context.Entry(paciente).State = EntityState.Modified;
 
             try
             {
@@ -80,34 +99,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/pacientes
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Pacientes>> PostPacientes(PacientesCreateDTO pacientesCreateDTO)
-        //{
-
-        //    var paciente = _mapper.Map<Pacientes>(pacientesCreateDTO);
-
-        //    //_context.Personas.Add(paciente.Persona);
-        //    _context.Pacientes.Add(paciente);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (PacientesExists(paciente.IdPaciente))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return CreatedAtAction("GetPacientes", new { id = paciente.IdPaciente }, paciente);
-        //}
+        
 
         // DELETE: api/pacientes/5
         [HttpDelete("{id}")]

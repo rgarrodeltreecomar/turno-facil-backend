@@ -13,11 +13,11 @@ namespace Api.ClinicaMedica.Controllers
 {
     [Route("api/turnos")]
     [ApiController]
-    public class TurnosController : ControllerBase
+    public class turnosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
 
-        public TurnosController(ApplicationDbContext context)
+        public turnosController(ApplicationDbContext context)
         {
             _context = context;
         }

@@ -17,13 +17,13 @@ namespace Api.ClinicaMedica.Controllers
 {
     [Route("api/register")]
     [ApiController]
-    public class RegisterController : ControllerBase
+    public class registerController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
         private readonly IMapper _mapper;
         private readonly IConfiguration _confi;
 
-        public RegisterController(ApplicationDbContext context, IMapper mapper, IConfiguration confi)
+        public registerController(ApplicationDbContext context, IMapper mapper, IConfiguration confi)
         {
             _context = context;
             _mapper = mapper;
@@ -192,6 +192,7 @@ namespace Api.ClinicaMedica.Controllers
                     Apellido = usuariosCreateDTO.Apellido,
                     Dni = usuariosCreateDTO.Dni,
                     Email = usuariosCreateDTO.Email,
+                    FechaRegistro = DateTime.Now,
                     Telefono = usuariosCreateDTO.Telefono,
                     Direccion = usuariosCreateDTO.Direccion,
                     IdRol = usuariosCreateDTO.IdRol,
@@ -215,6 +216,7 @@ namespace Api.ClinicaMedica.Controllers
                 return StatusCode(500, "Ocurrió un error inesperado. " + ex.Message);
             }
         }
+
 
         // GET: api/pacientes
         [HttpGet]
