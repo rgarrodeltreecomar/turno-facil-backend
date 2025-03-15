@@ -71,11 +71,12 @@ namespace Api.ClinicaMedica.Controllers
 
             var usuario = _context.Usuarios.FirstOrDefaultAsync(u => u.IdUsuario == idUsuario).Result;
 
-            usuario.Nombre = pacientesDTO.Usuario.Nombre;
-            usuario.Apellido = pacientesDTO.Usuario.Apellido;
-            usuario.Telefono = pacientesDTO.Usuario.Telefono;
-            usuario.Email = pacientesDTO.Usuario.Email;
-            usuario.Direccion = pacientesDTO.Usuario.Direccion;
+            usuario.Nombre = pacientesDTO.Nombre;
+            usuario.Apellido = pacientesDTO.Apellido;
+            usuario.Telefono = pacientesDTO.Telefono;
+            usuario.Email = pacientesDTO.Email;
+            usuario.Dni = pacientesDTO.Dni;
+            usuario.Direccion = pacientesDTO.Direccion;
             
             _context.Entry(usuario).State = EntityState.Modified;
             _context.Entry(paciente).State = EntityState.Modified;
@@ -99,7 +100,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        
+
 
         // DELETE: api/pacientes/5
         [HttpDelete("{id}")]
@@ -111,7 +112,14 @@ namespace Api.ClinicaMedica.Controllers
                 return NotFound();
             }
 
+            var usuario = await _context.Usuarios.FindAsync(pacientes.IdUsuario);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
             _context.Pacientes.Remove(pacientes);
+            _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
 
             return NoContent();

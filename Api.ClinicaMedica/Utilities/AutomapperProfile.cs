@@ -62,10 +62,7 @@ namespace Api.ClinicaMedica.Utilities
             CreateMap<RegisteredViewModel, Pacientes>().ReverseMap();
             CreateMap<RegisteredViewModel, Medicos>().ReverseMap();
 
-            // Update Pacientes
-            CreateMap<UsuarioUpdateDTO, Usuarios>().ReverseMap();
-            CreateMap<PacienteUpdateDTO, Pacientes>().ReverseMap();
-
+          
         }
     }
 }

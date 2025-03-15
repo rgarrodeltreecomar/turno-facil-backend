@@ -74,11 +74,12 @@ namespace Api.ClinicaMedica.Controllers
 
             var usuario = _context.Usuarios.FirstOrDefaultAsync(u => u.IdUsuario == idUsuario).Result;
 
-            usuario.Nombre = medicosDTO.Usuario.Nombre;
-            usuario.Apellido = medicosDTO.Usuario.Apellido;
-            usuario.Telefono = medicosDTO.Usuario.Telefono;
-            usuario.Email = medicosDTO.Usuario.Email;
-            usuario.Direccion = medicosDTO.Usuario.Direccion;
+            usuario.Nombre = medicosDTO.Nombre;
+            usuario.Apellido = medicosDTO.Apellido;
+            usuario.Telefono = medicosDTO.Telefono;
+            usuario.Email = medicosDTO.Email;
+            usuario.Direccion = medicosDTO.Direccion;
+            usuario.Dni = medicosDTO.Dni;
 
             _context.Entry(usuario).State = EntityState.Modified;
             _context.Entry(medico).State = EntityState.Modified;
@@ -102,34 +103,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        // POST: api/Medicos
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        //[HttpPost]
-        //public async Task<ActionResult<Medicos>> PostMedicos(MedicosCreateDTO medicosCreateDTO)
-        //{
-        //    var medicos = _mapper.Map<Medicos>(medicosCreateDTO);
-
-
-        //    //_context.Personas.Add(medicos.Persona);
-        //    _context.Medicos.Add(medicos);
-        //    try
-        //    {
-        //        await _context.SaveChangesAsync();
-        //    }
-        //    catch (DbUpdateException)
-        //    {
-        //        if (MedicosExists(medicos.IdMedico))
-        //        {
-        //            return Conflict();
-        //        }
-        //        else
-        //        {
-        //            throw;
-        //        }
-        //    }
-
-        //    return CreatedAtAction("GetMedicos", new { id = medicos.IdMedico }, medicos);
-        //}
+        
 
         // DELETE: api/medicos/5
         [HttpDelete("{id}")]
@@ -140,8 +114,13 @@ namespace Api.ClinicaMedica.Controllers
             {
                 return NotFound();
             }
-
+            var usuario = await _context.Usuarios.FindAsync(medicos.IdUsuario);
+            if (usuario == null)
+            {
+                return NotFound();
+            }
             _context.Medicos.Remove(medicos);
+            _context.Usuarios.Remove(usuario);
             await _context.SaveChangesAsync();
 
             return NoContent();
