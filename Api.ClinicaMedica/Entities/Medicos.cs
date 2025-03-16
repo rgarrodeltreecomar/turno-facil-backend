@@ -15,5 +15,7 @@ namespace Api.ClinicaMedica.Entities
         public Especialidades Especialidad { get; set; } = null!; // Relación 1 a 1 con Especialidad
 
         public virtual ICollection<Turnos> Turnos { get; set; } = new List<Turnos>();
+
+        public virtual ICollection<Horarios> Horarios { get; set; } = new List<Horarios>();
     }
 }

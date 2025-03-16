@@ -12,10 +12,12 @@ namespace Api.ClinicaMedica.ViewModel
         [Required]
         public string Email { get; set; }  // Unique
         public DateTime FechaNacimiento { get; set; }
+        public DateTime FechaRegistro { get; set; }
         public string? Telefono { get; set; }
         public string? Direccion { get; set; }
         public string Password { get; set; }
         public decimal? Sueldo { get; set; }
-        public bool ObraSocial { get; set; }    
+        public bool ObraSocial { get; set; }
+        public int IdRol { get; set; }
     }
 }

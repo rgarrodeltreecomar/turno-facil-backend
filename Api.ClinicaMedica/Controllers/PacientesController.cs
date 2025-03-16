@@ -11,6 +11,7 @@ using Api.ClinicaMedica.DTO.Basic;
 using Api.ClinicaMedica.DTO.Create;
 using AutoMapper;
 using Api.ClinicaMedica.DTO.Update;
+using Api.ClinicaMedica.ViewModel;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -29,25 +30,56 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/pacientes
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<PacientesDTO>>> GetPacientes()
+        public async Task<ActionResult<IEnumerable<PacienteViewModel>>> GetPacientes()
         {
-            var listaPacientes = await _context.Pacientes.Include(p => p.Usuario).ToListAsync();
-            return _mapper.Map<List<PacientesDTO>>(listaPacientes);
+            var listaPacientesVM = await _context.Pacientes
+                .Include(p => p.Usuario)
+                .Select(p => new PacienteViewModel
+                {
+                    IdPaciente = p.IdPaciente,
+                    Nombre = p.Usuario.Nombre,
+                    Apellido = p.Usuario.Apellido,
+                    Email = p.Usuario.Email,
+                    Dni = p.Usuario.Dni,
+                    Telefono = p.Usuario.Telefono,
+                    Direccion = p.Usuario.Direccion,
+                    IdRol = p.Usuario.IdRol,
+                    ObraSocial = p.ObraSocial,
+                    FechaNacimiento = p.FechaNacimiento,
+                    FechaRegistro = p.Usuario.FechaRegistro
+
+                })
+                .ToListAsync();
+            return listaPacientesVM;
         }
 
         // GET: api/pacientes/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<PacientesDTO>> GetPacientes(string id)
+        public async Task<ActionResult<PacienteViewModel>> GetPacientes(string id)
         {
             var pacientes = await _context.Pacientes.Include(p => p.Usuario).FirstOrDefaultAsync(p => p.IdPaciente == id);
 
-            var pacienteDTO = _mapper.Map<PacientesDTO>(pacientes);
             if (pacientes == null)
             {
                 return NotFound();
             }
 
-            return pacienteDTO;
+            var pacienteVM = new PacienteViewModel
+            {
+                IdPaciente = pacientes.IdPaciente,
+                Nombre = pacientes.Usuario.Nombre,
+                Apellido = pacientes.Usuario.Apellido,
+                Email = pacientes.Usuario.Email,
+                Dni = pacientes.Usuario.Dni,
+                Telefono = pacientes.Usuario.Telefono,
+                Direccion = pacientes.Usuario.Direccion,
+                IdRol = pacientes.Usuario.IdRol,
+                ObraSocial = pacientes.ObraSocial,
+                FechaNacimiento = pacientes.FechaNacimiento,
+                FechaRegistro = pacientes.Usuario.FechaRegistro
+            };
+
+            return pacienteVM;
         }
 
         // PUT: api/pacientes/5

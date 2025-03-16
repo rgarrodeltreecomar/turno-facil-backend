@@ -4,10 +4,14 @@
     {
         public string IdHorario { get; set; }
 
+        public string IdMedico { get; set; }
+
         public TimeSpan HorarioInicio { get; set; }
 
         public TimeSpan HorarioFin { get; set; }
 
         public virtual ICollection<Turnos> Turnos { get; set; } = new List<Turnos>();
+
+        public virtual Medicos Medicos { get; set; }
     }
 }

@@ -116,28 +116,12 @@ namespace Api.ClinicaMedica.AccesoDatos
                 .HasForeignKey(t => t.IdHorario)
                 .OnDelete(DeleteBehavior.Restrict); // Si se borra un horario, se eliminan los turnos
 
-            // Sembrar franjas horarias de 30 minutos
-            modelBuilder.Entity<Horarios>().HasData(
-                // Turnos de la mañana: 08:00 - 12:00
-                new Horarios { IdHorario = "H1", HorarioInicio = new TimeSpan(8, 0, 0), HorarioFin = new TimeSpan(8, 30, 0) },
-                new Horarios { IdHorario = "H2", HorarioInicio = new TimeSpan(8, 30, 0), HorarioFin = new TimeSpan(9, 0, 0) },
-                new Horarios { IdHorario = "H3", HorarioInicio = new TimeSpan(9, 0, 0), HorarioFin = new TimeSpan(9, 30, 0) },
-                new Horarios { IdHorario = "H4", HorarioInicio = new TimeSpan(9, 30, 0), HorarioFin = new TimeSpan(10, 0, 0) },
-                new Horarios { IdHorario = "H5", HorarioInicio = new TimeSpan(10, 0, 0), HorarioFin = new TimeSpan(10, 30, 0) },
-                new Horarios { IdHorario = "H6", HorarioInicio = new TimeSpan(10, 30, 0), HorarioFin = new TimeSpan(11, 0, 0) },
-                new Horarios { IdHorario = "H7", HorarioInicio = new TimeSpan(11, 0, 0), HorarioFin = new TimeSpan(11, 30, 0) },
-                new Horarios { IdHorario = "H8", HorarioInicio = new TimeSpan(11, 30, 0), HorarioFin = new TimeSpan(12, 0, 0) },
+            // Configuración de la relación con Medicos
+            modelBuilder.Entity<Horarios>().HasOne(h => h.Medicos)
+                .WithMany(m => m.Horarios) // Asumiendo que Medicos tiene una colección de Horarios
+                .HasForeignKey(h => h.IdMedico)
+                .OnDelete(DeleteBehavior.Cascade);
 
-                // Turnos de la tarde: 13:00 - 17:00
-                new Horarios { IdHorario = "H9", HorarioInicio = new TimeSpan(13, 0, 0), HorarioFin = new TimeSpan(13, 30, 0) },
-                new Horarios { IdHorario = "H10", HorarioInicio = new TimeSpan(13, 30, 0), HorarioFin = new TimeSpan(14, 0, 0) },
-                new Horarios { IdHorario = "H11", HorarioInicio = new TimeSpan(14, 0, 0), HorarioFin = new TimeSpan(14, 30, 0) },
-                new Horarios { IdHorario = "H12", HorarioInicio = new TimeSpan(14, 30, 0), HorarioFin = new TimeSpan(15, 0, 0) },
-                new Horarios { IdHorario = "H13", HorarioInicio = new TimeSpan(15, 0, 0), HorarioFin = new TimeSpan(15, 30, 0) },
-                new Horarios { IdHorario = "H14", HorarioInicio = new TimeSpan(15, 30, 0), HorarioFin = new TimeSpan(16, 0, 0) },
-                new Horarios { IdHorario = "H15", HorarioInicio = new TimeSpan(16, 0, 0), HorarioFin = new TimeSpan(16, 30, 0) },
-                new Horarios { IdHorario = "H16", HorarioInicio = new TimeSpan(16, 30, 0), HorarioFin = new TimeSpan(17, 0, 0) }
-            );
 
             // ----- 📌 Turnos ---------------
 

@@ -4,6 +4,8 @@
     {
         public string IdHorario { get; set; }
 
+        public string IdMedico { get; set; }
+
         public TimeSpan HorarioInicio { get; set; }
 
         public TimeSpan HorarioFin { get; set; }

@@ -12,6 +12,7 @@ using AutoMapper;
 using Api.ClinicaMedica.DTO.Put;
 using Api.ClinicaMedica.DTO.Basic;
 using Api.ClinicaMedica.DTO.Update;
+using Api.ClinicaMedica.ViewModel;
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -30,26 +31,59 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/medicos
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MedicosDTO>>> GetMedicos()
+        public async Task<ActionResult<IEnumerable<MedicViewModel>>> GetMedicos()
         {
-            var medicos = await _context.Medicos.Include(m => m.Usuario).ToListAsync();
-            var medicosDTO = _mapper.Map<IEnumerable<MedicosDTO>>(medicos);
-            return medicosDTO.ToList();
+            var medicosVM = await _context.Medicos
+                .Include(m => m.Usuario)
+                .Select(m => new MedicViewModel
+                {
+                    IdMedico = m.IdMedico,
+                    IdEspecialidad = m.IdEspecialidad,
+                    Nombre = m.Usuario.Nombre,
+                    Apellido = m.Usuario.Apellido,
+                    Dni = m.Usuario.Dni,
+                    Email = m.Usuario.Email,
+                    FechaNacimiento = m.FechaNacimiento,
+                    FechaRegistro = m.Usuario.FechaRegistro,
+                    Telefono = m.Usuario.Telefono,
+                    Direccion = m.Usuario.Direccion,
+                    Sueldo = m.Sueldo,
+                    IdRol = m.Usuario.IdRol
+                })
+                .ToListAsync();
+
+            return medicosVM;
         }
 
         // GET: api/medicos/5
         [HttpGet("{id}")]
         public async Task<ActionResult<MedicosDTO>> GetMedicos(string id)
         {
-            var medicos = await _context.Medicos.Include(m => m.Usuario).FirstOrDefaultAsync(m => m.IdMedico == id);
-            var medicosDTO = _mapper.Map<MedicosDTO>(medicos);
+            var medico = await _context.Medicos.Include(m => m.Usuario).FirstOrDefaultAsync(m => m.IdMedico == id);
 
-            if (medicos == null)
+            if (medico == null)
             {
                 return NotFound();
             }
 
-            return medicosDTO;
+            var medicViewModel = new MedicViewModel
+            {
+                IdMedico = medico.IdMedico ?? string.Empty,
+                IdEspecialidad = medico.IdEspecialidad ?? string.Empty,
+                Nombre = medico.Usuario?.Nombre ?? string.Empty,
+                Apellido = medico.Usuario?.Apellido ?? string.Empty,
+                Dni = medico.Usuario?.Dni,
+                Email = medico.Usuario?.Email ?? string.Empty,
+                FechaNacimiento = medico.Usuario?.FechaRegistro ?? DateTime.MinValue, // Asegurar valor por defecto
+                FechaRegistro = medico.Usuario.FechaRegistro,
+                Telefono = medico.Usuario?.Telefono,
+                Direccion = medico.Usuario?.Direccion,
+                Sueldo = medico.Sueldo ?? 0,
+                IdRol = medico.Usuario?.IdRol
+            };
+
+            return Ok(medicViewModel);
+           
         }
 
         // PUT: api/medicos/5
