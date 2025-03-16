@@ -174,7 +174,7 @@ namespace Api.ClinicaMedica.AccesoDatos
                 // Agregar restricción UNIQUE en HorarioId, MedicoId y Fecha
                 entity.HasIndex(t => new { t.IdHorario, t.IdMedico, t.Fecha })
                     .IsUnique()
-                    .HasDatabaseName("UQ_Turnos_Horario_Medico_Fecha");
+                    .HasDatabaseName("UQ_Turnos_Horario_Fecha_Medico");
             });
 
             modelBuilder.Entity<Usuarios>(entity =>

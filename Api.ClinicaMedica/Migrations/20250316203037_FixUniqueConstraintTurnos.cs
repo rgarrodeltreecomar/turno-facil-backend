@@ -5,11 +5,16 @@
 namespace Api.ClinicaMedica.Migrations
 {
     /// <inheritdoc />
-    public partial class modificacionforeignkey : Migration
+    public partial class FixUniqueConstraintTurnos : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameIndex(
+                name: "UQ_Turnos_Horario_Medico_Fecha",
+                table: "Turnos",
+                newName: "UQ_Turnos_Horario_Fecha_Medico");
+
             migrationBuilder.AlterColumn<string>(
                 name: "IdEspecialidad",
                 table: "Medicos",
@@ -22,6 +27,11 @@ namespace Api.ClinicaMedica.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.RenameIndex(
+                name: "UQ_Turnos_Horario_Fecha_Medico",
+                table: "Turnos",
+                newName: "UQ_Turnos_Horario_Medico_Fecha");
+
             migrationBuilder.AlterColumn<string>(
                 name: "IdEspecialidad",
                 table: "Medicos",

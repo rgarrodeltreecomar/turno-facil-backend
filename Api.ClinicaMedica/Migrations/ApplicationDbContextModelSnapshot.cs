@@ -461,7 +461,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasIndex("IdHorario", "IdMedico", "Fecha")
                         .IsUnique()
-                        .HasDatabaseName("UQ_Turnos_Horario_Medico_Fecha");
+                        .HasDatabaseName("UQ_Turnos_Horario_Fecha_Medico");
 
                     b.ToTable("Turnos");
                 });

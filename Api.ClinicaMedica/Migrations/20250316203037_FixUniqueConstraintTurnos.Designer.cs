@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.ClinicaMedica.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250312004818_modificacion-foreign-key")]
-    partial class modificacionforeignkey
+    [Migration("20250316203037_FixUniqueConstraintTurnos")]
+    partial class FixUniqueConstraintTurnos
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -464,7 +464,7 @@ namespace Api.ClinicaMedica.Migrations
 
                     b.HasIndex("IdHorario", "IdMedico", "Fecha")
                         .IsUnique()
-                        .HasDatabaseName("UQ_Turnos_Horario_Medico_Fecha");
+                        .HasDatabaseName("UQ_Turnos_Horario_Fecha_Medico");
 
                     b.ToTable("Turnos");
                 });

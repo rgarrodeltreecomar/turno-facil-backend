@@ -119,8 +119,8 @@ namespace Api.ClinicaMedica.Controllers
 
             // Validar que no exista ya un turno para el mismo médico, fecha y franja horaria
             bool turnoExistente = await _context.Turnos.AnyAsync(t => t.IdHorario == turnoDTO.IdHorario &&
-                                                                      t.IdMedico == turnoDTO.IdMedico &&
-                                                                      t.Fecha.Date == turnoDTO.Fecha.Date);
+                                                                      t.Fecha.Date == turnoDTO.Fecha.Date &&
+                                                                      t.IdMedico == turnoDTO.IdMedico);
 
             if (turnoExistente)
                 return BadRequest("Ya existe un turno asignado para este médico en esa franja horaria y fecha.");
