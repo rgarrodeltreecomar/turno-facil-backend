@@ -23,14 +23,14 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/servicios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Servicios>>> GetServicios()
+        public async Task<ActionResult<IEnumerable<Servicio>>> GetServicios()
         {
             return await _context.Servicios.ToListAsync();
         }
 
         // GET: api/servicios/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Servicios>> GetServicios(string id)
+        public async Task<ActionResult<Servicio>> GetServicios(string id)
         {
             var servicios = await _context.Servicios.FindAsync(id);
 
@@ -45,7 +45,7 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/servicios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutServicios(string id, Servicios servicios)
+        public async Task<IActionResult> PutServicios(string id, Servicio servicios)
         {
             if (id != servicios.IdServicio)
             {
@@ -76,7 +76,7 @@ namespace Api.ClinicaMedica.Controllers
         // POST: api/servicios
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Servicios>> PostServicios(Servicios servicios)
+        public async Task<ActionResult<Servicio>> PostServicios(Servicio servicios)
         {
             _context.Servicios.Add(servicios);
             try

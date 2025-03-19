@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.Text.Json.Serialization;
+using Api.ClinicaMedica.Servicios;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +29,8 @@ var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
 // Registrar ApplicationDbContext en el contenedor de servicios
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+// Registrar el servicio de consultas <--- AÑADE ESTA LÍNEA
+builder.Services.AddScoped<ConsultaServicio>();
 
 // Configuración de AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));

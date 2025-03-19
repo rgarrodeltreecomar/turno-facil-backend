@@ -17,7 +17,7 @@ namespace Api.ClinicaMedica.DTO.Basic
         // Relacion con DetalleServicio
         public Pacientes Paciente { get; set; } = null!;
         public Medicos Medico { get; set; } = null!;
-        public Servicios Servicio { get; set; } = null!;
+        public Servicio Servicio { get; set; } = null!;
         public ICollection<DetalleServiciosDTO> DetallesServicios { get; set; } = new List<DetalleServiciosDTO>();
     }
 }

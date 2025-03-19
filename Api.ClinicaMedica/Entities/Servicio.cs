@@ -1,6 +1,6 @@
 ﻿namespace Api.ClinicaMedica.Entities
 {
-    public class Servicios
+    public class Servicio
     {
         public string IdServicio { get; set; }
         public string Nombre { get; set; }

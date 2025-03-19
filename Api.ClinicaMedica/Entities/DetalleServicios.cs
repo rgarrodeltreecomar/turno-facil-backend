@@ -7,7 +7,8 @@
         public decimal MontoParcial { get; set; }
 
         // Propiedades de navegacion
+        public Consultas Consulta { get; set; }
         public CitasMedicas CitaMedica { get; set; }
-        public Servicios Servicio { get; set; }
+        public Servicio Servicio { get; set; }
     }
 }

@@ -10,6 +10,6 @@ namespace Api.ClinicaMedica.DTO.Basic
 
         // Propiedades de navegacion
         public CitasMedicas? CitaMedica { get; set; }
-        public Servicios? Servicio { get; set; }
+        public Servicio? Servicio { get; set; }
     }
 }

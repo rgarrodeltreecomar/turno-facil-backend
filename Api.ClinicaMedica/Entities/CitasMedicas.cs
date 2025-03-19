@@ -15,7 +15,7 @@
         // Relacion con DetalleServicio
         public Pacientes Paciente { get; set; } = null!;
         public Medicos Medico { get; set; } = null!;
-        public Servicios Servicio { get; set; } = null!;
+        public Servicio Servicio { get; set; } = null!;
         public ICollection<DetalleServicios> DetallesServicios { get; set; } = new List<DetalleServicios>();
     }
 }

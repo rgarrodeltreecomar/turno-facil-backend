@@ -17,7 +17,7 @@ namespace Api.ClinicaMedica.AccesoDatos
         public DbSet<Roles> Roles { get; set; }
 
         public DbSet<Usuarios> Usuarios { get; set; }
-        public DbSet<Servicios> Servicios { get; set; }
+        public DbSet<Servicio> Servicios { get; set; }
         public DbSet<CitasMedicas> CitasMedicas { get; set; }
         public DbSet<DetalleServicios> DetalleServicios {  get; set; }
 
@@ -239,7 +239,7 @@ namespace Api.ClinicaMedica.AccesoDatos
             });
 
             // Servicios
-            modelBuilder.Entity<Servicios>(entity =>
+            modelBuilder.Entity<Servicio>(entity =>
             {
                 // Nombre de la tabla
                 entity.ToTable("Servicios");

@@ -49,7 +49,7 @@ namespace Api.ClinicaMedica.Controllers
         // PUT: api/paqueteservicios/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPaqueteServicio(string id, PaqueteServicio paqueteServicio)
+        public async Task<IActionResult> PutPaqueteServicio(Guid id, PaqueteServicio paqueteServicio)
         {
             if (id != paqueteServicio.Id)
             {
@@ -119,7 +119,7 @@ namespace Api.ClinicaMedica.Controllers
             return NoContent();
         }
 
-        private bool PaqueteServicioExists(string id)
+        private bool PaqueteServicioExists(Guid id)
         {
             return _context.PaqueteServicios.Any(e => e.Id == id);
         }
