@@ -8,7 +8,7 @@
 Este proyecto es un backend desarrollado en .NET que se ejecuta en contenedores Docker. Proporciona APIs para gestionar turnos y citas medicas.
 
 ## Tecnologías utilizadas
-- .NET [versión]
+- .NET 8.0
 - Docker
 - SQL Server 
 - Entity Framework Core
