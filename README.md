@@ -11,7 +11,7 @@ Este proyecto es un backend desarrollado en .NET que se ejecuta en contenedores 
 - .NET 8.0
 - Docker
 - SQL Server 
-- Entity Framework Core
+- Entity Framework Core 8.0.13
 - Swagger para documentación de APIs
 
 
