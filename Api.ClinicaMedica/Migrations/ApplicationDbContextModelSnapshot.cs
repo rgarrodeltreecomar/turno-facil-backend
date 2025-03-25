@@ -22,47 +22,6 @@ namespace Api.ClinicaMedica.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Api.ClinicaMedica.Entities.CitasMedicas", b =>
-                {
-                    b.Property<string>("IdCitas")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<DateTime>("FechaConsulta")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("HoraConsulta")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("IdMedico")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("IdPaciente")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("IdServicio")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<decimal>("MontoTotal")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<int>("PagadoONo")
-                        .HasColumnType("int");
-
-                    b.HasKey("IdCitas");
-
-                    b.HasIndex("IdMedico");
-
-                    b.HasIndex("IdPaciente");
-
-                    b.HasIndex("IdServicio");
-
-                    b.ToTable("CitasMedicas");
-                });
-
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Consultas", b =>
                 {
                     b.Property<string>("IdConsulta")
@@ -106,30 +65,6 @@ namespace Api.ClinicaMedica.Migrations
                     b.HasIndex("IdServicio");
 
                     b.ToTable("Consultas");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Entities.DetalleServicios", b =>
-                {
-                    b.Property<string>("IdCitas")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("IdServicio")
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("ConsultaIdConsulta")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<decimal>("MontoParcial")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
-
-                    b.HasKey("IdCitas", "IdServicio");
-
-                    b.HasIndex("ConsultaIdConsulta");
-
-                    b.HasIndex("IdServicio");
-
-                    b.ToTable("DetalleServicios");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Especialidades", b =>
@@ -539,33 +474,6 @@ namespace Api.ClinicaMedica.Migrations
                     b.ToTable("Usuarios", (string)null);
                 });
 
-            modelBuilder.Entity("Api.ClinicaMedica.Entities.CitasMedicas", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Entities.Medicos", "Medico")
-                        .WithMany()
-                        .HasForeignKey("IdMedico")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Api.ClinicaMedica.Entities.Pacientes", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("IdPaciente")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("Api.ClinicaMedica.Entities.Servicio", "Servicio")
-                        .WithMany()
-                        .HasForeignKey("IdServicio")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Medico");
-
-                    b.Navigation("Paciente");
-
-                    b.Navigation("Servicio");
-                });
-
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Consultas", b =>
                 {
                     b.HasOne("Api.ClinicaMedica.Entities.Medicos", "Medico")
@@ -593,31 +501,6 @@ namespace Api.ClinicaMedica.Migrations
                     b.Navigation("Paciente");
 
                     b.Navigation("Paquete");
-
-                    b.Navigation("Servicio");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Entities.DetalleServicios", b =>
-                {
-                    b.HasOne("Api.ClinicaMedica.Entities.Consultas", "Consulta")
-                        .WithMany()
-                        .HasForeignKey("ConsultaIdConsulta");
-
-                    b.HasOne("Api.ClinicaMedica.Entities.CitasMedicas", "CitaMedica")
-                        .WithMany("DetallesServicios")
-                        .HasForeignKey("IdCitas")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Api.ClinicaMedica.Entities.Servicio", "Servicio")
-                        .WithMany()
-                        .HasForeignKey("IdServicio")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("CitaMedica");
-
-                    b.Navigation("Consulta");
 
                     b.Navigation("Servicio");
                 });
@@ -722,11 +605,6 @@ namespace Api.ClinicaMedica.Migrations
                         .IsRequired();
 
                     b.Navigation("Rol");
-                });
-
-            modelBuilder.Entity("Api.ClinicaMedica.Entities.CitasMedicas", b =>
-                {
-                    b.Navigation("DetallesServicios");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Especialidades", b =>

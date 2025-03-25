@@ -56,7 +56,7 @@ namespace Api.ClinicaMedica.Controllers
                     IdUsuario = Guid.NewGuid(),
                     Nombre = pacientesVM.Nombre,
                     Apellido = pacientesVM.Apellido,
-                    IdRol = 2,
+                    IdRol = 3,
                     Direccion = pacientesVM.Direccion,
                     Email = pacientesVM.Email,
                     Dni = pacientesVM.Dni,
@@ -123,7 +123,7 @@ namespace Api.ClinicaMedica.Controllers
                     Dni = medicVM.Dni,
                     Email = medicVM.Email,
                     Telefono = medicVM.Telefono,
-                    IdRol = 1,
+                    IdRol = 2,
                     PasswordHash = hashedPassword,
                     FechaRegistro = DateTime.Now,
                 };

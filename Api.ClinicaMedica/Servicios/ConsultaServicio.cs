@@ -102,6 +102,9 @@ namespace Api.ClinicaMedica.Servicios
 
             return null;
         }
+
+        // Este metodo verifica si la lista de servicios coincide con algun paquete,
+        // Si coincide retorna el paquete, sino retorna null
     }
 }
 
