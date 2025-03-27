@@ -16,6 +16,6 @@ namespace Api.ClinicaMedica.Entities
 
         public virtual ICollection<Turnos> Turnos { get; set; } = new List<Turnos>();
         // Relación 1 a muchos: Un médico puede tener varios servicios
-        public ICollection<Servicio> Servicios { get; set; }
+        public ICollection<ServiciosMedicos> ServiciosMedicos { get; set; }
     }
 }

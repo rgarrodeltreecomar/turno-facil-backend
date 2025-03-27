@@ -2,11 +2,11 @@
 {
     public class ConsultasCreacionDTO
     {
+        public string IdConsulta { get; set; }
         public DateTime FechaConsulta { get; set; }
         public TimeSpan HoraConsulta { get; set; }
         public string IdPaciente { get; set; }
-        public string IdMedico { get; set; }
         public bool ObraSocial { get; set; }
-        public List<string> ServiciosId { get; set; } // IDs de servicios seleccionados
+        public List<PaquetesCreateDTO> Paquetes { get; set; } // IDs de servicios seleccionados
     }
 }

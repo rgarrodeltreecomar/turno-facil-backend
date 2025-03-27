@@ -10,7 +10,7 @@ using Api.ClinicaMedica.Entities;
 using Api.ClinicaMedica.DTO.Create;
 using AutoMapper;
 using Api.ClinicaMedica.DTO.Basic;
-using Api.ClinicaMedica.Servicios;
+
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -18,12 +18,14 @@ namespace Api.ClinicaMedica.Controllers
     [ApiController]
     public class ConsultaController : ControllerBase
     {
-        private readonly ConsultaServicio _consultaServicio;
-
+        private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
+        
         // Inyectar el servicio en el constructor
-        public ConsultaController(ConsultaServicio consultaServicio)
+        public ConsultaController(ApplicationDbContext context, IMapper mapper)
         {
-            _consultaServicio = consultaServicio;
+            _context = context;
+            _mapper = mapper;
         }
 
         [HttpPost]
@@ -34,18 +36,19 @@ namespace Api.ClinicaMedica.Controllers
                 // Mapear el DTO a la entidad Consultas
                 var consulta = new Consultas
                 {
+                    IdConsulta = consultasDTO.IdConsulta,
                     FechaConsulta = consultasDTO.FechaConsulta,
                     HoraConsulta = consultasDTO.HoraConsulta,
                     IdPaciente = consultasDTO.IdPaciente,
-                    IdMedico = consultasDTO.IdMedico,
                     ObraSocial = consultasDTO.ObraSocial
                 };
-
-                // Llamar al servicio para crear la consulta
-                var resultado = await _consultaServicio.CrearConsultasAsync(consulta, consultasDTO.ServiciosId);
+                var paquetes = _mapper.Map<List<Paquetes>>(consultasDTO.Paquetes);
+                _context.Paquetes.AddRange(paquetes);
+                _context.Consultas.Add(consulta);
+                await _context.SaveChangesAsync();
 
                 // Devolver respuesta exitosa
-                return Ok(resultado);
+                return Ok();
             }
             catch (ArgumentException ex)
             {

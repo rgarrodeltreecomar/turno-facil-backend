@@ -25,7 +25,6 @@ namespace Api.ClinicaMedica.Entities
 
         public virtual Pacientes? Paciente { get; set; }
 
-        public string? IdConsulta { get; set; }
-        public Consultas? Consulta { get; set; }
+        
     }
 }

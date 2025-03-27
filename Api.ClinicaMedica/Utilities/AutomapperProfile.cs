@@ -43,11 +43,6 @@ namespace Api.ClinicaMedica.Utilities
             // Paquetes
             CreateMap<Paquetes, PaquetesCreateDTO>().ReverseMap();
 
-
-            // PaquetesServicios
-            CreateMap<PaqueteServicio, PaqueteServicioCreateDTO>().ReverseMap();
-            CreateMap<PaqueteServicioCreateDTO, PaqueteServicio>()
-            .ForMember(dest => dest.Id, opt => opt.Ignore());
             // Facturacion
             CreateMap<Facturacion, FacturacionCreateDTO>().ReverseMap();
 
@@ -59,6 +54,9 @@ namespace Api.ClinicaMedica.Utilities
             // Update Pacientes
             CreateMap<UsuarioUpdateDTO, Usuarios>().ReverseMap();
             CreateMap<PacienteUpdateDTO, Pacientes>().ReverseMap();
+
+            // Servicios
+            CreateMap<Servicio, ServiciosCreateDTO>().ReverseMap();
 
         }
     }
