@@ -182,8 +182,7 @@ namespace Api.ClinicaMedica.AccesoDatos
                     .HasKey(u => u.IdUsuario);
 
                 entity.Property(u => u.IdUsuario)
-                    .HasDefaultValueSql("NEWID()") // Genera un GUID automáticamente en SQL Server
-                    .ValueGeneratedOnAdd(); // Asegura que se genere en la inserción
+                    .ValueGeneratedNever(); // o .ValueGeneratedOnAdd(), pero sin DEFAULT
 
                 entity.HasIndex(u => u.Email)
                     .IsUnique();
@@ -328,7 +327,7 @@ namespace Api.ClinicaMedica.AccesoDatos
             
             modelBuilder.Entity<Facturacion>()
                 .Property(f => f.FechaPago)
-                .HasDefaultValueSql("GETDATE()");
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
             modelBuilder.Entity<Facturacion>()
             .Property(f => f.MontoPagado)

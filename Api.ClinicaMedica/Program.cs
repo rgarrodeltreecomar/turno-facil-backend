@@ -27,7 +27,7 @@ var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
 
 // Registrar ApplicationDbContext en el contenedor de servicios
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseMySQL(connectionString));
 
 
 // Configuración de AutoMapper

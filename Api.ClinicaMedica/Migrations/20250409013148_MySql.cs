@@ -8,75 +8,82 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Api.ClinicaMedica.Migrations
 {
     /// <inheritdoc />
-    public partial class RediseñoConsultasPaquetes : Migration
+    public partial class MySql : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterDatabase()
+                .Annotation("MySQL:Charset", "utf8mb4");
+
             migrationBuilder.CreateTable(
                 name: "Especialidades",
                 columns: table => new
                 {
-                    IdEspecialidad = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    Detalle = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    IdEspecialidad = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Detalle = table.Column<string>(type: "longtext", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Especialidades", x => x.IdEspecialidad);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Horarios",
                 columns: table => new
                 {
-                    IdHorario = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    HorarioInicio = table.Column<TimeSpan>(type: "time", nullable: false),
-                    HorarioFin = table.Column<TimeSpan>(type: "time", nullable: false)
+                    IdHorario = table.Column<string>(type: "varchar(255)", nullable: false),
+                    HorarioInicio = table.Column<TimeSpan>(type: "time(6)", nullable: false),
+                    HorarioFin = table.Column<TimeSpan>(type: "time(6)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Horarios", x => x.IdHorario);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
                     IdRol = table.Column<int>(type: "int", nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false)
+                    Nombre = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Roles", x => x.IdRol);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Servicios",
                 columns: table => new
                 {
-                    IdServicio = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Descripcion = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    IdServicio = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Nombre = table.Column<string>(type: "varchar(100)", maxLength: 100, nullable: false),
+                    Descripcion = table.Column<string>(type: "varchar(500)", maxLength: 500, nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Servicios", x => x.IdServicio);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Usuarios",
                 columns: table => new
                 {
-                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false, defaultValueSql: "NEWID()"),
-                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Apellido = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Dni = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
-                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Telefono = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
-                    Direccion = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    PasswordHash = table.Column<string>(type: "nvarchar(255)", maxLength: 255, nullable: false),
+                    IdUsuario = table.Column<Guid>(type: "char(36)", nullable: false),
+                    Nombre = table.Column<string>(type: "longtext", nullable: false),
+                    Apellido = table.Column<string>(type: "longtext", nullable: false),
+                    Dni = table.Column<string>(type: "longtext", nullable: true),
+                    Email = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
+                    FechaRegistro = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Telefono = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: true),
+                    Direccion = table.Column<string>(type: "varchar(200)", maxLength: 200, nullable: true),
+                    PasswordHash = table.Column<string>(type: "varchar(255)", maxLength: 255, nullable: false),
                     IdRol = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -88,17 +95,18 @@ namespace Api.ClinicaMedica.Migrations
                         principalTable: "Roles",
                         principalColumn: "IdRol",
                         onDelete: ReferentialAction.Restrict);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Medicos",
                 columns: table => new
                 {
-                    IdMedico = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    IdEspecialidad = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    IdMedico = table.Column<string>(type: "varchar(255)", nullable: false),
+                    IdUsuario = table.Column<Guid>(type: "char(36)", nullable: false),
+                    IdEspecialidad = table.Column<string>(type: "varchar(255)", nullable: true),
                     Sueldo = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
-                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -115,16 +123,17 @@ namespace Api.ClinicaMedica.Migrations
                         principalTable: "Usuarios",
                         principalColumn: "IdUsuario",
                         onDelete: ReferentialAction.Cascade);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Pacientes",
                 columns: table => new
                 {
-                    IdPaciente = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdUsuario = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ObraSocial = table.Column<bool>(type: "bit", nullable: false),
-                    FechaNacimiento = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    IdPaciente = table.Column<string>(type: "varchar(255)", nullable: false),
+                    IdUsuario = table.Column<Guid>(type: "char(36)", nullable: false),
+                    ObraSocial = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    FechaNacimiento = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -135,14 +144,15 @@ namespace Api.ClinicaMedica.Migrations
                         principalTable: "Usuarios",
                         principalColumn: "IdUsuario",
                         onDelete: ReferentialAction.Cascade);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "ServiciosMedicos",
                 columns: table => new
                 {
-                    IdServicio = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    IdMedico = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdServicio = table.Column<string>(type: "varchar(50)", nullable: false),
+                    IdMedico = table.Column<string>(type: "varchar(255)", nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -160,19 +170,20 @@ namespace Api.ClinicaMedica.Migrations
                         principalTable: "Servicios",
                         principalColumn: "IdServicio",
                         onDelete: ReferentialAction.Cascade);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Consultas",
                 columns: table => new
                 {
-                    IdConsulta = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    FechaConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    HoraConsulta = table.Column<TimeSpan>(type: "time", nullable: false),
-                    IdPaciente = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    IdConsulta = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    FechaConsulta = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    HoraConsulta = table.Column<TimeSpan>(type: "time(6)", nullable: false),
+                    IdPaciente = table.Column<string>(type: "varchar(255)", nullable: true),
                     MontoTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Pagado = table.Column<bool>(type: "bit", nullable: false),
-                    ObraSocial = table.Column<bool>(type: "bit", nullable: false)
+                    Pagado = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    ObraSocial = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -182,19 +193,20 @@ namespace Api.ClinicaMedica.Migrations
                         column: x => x.IdPaciente,
                         principalTable: "Pacientes",
                         principalColumn: "IdPaciente");
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Turnos",
                 columns: table => new
                 {
-                    IdTurno = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdHorario = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdMedico = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    IdTurno = table.Column<string>(type: "varchar(255)", nullable: false),
+                    IdHorario = table.Column<string>(type: "varchar(255)", nullable: false),
+                    IdMedico = table.Column<string>(type: "varchar(255)", nullable: false),
                     Fecha = table.Column<DateTime>(type: "date", nullable: false),
-                    Asistencia = table.Column<bool>(type: "bit", nullable: false),
-                    IdPaciente = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    Estado = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false, defaultValue: "Disponible")
+                    Asistencia = table.Column<bool>(type: "tinyint(1)", nullable: false),
+                    IdPaciente = table.Column<string>(type: "varchar(255)", nullable: true),
+                    Estado = table.Column<string>(type: "varchar(20)", maxLength: 20, nullable: false, defaultValue: "Disponible")
                 },
                 constraints: table =>
                 {
@@ -217,16 +229,17 @@ namespace Api.ClinicaMedica.Migrations
                         principalTable: "Pacientes",
                         principalColumn: "IdPaciente",
                         onDelete: ReferentialAction.Restrict);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Facturaciones",
                 columns: table => new
                 {
-                    IdFactura = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    IdConsulta = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    FechaPago = table.Column<DateTime>(type: "datetime2", nullable: false, defaultValueSql: "GETDATE()"),
-                    MetodoPago = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IdFactura = table.Column<string>(type: "varchar(255)", nullable: false),
+                    IdConsulta = table.Column<string>(type: "varchar(50)", nullable: false),
+                    FechaPago = table.Column<DateTime>(type: "datetime(6)", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    MetodoPago = table.Column<string>(type: "longtext", nullable: false),
                     MontoPagado = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
@@ -238,15 +251,18 @@ namespace Api.ClinicaMedica.Migrations
                         principalTable: "Consultas",
                         principalColumn: "IdConsulta",
                         onDelete: ReferentialAction.Restrict);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
                 name: "Paquetes",
                 columns: table => new
                 {
-                    IdConsulta = table.Column<string>(type: "nvarchar(50)", nullable: false),
-                    CodigoPaquete = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    PrecioPaquete = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                    IdConsulta = table.Column<string>(type: "varchar(50)", nullable: false),
+                    CodigoPaquete = table.Column<Guid>(type: "char(36)", nullable: false),
+                    PrecioPaquete = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    IdMedico = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
+                    IdServicio = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -257,7 +273,8 @@ namespace Api.ClinicaMedica.Migrations
                         principalTable: "Consultas",
                         principalColumn: "IdConsulta",
                         onDelete: ReferentialAction.Cascade);
-                });
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.InsertData(
                 table: "Horarios",
