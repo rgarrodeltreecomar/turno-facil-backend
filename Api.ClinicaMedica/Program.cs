@@ -76,6 +76,13 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+// Aplicar migraciones automáticamente al iniciar
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate(); // <- esto aplica las migraciones
+}
+
 // MIDDLEWARES:
 
 // Configurar el pipeline de middleware
