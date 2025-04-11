@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Api.ClinicaMedica.Migrations
 {
     /// <inheritdoc />
-    public partial class MySql : Migration
+    public partial class correccion : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -238,7 +238,7 @@ namespace Api.ClinicaMedica.Migrations
                 {
                     IdFactura = table.Column<string>(type: "varchar(255)", nullable: false),
                     IdConsulta = table.Column<string>(type: "varchar(50)", nullable: false),
-                    FechaPago = table.Column<DateTime>(type: "datetime(6)", nullable: false, defaultValueSql: "CURRENT_TIMESTAMP"),
+                    FechaPago = table.Column<DateTime>(type: "timestamp", nullable: false),
                     MetodoPago = table.Column<string>(type: "longtext", nullable: false),
                     MontoPagado = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },

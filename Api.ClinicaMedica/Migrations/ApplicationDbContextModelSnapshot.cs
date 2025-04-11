@@ -70,9 +70,7 @@ namespace Api.ClinicaMedica.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("FechaPago")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime(6)")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("IdConsulta")
                         .IsRequired()

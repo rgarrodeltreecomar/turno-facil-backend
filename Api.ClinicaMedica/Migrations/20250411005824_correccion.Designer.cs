@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api.ClinicaMedica.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250409013148_MySql")]
-    partial class MySql
+    [Migration("20250411005824_correccion")]
+    partial class correccion
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,9 +73,7 @@ namespace Api.ClinicaMedica.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<DateTime>("FechaPago")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime(6)")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnType("timestamp");
 
                     b.Property<string>("IdConsulta")
                         .IsRequired()

@@ -7,8 +7,8 @@ namespace Api.ClinicaMedica.Entities
         [Key]
         public string IdFactura { get; set; }
         public string IdConsulta { get; set; }
-        public DateTime FechaPago { get; set; }
-        public string MetodoPago { get; set; }
+        public DateTime FechaPago { get; set; } = DateTime.Now;
+        public string MetodoPago { get; set; } 
         public decimal MontoPagado { get; set; }
         public Consultas Consulta { get; set; }
     }

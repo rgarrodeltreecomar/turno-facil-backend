@@ -324,10 +324,10 @@ namespace Api.ClinicaMedica.AccesoDatos
 
             });
 
-            
+
             modelBuilder.Entity<Facturacion>()
                 .Property(f => f.FechaPago)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                .HasColumnType("timestamp");
 
             modelBuilder.Entity<Facturacion>()
             .Property(f => f.MontoPagado)
