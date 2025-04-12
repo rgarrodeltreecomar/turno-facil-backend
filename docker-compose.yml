@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  api_clinica:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ConnectionStrings__DefaultConnection=${MYSQL_CONNECTION}
+    ports:
+      - "3000:8080"  # Mapea el puerto que expusiste en Dockerfile

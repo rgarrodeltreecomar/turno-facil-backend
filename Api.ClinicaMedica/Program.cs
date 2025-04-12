@@ -107,4 +107,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+Console.WriteLine($"Connection string: {connectionString}");
+
 app.Run();
