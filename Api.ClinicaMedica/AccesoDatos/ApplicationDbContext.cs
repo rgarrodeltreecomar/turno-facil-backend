@@ -1,4 +1,5 @@
 ﻿using Api.ClinicaMedica.Entities;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -17,14 +18,11 @@ namespace Api.ClinicaMedica.AccesoDatos
         public DbSet<Roles> Roles { get; set; }
 
         public DbSet<Usuarios> Usuarios { get; set; }
-        public DbSet<Servicios> Servicios { get; set; }
-        public DbSet<CitasMedicas> CitasMedicas { get; set; }
-        public DbSet<DetalleServicios> DetalleServicios {  get; set; }
-
+        public DbSet<Servicio> Servicios { get; set; }
         public DbSet<Paquetes> Paquetes { get; set; }
-        public DbSet<PaqueteServicio> PaqueteServicios { get; set; }
         public DbSet<Consultas> Consultas { get; set; }
         public DbSet<Facturacion> Facturaciones { get; set; }
+        public DbSet<ServiciosMedicos> ServiciosMedicos { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -174,7 +172,7 @@ namespace Api.ClinicaMedica.AccesoDatos
                 // Agregar restricción UNIQUE en HorarioId, MedicoId y Fecha
                 entity.HasIndex(t => new { t.IdHorario, t.IdMedico, t.Fecha })
                     .IsUnique()
-                    .HasDatabaseName("UQ_Turnos_Horario_Medico_Fecha");
+                    .HasDatabaseName("UQ_Turnos_Horario_Fecha_Medico");
             });
 
             modelBuilder.Entity<Usuarios>(entity =>
@@ -184,8 +182,7 @@ namespace Api.ClinicaMedica.AccesoDatos
                     .HasKey(u => u.IdUsuario);
 
                 entity.Property(u => u.IdUsuario)
-                    .HasDefaultValueSql("NEWID()") // Genera un GUID automáticamente en SQL Server
-                    .ValueGeneratedOnAdd(); // Asegura que se genere en la inserción
+                    .ValueGeneratedNever(); // o .ValueGeneratedOnAdd(), pero sin DEFAULT
 
                 entity.HasIndex(u => u.Email)
                     .IsUnique();
@@ -203,7 +200,7 @@ namespace Api.ClinicaMedica.AccesoDatos
                     .WithMany(r => r.Usuarios)
                     .HasForeignKey(u => u.IdRol)
                     .OnDelete(DeleteBehavior.Restrict);
-                                             
+
 
                 entity.Property(u => u.Telefono)
                     .HasMaxLength(20);
@@ -215,7 +212,7 @@ namespace Api.ClinicaMedica.AccesoDatos
                     .IsRequired()
                     .HasMaxLength(255); // Tamaño recomendado para almacenar hash
 
-                                
+
             });
 
             // Configuración de la entidad Roles
@@ -239,7 +236,7 @@ namespace Api.ClinicaMedica.AccesoDatos
             });
 
             // Servicios
-            modelBuilder.Entity<Servicios>(entity =>
+            modelBuilder.Entity<Servicio>(entity =>
             {
                 // Nombre de la tabla
                 entity.ToTable("Servicios");
@@ -262,83 +259,43 @@ namespace Api.ClinicaMedica.AccesoDatos
                 entity.Property(s => s.Precio)
                     .HasColumnType("decimal(18,2)") // Define la precisión del decimal
                     .IsRequired(); // No puede ser nulo
+
             });
 
-            // *** CITAS MÉDICAS ***
-            modelBuilder.Entity<CitasMedicas>(entity =>
+            modelBuilder.Entity<ServiciosMedicos>(entity =>
             {
-                entity.HasKey(c => c.IdCitas);
+                //Nombre de la tabla
+                entity.ToTable("ServiciosMedicos");
 
-                entity.HasOne(c => c.Paciente)
-                      .WithMany()
-                      .HasForeignKey(c => c.IdPaciente)
-                      .OnDelete(DeleteBehavior.Restrict);
+                // Clave Primaria
+                entity.HasKey(sm => new { sm.IdServicio, sm.IdMedico });
 
-                entity.HasOne(c => c.Medico)
-                      .WithMany()
-                      .HasForeignKey(c => c.IdMedico)
-                      .OnDelete(DeleteBehavior.Restrict);
+                entity.Property(sm => sm.Precio)
+                    .HasColumnType("decimal(18,2)")
+                    .IsRequired();
 
-                entity.HasOne(c => c.Servicio)
-                      .WithMany()
-                      .HasForeignKey(c => c.IdServicio)
-                      .OnDelete(DeleteBehavior.Restrict);
+                // Relación con Medico
+                entity.HasOne<Medicos>()
+                    .WithMany(m => m.ServiciosMedicos)
+                    .HasForeignKey(sm => sm.IdMedico)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-                entity.HasMany(c => c.DetallesServicios)
-                      .WithOne(ds => ds.CitaMedica)
-                      .HasForeignKey(ds => ds.IdCitas)
-                      .OnDelete(DeleteBehavior.Cascade);
-
-                entity.Property(c => c.MontoTotal)
-                       .HasPrecision(18, 2); // Define la precisión del decimal
-            });
-
-            // *** DETALLE SERVICIOS (Clave compuesta) ***
-            modelBuilder.Entity<DetalleServicios>(entity =>
-            {
-                entity.HasKey(ds => new { ds.IdCitas, ds.IdServicio }); // Clave compuesta
-
-                entity.Property(ds => ds.MontoParcial)
-                        .HasPrecision(18, 2); // Define la precisión del decimal
-
-                entity.HasOne(ds => ds.CitaMedica)
-                      .WithMany(c => c.DetallesServicios)
-                      .HasForeignKey(ds => ds.IdCitas)
-                      .OnDelete(DeleteBehavior.Cascade);
-
-                entity.HasOne(ds => ds.Servicio)
-                      .WithMany()
-                      .HasForeignKey(ds => ds.IdServicio)
-                      .OnDelete(DeleteBehavior.Restrict);
-            });
-
-            modelBuilder.Entity<PaqueteServicio>()
-            .HasOne(ps => ps.Paquete)
-            .WithMany(p => p.PaqueteServicios)
-            .HasForeignKey(ps => ps.CodigoPaquete)
-            .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<PaqueteServicio>()
-                .HasOne(ps => ps.Servicio)
-                .WithMany()
-                .HasForeignKey(ps => ps.CodigoServicio)
+                entity.HasOne<Servicio>()
+                .WithMany(s => s.ServiciosMedicos)
+                .HasForeignKey(sm => sm.IdServicio)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Consultas>()
-            .HasOne(c => c.Servicio)
-            .WithMany()
-            .HasForeignKey(c => c.IdServicio)
-            .OnDelete(DeleteBehavior.SetNull);
+            });
 
-            modelBuilder.Entity<Consultas>()
-                .HasOne(c => c.Paquete)
-                .WithMany()
-                .HasForeignKey(c => c.IdPaquete)
-                .OnDelete(DeleteBehavior.SetNull);
+            // ------ Consultas ------------------ 
 
             modelBuilder.Entity<Consultas>(entity =>
             {
                 entity.HasKey(c => c.IdConsulta);
+
+                entity.Property(c => c.IdConsulta)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(c => c.FechaConsulta)
                       .IsRequired();
@@ -360,40 +317,36 @@ namespace Api.ClinicaMedica.AccesoDatos
                       .IsRequired(false)
                       .OnDelete(DeleteBehavior.NoAction); // Opcional: si se borra el paciente, se pone en NULL
 
-                // Clave foránea opcional (nullable) para Medico
-                entity.HasOne(c => c.Medico)
-                      .WithMany()
-                      .HasForeignKey(c => c.IdMedico)
-                      .IsRequired(false)
-                      .OnDelete(DeleteBehavior.SetNull);
+                entity.HasMany(c => c.Paquetes)
+                    .WithOne()
+                    .HasForeignKey(p => p.IdConsulta)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-                // Clave foránea opcional (nullable) para Servicio
-                entity.HasOne(c => c.Servicio)
-                      .WithMany()
-                      .HasForeignKey(c => c.IdServicio)
-                      .IsRequired(false)
-                      .OnDelete(DeleteBehavior.SetNull);
-
-                // Clave foránea opcional (nullable) para Paquete
-                entity.HasOne(c => c.Paquete)
-                      .WithMany()
-                      .HasForeignKey(c => c.IdPaquete)
-                      .IsRequired(false)
-                      .OnDelete(DeleteBehavior.NoAction);
             });
 
-            
+
             modelBuilder.Entity<Facturacion>()
                 .Property(f => f.FechaPago)
-                .HasDefaultValueSql("GETDATE()");
+                .HasColumnType("timestamp");
 
             modelBuilder.Entity<Facturacion>()
             .Property(f => f.MontoPagado)
-            .HasColumnType("decimal(10,2)");
+            .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Paquetes>()
+                .HasKey(p => new { p.IdConsulta, p.CodigoPaquete });
 
             modelBuilder.Entity<Paquetes>()
             .Property(p => p.PrecioPaquete)
-            .HasColumnType("decimal(10,2)");
+            .HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<Paquetes>()
+                .Property(p => p.IdMedico)
+                    .HasMaxLength(50);
+
+            modelBuilder.Entity<Paquetes>()
+                .Property(p => p.IdServicio)
+                    .HasMaxLength(50);
 
             modelBuilder.Entity<Facturacion>()
                 .HasOne(f => f.Consulta)  // Relación 1 a 1 o 1 a muchos

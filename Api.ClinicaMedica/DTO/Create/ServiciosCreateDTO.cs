@@ -1,12 +1,10 @@
-﻿namespace Api.ClinicaMedica.Entities
+﻿namespace Api.ClinicaMedica.DTO.Create
 {
-    public class Servicios
+    public class ServiciosCreateDTO
     {
         public string IdServicio { get; set; }
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public decimal Precio { get; set; }
-
-        //public ICollection<CitasMedicas> CitasMedicas { get; set; } = new List<CitasMedicas>();
     }
 }

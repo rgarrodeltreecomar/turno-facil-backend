@@ -29,30 +29,19 @@ namespace Api.ClinicaMedica.Utilities
             CreateMap<Especialidades, EspecialidadesDTO>().ReverseMap();
 
             // Horarios
-            CreateMap<Horarios, HorariosCreateDTO>().ReverseMap();  
+            CreateMap<Horarios, HorariosCreateDTO>().ReverseMap();
 
             // Medicos
             CreateMap<Medicos, MedicosCreateDTO>().ReverseMap();
             CreateMap<Medicos, MedicosDTO>().ReverseMap();
             CreateMap<Medicos, MedicosPutDTO>().ReverseMap();
 
-            // Citas Medicas
-            CreateMap<CitasMedicas,CitasMedicasCreacionDTO>().ReverseMap();
-
-            // DetalleCitas
-            CreateMap<DetalleServicios, DetalleServicioCreacionDTO>().ReverseMap();
-            CreateMap<DetalleServicios, DetalleServicioCreacionDTO>().ReverseMap();
-
             // Consultas
-            CreateMap<Consultas,ConsultasDTO>().ReverseMap();
-            CreateMap<Consultas,ConsultasCreateDTO>().ReverseMap();
+            CreateMap<Consultas, ConsultasDTO>().ReverseMap();
+            CreateMap<Consultas, ConsultasCreacionDTO>().ReverseMap();
 
             // Paquetes
             CreateMap<Paquetes, PaquetesCreateDTO>().ReverseMap();
-            
-
-            // PaquetesServicios
-            CreateMap<PaqueteServicio,PaqueteServicioCreateDTO>().ReverseMap();
 
             // Facturacion
             CreateMap<Facturacion, FacturacionCreateDTO>().ReverseMap();
@@ -65,6 +54,9 @@ namespace Api.ClinicaMedica.Utilities
             // Update Pacientes
             CreateMap<UsuarioUpdateDTO, Usuarios>().ReverseMap();
             CreateMap<PacienteUpdateDTO, Pacientes>().ReverseMap();
+
+            // Servicios
+            CreateMap<Servicio, ServiciosCreateDTO>().ReverseMap();
 
         }
     }

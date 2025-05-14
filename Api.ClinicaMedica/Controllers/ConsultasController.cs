@@ -26,108 +26,43 @@ namespace Api.ClinicaMedica.Controllers
             _mapper = mapper;
         }
 
-        // GET: api/consultas
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<Consultas>>> GetConsultas()
-        {
-            var ListaConsultas = await _context.Consultas.Include(c => c.Servicio).Include(c => c.Paciente)
-                .Include(c => c.Paquete).Include(c => c.Medico).ToListAsync();
-
-            var listaDTO = _mapper.Map<List<ConsultasDTO>>(ListaConsultas);
-            return await _context.Consultas.ToListAsync();
-        }
-
-        // GET: api/consultas/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Consultas>> GetConsultas(string id)
-        {
-            var consultas = await _context.Consultas.FindAsync(id);
-
-            if (consultas == null)
-            {
-                return NotFound();
-            }
-
-            return consultas;
-        }
-
-        // PUT: api/consultas/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutConsultas(string id, ConsultasCreateDTO consultasDTO)
-        {
-            var consultas = _mapper.Map<Consultas>(consultasDTO);
-            if (id != consultas.IdConsulta)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(consultas).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ConsultasExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/consultas
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Consultas>> PostConsultas(ConsultasCreateDTO consultasDTO)
+        public async Task<IActionResult> CrearConsulta([FromBody] ConsultasCreacionDTO consultasDTO)
         {
-            var consultas = _mapper.Map<Consultas>(consultasDTO);
-            _context.Consultas.Add(consultas);
             try
             {
+                // Mapear el DTO a la entidad Consultas
+                var consulta = new Consultas
+                {
+                    IdConsulta = consultasDTO.IdConsulta,
+                    FechaConsulta = consultasDTO.FechaConsulta,
+                    HoraConsulta = consultasDTO.HoraConsulta,
+                    IdPaciente = consultasDTO.IdPaciente,
+                    ObraSocial = consultasDTO.ObraSocial
+                };
+                var paquetes = _mapper.Map<List<Paquetes>>(consultasDTO.Paquetes);
+                _context.Paquetes.AddRange(paquetes);
+                _context.Consultas.Add(consulta);
                 await _context.SaveChangesAsync();
+
+                // Devolver respuesta exitosa
+                return Ok();
             }
-            catch (DbUpdateException)
+            catch (ArgumentException ex)
             {
-                if (ConsultasExists(consultas.IdConsulta))
-                {
-                    return Conflict();
-                }
-                else
-                {
-                    throw;
-                }
+                // Error de validación (ej: lista de servicios vacía)
+                return BadRequest(ex.Message);
             }
-
-            return CreatedAtAction("GetConsultas", new { id = consultas.IdConsulta }, consultas);
-        }
-
-        // DELETE: api/consultas/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteConsultas(string id)
-        {
-            var consultas = await _context.Consultas.FindAsync(id);
-            if (consultas == null)
+            catch (KeyNotFoundException ex)
             {
-                return NotFound();
+                // Servicio no encontrado
+                return NotFound(ex.Message);
             }
-
-            _context.Consultas.Remove(consultas);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }
-
-        private bool ConsultasExists(string id)
-        {
-            return _context.Consultas.Any(e => e.IdConsulta == id);
+            catch (Exception ex)
+            {
+                // Error interno del servidor
+                return StatusCode(500, $"Error interno: {ex.Message}");
+            }
         }
     }
 }

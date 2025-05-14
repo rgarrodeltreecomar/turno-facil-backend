@@ -27,7 +27,8 @@ var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING")
 
 // Registrar ApplicationDbContext en el contenedor de servicios
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+    options.UseMySQL(connectionString));
+
 
 // Configuración de AutoMapper
 builder.Services.AddAutoMapper(typeof(Program));
@@ -35,7 +36,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 // Configurar CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowAll", builder => 
+    options.AddPolicy("AllowAll", builder =>
     {
         builder.WithOrigins("http://localhost:5173", "https://turno-facil.vercel.app")
                .AllowAnyMethod()
@@ -44,7 +45,7 @@ builder.Services.AddCors(options =>
                .WithExposedHeaders("Content-Disposition");
     });
 
-    options.AddPolicy("AllowVercel", builder => 
+    options.AddPolicy("AllowVercel", builder =>
     {
         builder.WithOrigins("https://turno-facil.vercel.app", "http://localhost:5173")
                .AllowAnyMethod()
@@ -75,6 +76,13 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
+// Aplicar migraciones automáticamente al iniciar
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate(); // <- esto aplica las migraciones
+}
+
 // MIDDLEWARES:
 
 // Configurar el pipeline de middleware
@@ -98,5 +106,7 @@ app.UseAuthentication();  // Se agrega el middleware de autenticación
 app.UseAuthorization();
 
 app.MapControllers();
+
+Console.WriteLine($"Connection string: {connectionString}");
 
 app.Run();

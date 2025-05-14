@@ -15,5 +15,7 @@ namespace Api.ClinicaMedica.Entities
         public Especialidades Especialidad { get; set; } = null!; // Relación 1 a 1 con Especialidad
 
         public virtual ICollection<Turnos> Turnos { get; set; } = new List<Turnos>();
+        // Relación 1 a muchos: Un médico puede tener varios servicios
+        public ICollection<ServiciosMedicos> ServiciosMedicos { get; set; }
     }
 }
