@@ -13,3 +13,4 @@ namespace Api.ClinicaMedica.DTO.Update
         public UsuarioUpdateDTO Usuario { get; set; }
     }
 }
+

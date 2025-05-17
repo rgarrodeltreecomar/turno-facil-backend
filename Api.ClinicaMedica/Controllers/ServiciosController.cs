@@ -1,12 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Api.ClinicaMedica.AccesoDatos;
+using Api.ClinicaMedica.DTO;
+using Api.ClinicaMedica.DTO.Create;
+using Api.ClinicaMedica.DTO.Put;
+
+using Api.ClinicaMedica.Entities;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Api.ClinicaMedica.AccesoDatos;
-using Api.ClinicaMedica.Entities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 namespace Api.ClinicaMedica.Controllers
 {
@@ -23,36 +29,64 @@ namespace Api.ClinicaMedica.Controllers
 
         // GET: api/servicios
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Servicio>>> GetServicios()
+        public async Task<ActionResult<IEnumerable<ServiciosDTO>>> GetServicios()
         {
-            return await _context.Servicios.ToListAsync();
+         
+            var servicio = await _context.Servicios.ToListAsync();
+            if (servicio == null || servicio.Count == 0)
+            {
+                return NotFound("No se encontraron servicios");
+            }
+            var serviciosDTO = servicio.Select(s => new ServiciosDTO
+            {
+                IdServicio = s.IdServicio,
+                Nombre = s.Nombre,
+                Descripcion = s.Descripcion,
+                Precio = s.Precio
+            }).ToList();
+            return Ok(serviciosDTO);
         }
 
         // GET: api/servicios/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Servicio>> GetServicios(string id)
+        public async Task<ActionResult<ServiciosDTO>> GetServicios(string id)
         {
-            var servicios = await _context.Servicios.FindAsync(id);
+            var servicio = await _context.Servicios.FindAsync(id);
 
-            if (servicios == null)
+            if (servicio == null)
             {
-                return NotFound();
+                return NotFound("No se encontro un servicio con ese ID");
             }
+            var dto = new ServiciosDTO
+            { 
+                IdServicio = servicio.IdServicio,
+                Nombre = servicio.Nombre,
+                Descripcion = servicio.Descripcion,
+                Precio = servicio   .Precio
 
-            return servicios;
+            };
+                
+            return Ok(dto);
         }
 
         // PUT: api/servicios/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutServicios(string id, Servicio servicios)
+        public async Task<IActionResult> PutServicios(string id, ServiciosPutDTO dto)
         {
-            if (id != servicios.IdServicio)
+            if (id != dto.IdServicio)
             {
-                return BadRequest();
+                return BadRequest("El ID de la URL no coincide con el del cuerpo");
             }
 
-            _context.Entry(servicios).State = EntityState.Modified;
+            var servicio = await _context.Servicios.FindAsync(id);
+            if (servicio == null)
+            {
+                return NotFound("Servicio no encontrado");
+            }
+                
+            servicio.Nombre = dto.Nombre;
+            servicio.Descripcion = dto.Descripcion;
+            servicio.Precio = dto.Precio;
 
             try
             {
@@ -69,25 +103,31 @@ namespace Api.ClinicaMedica.Controllers
                     throw;
                 }
             }
-
-            return NoContent();
+            return Ok(dto);
         }
 
         // POST: api/servicios
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Servicio>> PostServicios(Servicio servicios)
+        public async Task<ActionResult<ServiciosCreateDTO>> PostServicios (ServiciosCreateDTO dto)
         {
-            _context.Servicios.Add(servicios);
+            var servicio = new Servicio { 
+                IdServicio = dto.IdServicio,
+                Nombre = dto.Nombre,
+                Descripcion = dto.Descripcion,
+                Precio = dto.Precio
+                };
+            _context.Servicios.Add(servicio);
+
             try
             {
                 await _context.SaveChangesAsync();
+
             }
             catch (DbUpdateException)
             {
-                if (ServiciosExists(servicios.IdServicio))
+                if (ServiciosExists(servicio.IdServicio))
                 {
-                    return Conflict();
+                    return Conflict("Ya existe un servicio con el mismo ID!");
                 }
                 else
                 {
@@ -95,7 +135,7 @@ namespace Api.ClinicaMedica.Controllers
                 }
             }
 
-            return CreatedAtAction("GetServicios", new { id = servicios.IdServicio }, servicios);
+            return CreatedAtAction(nameof(GetServicios), new { id = servicio.IdServicio }, dto);
         }
 
         // DELETE: api/servicios/5
