@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Api.ClinicaMedica.Migrations
 {
     /// <inheritdoc />
-    public partial class StartMysql : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -151,25 +151,26 @@ namespace Api.ClinicaMedica.Migrations
                 name: "ServiciosMedicos",
                 columns: table => new
                 {
-                    IdServicio = table.Column<string>(type: "varchar(50)", nullable: false),
-                    IdMedico = table.Column<string>(type: "varchar(255)", nullable: false),
+                    Id = table.Column<string>(type: "varchar(36)", nullable: false),
+                    IdMedico = table.Column<string>(type: "varchar(36)", nullable: false),
+                    IdServicio = table.Column<string>(type: "varchar(36)", nullable: false),
                     Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ServiciosMedicos", x => new { x.IdServicio, x.IdMedico });
+                    table.PrimaryKey("PK_ServiciosMedicos", x => x.Id);
                     table.ForeignKey(
                         name: "FK_ServiciosMedicos_Medicos_IdMedico",
                         column: x => x.IdMedico,
                         principalTable: "Medicos",
                         principalColumn: "IdMedico",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_ServiciosMedicos_Servicios_IdServicio",
                         column: x => x.IdServicio,
                         principalTable: "Servicios",
                         principalColumn: "IdServicio",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -340,6 +341,11 @@ namespace Api.ClinicaMedica.Migrations
                 name: "IX_ServiciosMedicos_IdMedico",
                 table: "ServiciosMedicos",
                 column: "IdMedico");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ServiciosMedicos_IdServicio",
+                table: "ServiciosMedicos",
+                column: "IdServicio");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Turnos_IdMedico",

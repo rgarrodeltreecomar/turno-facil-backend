@@ -335,18 +335,25 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.ServiciosMedicos", b =>
                 {
-                    b.Property<string>("IdServicio")
-                        .HasColumnType("varchar(50)");
+                    b.Property<string>("Id")
+                        .HasColumnType("varchar(36)");
 
                     b.Property<string>("IdMedico")
-                        .HasColumnType("varchar(255)");
+                        .IsRequired()
+                        .HasColumnType("varchar(36)");
+
+                    b.Property<string>("IdServicio")
+                        .IsRequired()
+                        .HasColumnType("varchar(36)");
 
                     b.Property<decimal>("Precio")
                         .HasColumnType("decimal(18,2)");
 
-                    b.HasKey("IdServicio", "IdMedico");
+                    b.HasKey("Id");
 
                     b.HasIndex("IdMedico");
+
+                    b.HasIndex("IdServicio");
 
                     b.ToTable("ServiciosMedicos", (string)null);
                 });
@@ -504,17 +511,21 @@ namespace Api.ClinicaMedica.Migrations
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.ServiciosMedicos", b =>
                 {
-                    b.HasOne("Api.ClinicaMedica.Entities.Medicos", null)
+                    b.HasOne("Api.ClinicaMedica.Entities.Medicos", "Medico")
                         .WithMany("ServiciosMedicos")
                         .HasForeignKey("IdMedico")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Api.ClinicaMedica.Entities.Servicio", null)
+                    b.HasOne("Api.ClinicaMedica.Entities.Servicio", "Servicio")
                         .WithMany("ServiciosMedicos")
                         .HasForeignKey("IdServicio")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Medico");
+
+                    b.Navigation("Servicio");
                 });
 
             modelBuilder.Entity("Api.ClinicaMedica.Entities.Turnos", b =>

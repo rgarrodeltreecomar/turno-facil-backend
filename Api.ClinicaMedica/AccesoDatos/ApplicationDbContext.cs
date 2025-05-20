@@ -264,28 +264,38 @@ namespace Api.ClinicaMedica.AccesoDatos
 
             modelBuilder.Entity<ServiciosMedicos>(entity =>
             {
-                //Nombre de la tabla
                 entity.ToTable("ServiciosMedicos");
 
-                // Clave Primaria
-                entity.HasKey(sm => new { sm.IdServicio, sm.IdMedico });
+                // Clave primaria (string, GUID generado en C#)
+                entity.HasKey(sm => sm.Id);
+
+                entity.Property(sm => sm.Id)
+                      .HasColumnType("varchar(36)")
+                      .IsRequired();
 
                 entity.Property(sm => sm.Precio)
-                    .HasColumnType("decimal(18,2)")
-                    .IsRequired();
+                      .HasColumnType("decimal(18,2)")
+                      .IsRequired();
 
-                // Relación con Medico
-                entity.HasOne<Medicos>()
-                    .WithMany(m => m.ServiciosMedicos)
-                    .HasForeignKey(sm => sm.IdMedico)
-                    .OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(sm => sm.Medico)
+                      .WithMany(m => m.ServiciosMedicos)
+                      .HasForeignKey(sm => sm.IdMedico)
+                      .OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne<Servicio>()
-                .WithMany(s => s.ServiciosMedicos)
-                .HasForeignKey(sm => sm.IdServicio)
-                .OnDelete(DeleteBehavior.Cascade);
+                entity.HasOne(sm => sm.Servicio)
+                      .WithMany(s => s.ServiciosMedicos)
+                      .HasForeignKey(sm => sm.IdServicio)
+                      .OnDelete(DeleteBehavior.Restrict);
 
+                entity.Property(sm => sm.IdMedico)
+                      .HasColumnType("varchar(36)")
+                      .IsRequired();
+
+                entity.Property(sm => sm.IdServicio)
+                      .HasColumnType("varchar(36)")
+                      .IsRequired();
             });
+
 
             // ------ Consultas ------------------ 
 
