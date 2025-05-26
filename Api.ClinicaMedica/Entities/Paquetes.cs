@@ -17,5 +17,6 @@ namespace Api.ClinicaMedica.Entities
             PrecioPaquete = precioBase * 0.85m;
 
         }
+        public ICollection<PaqueteServicio> PaqueteServicios { get; set; }
     }
 }
