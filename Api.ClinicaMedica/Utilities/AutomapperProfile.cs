@@ -40,9 +40,7 @@ namespace Api.ClinicaMedica.Utilities
             CreateMap<Consultas, ConsultasDTO>().ReverseMap();
             CreateMap<Consultas, ConsultasCreacionDTO>().ReverseMap();
 
-            // Paquetes
-            CreateMap<Paquetes, PaquetesCreateDTO>().ReverseMap();
-
+            
             // Facturacion
             CreateMap<Facturacion, FacturacionCreateDTO>().ReverseMap();
 

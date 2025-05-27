@@ -16,6 +16,5 @@ namespace Api.ClinicaMedica.DTO.Basic
         public Pacientes? Paciente { get; set; }
         public Medicos? Medico { get; set; }
         public Servicio? Servicio { get; set; }
-        public Paquetes? Paquete { get; set; }
     }
 }

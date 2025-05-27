@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Api.ClinicaMedica.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Inicial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -182,13 +182,20 @@ namespace Api.ClinicaMedica.Migrations
                     FechaConsulta = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     HoraConsulta = table.Column<TimeSpan>(type: "time(6)", nullable: false),
                     IdPaciente = table.Column<string>(type: "varchar(255)", nullable: true),
+                    IdMedico = table.Column<string>(type: "varchar(255)", nullable: false),
+                    ObraSocial = table.Column<bool>(type: "tinyint(1)", nullable: false),
                     MontoTotal = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    Pagado = table.Column<bool>(type: "tinyint(1)", nullable: false),
-                    ObraSocial = table.Column<bool>(type: "tinyint(1)", nullable: false)
+                    Pagado = table.Column<bool>(type: "tinyint(1)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Consultas", x => x.IdConsulta);
+                    table.ForeignKey(
+                        name: "FK_Consultas_Medicos_IdMedico",
+                        column: x => x.IdMedico,
+                        principalTable: "Medicos",
+                        principalColumn: "IdMedico",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Consultas_Pacientes_IdPaciente",
                         column: x => x.IdPaciente,
@@ -234,6 +241,33 @@ namespace Api.ClinicaMedica.Migrations
                 .Annotation("MySQL:Charset", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "ConsultaServicio",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "char(36)", nullable: false),
+                    IdConsulta = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    IdServicio = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: false),
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ConsultaServicio", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_ConsultaServicio_Consultas_IdConsulta",
+                        column: x => x.IdConsulta,
+                        principalTable: "Consultas",
+                        principalColumn: "IdConsulta",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ConsultaServicio_Servicios_IdServicio",
+                        column: x => x.IdServicio,
+                        principalTable: "Servicios",
+                        principalColumn: "IdServicio",
+                        onDelete: ReferentialAction.Restrict);
+                })
+                .Annotation("MySQL:Charset", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Facturaciones",
                 columns: table => new
                 {
@@ -252,28 +286,6 @@ namespace Api.ClinicaMedica.Migrations
                         principalTable: "Consultas",
                         principalColumn: "IdConsulta",
                         onDelete: ReferentialAction.Restrict);
-                })
-                .Annotation("MySQL:Charset", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "Paquetes",
-                columns: table => new
-                {
-                    IdConsulta = table.Column<string>(type: "varchar(50)", nullable: false),
-                    CodigoPaquete = table.Column<Guid>(type: "char(36)", nullable: false),
-                    PrecioPaquete = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    IdMedico = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true),
-                    IdServicio = table.Column<string>(type: "varchar(50)", maxLength: 50, nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Paquetes", x => new { x.IdConsulta, x.CodigoPaquete });
-                    table.ForeignKey(
-                        name: "FK_Paquetes_Consultas_IdConsulta",
-                        column: x => x.IdConsulta,
-                        principalTable: "Consultas",
-                        principalColumn: "IdConsulta",
-                        onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("MySQL:Charset", "utf8mb4");
 
@@ -311,9 +323,24 @@ namespace Api.ClinicaMedica.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Consultas_IdMedico",
+                table: "Consultas",
+                column: "IdMedico");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Consultas_IdPaciente",
                 table: "Consultas",
                 column: "IdPaciente");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConsultaServicio_IdConsulta",
+                table: "ConsultaServicio",
+                column: "IdConsulta");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ConsultaServicio_IdServicio",
+                table: "ConsultaServicio",
+                column: "IdServicio");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Facturaciones_IdConsulta",
@@ -379,10 +406,10 @@ namespace Api.ClinicaMedica.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Facturaciones");
+                name: "ConsultaServicio");
 
             migrationBuilder.DropTable(
-                name: "Paquetes");
+                name: "Facturaciones");
 
             migrationBuilder.DropTable(
                 name: "ServiciosMedicos");
