@@ -1,4 +1,5 @@
 ﻿using Api.ClinicaMedica.Entities;
+using static Api.ClinicaMedica.DTO.Create.ConsultasServiciosCreateDTO;
 
 namespace Api.ClinicaMedica.DTO.Create
 {
@@ -18,7 +19,7 @@ namespace Api.ClinicaMedica.DTO.Create
         public decimal MontoTotal { get; set; }
         public bool Pagado { get; set; }
 
-        public List<ConsultaServicio> ConsultaServicios { get; set; } = new List<ConsultaServicio>();
+        public List<ConsultasServicioCreateDTO> ConsultaServicios { get; set; } = new();
 
     }
 }
