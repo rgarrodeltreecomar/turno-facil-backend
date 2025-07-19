@@ -8,7 +8,7 @@ namespace Api.ClinicaMedica.DTO.Create
             [Required]
             public string IdServicio { get; set; }
 
-            public decimal Precio { get; set; }
+            public decimal? Precio { get; set; }
         }
     }
 }

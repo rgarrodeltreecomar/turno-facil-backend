@@ -65,7 +65,17 @@ namespace Api.ClinicaMedica.Controllers
             if (consultaDto == null || consultaDto.ConsultaServicios == null || consultaDto.ConsultaServicios.Count == 0)
                 return BadRequest("Debe enviar al menos un servicio en la consulta.");
 
-            decimal montoBase = consultaDto.ConsultaServicios.Sum(s => s.Precio);
+            decimal montoBase = 0;
+
+            foreach (var servicioDTO in consultaDto.ConsultaServicios)
+            {
+                var servicio = await _context.Servicios.FindAsync(servicioDTO.IdServicio);
+                if (servicio != null)
+                {
+                    montoBase = montoBase + servicio.Precio;
+                }
+            }
+
 
             if (consultaDto.ConsultaServicios.Count > 1)
                 montoBase *= 0.85m;
@@ -83,14 +93,32 @@ namespace Api.ClinicaMedica.Controllers
                 ObraSocial = consultaDto.ObraSocial,
                 MontoTotal = montoBase,
                 Pagado = consultaDto.Pagado,
-                ConsultaServicios = consultaDto.ConsultaServicios.Select(cs => new ConsultaServicio
-                {
-                    IdServicio = cs.IdServicio,
-                    Precio = cs.Precio,
-                    IdConsulta = consultaDto.IdConsulta
-                }).ToList()
+                ConsultaServicios = new List<ConsultaServicio>()
             };
 
+            foreach (var cs in consultaDto.ConsultaServicios)
+            {
+                var servicio = await _context.Servicios.FindAsync(cs.IdServicio);
+                if (servicio == null)
+                {
+                    return BadRequest($"El servicio con ID {cs.IdServicio} no existe.");
+                }
+
+                // Si el DTO no trae precio (o es 0), usamos el precio del servicio
+                decimal precioServicio = (cs.Precio.HasValue && cs.Precio.Value > 0)
+                    ? cs.Precio.Value
+                    : servicio.Precio;
+
+                consulta.ConsultaServicios.Add(new ConsultaServicio
+                {
+                    IdServicio = cs.IdServicio,
+                    Precio = precioServicio,
+                    IdConsulta = consulta.IdConsulta
+                });
+            
+
+
+        }
             _context.Consultas.Add(consulta);
 
             try
